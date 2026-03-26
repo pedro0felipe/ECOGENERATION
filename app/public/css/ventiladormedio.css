@@ -1,0 +1,223 @@
+/* Reset e corpo */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f4f4;
+    color: #333;
+  }
+  
+  /* Cabeçalho */
+  .header-table {
+    width: 100%;
+    background-color: #a0d995;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+  }
+  
+  .header-table img {
+    height: 80px;
+  }
+  
+  .header-table input[type="text"] {
+    padding: 8px;
+    width: 60%;
+    max-width: 350px;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .header-table button {
+    padding: 8px 16px;
+    background-color: white;
+    color: #007b45;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Produto principal */
+  .anuncio {
+    background-color: #f9f9f9; /* branco mais escuro */
+    width: 90%;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-spacing: 20px;
+  }
+  
+  .produto {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 6px;
+  }
+  
+  .info h2 {
+    color: #007b45;
+    font-size: 24px;
+  }
+  
+  .info p {
+    margin: 8px 0;
+    font-size: 16px;
+  }
+  
+  .preco {
+    font-size: 28px;
+    font-weight: bold;
+    color: #007b45;
+  }
+  
+  ul {
+    padding-left: 20px;
+  }
+  
+  ul li {
+    margin: 5px 0;
+  }
+  
+  button.comprar {
+    background-color: #a0d995;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  
+  /* Itens relacionados */
+  .titulo-relacionados td {
+    font-size: 20px;
+    font-weight: bold;
+    color: #007b45;
+    padding: 20px 0 10px 0;
+    text-align: center;
+  }
+  
+  .produtos-relacionados {
+    width: 50%;
+    margin: 0 auto 5px;
+    display: flex;
+    justify-content: center; /* centralizado */
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .produto-card {
+    width: 30%;
+    background-color: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .produto-card img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .produto-card b {
+    display: block;
+    margin: 10px 0 5px;
+    color: #007b45;
+  }
+  
+  .produto-card span {
+    color: #333;
+    font-size: 16px;
+  }
+  
+  .produto-card button {
+    margin-top: 10px;
+    padding: 8px 14px;
+    background-color: #a0d995;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Comentários */
+  .comentarios {
+    width: 90%;
+    margin: 0 auto 40px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .comentarios .titulo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #007b45;
+    padding-bottom: 10px;
+  }
+  
+  .comentarios td {
+    padding: 10px;
+    vertical-align: top;
+    text-align: left;
+  }
+  
+  .formulario-comentario input,
+  .formulario-comentario textarea {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .formulario-comentario button {
+    background-color: #a0d995;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Rodapé */
+  footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #a0d995;
+    color: white;
+    font-size: 14px;
+  }
+  
+ @media screen and (max-width: 768px) {
+  .anuncio {
+    width: 100%;
+    margin: 15px auto;
+  }
+  
+  .anuncio tr {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .anuncio td {
+    width: 100% !important; /* sobrescreve o width inline */
+    display: block;
+  }
+  
+  .info {
+    text-align: center;
+  }
+  
+  .produto {
+    width: 80%;
+    margin: 0 auto 20px;
+    display: block;
+  }
+}

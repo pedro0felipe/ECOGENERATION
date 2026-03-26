@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Painel Solar Dobravel | EcoGeneration</title>
+  <link rel="stylesheet" href="/css/header.css" />
+  <link rel="stylesheet" href="/css/kitmedioo.css" />
+  <style>
+    /* Contador de quantidade simples */
+    .contador-quantidade{display:flex;gap:8px;align-items:center;margin:12px 0}
+    .contador-quantidade button{width:36px;height:36px;border-radius:4px;border:1px solid #cfcfcf;background:#fff;cursor:pointer}
+    .contador-quantidade input[type=number]{width:64px;text-align:center;padding:6px;border:1px solid #ddd;border-radius:4px}
+    .comprar { /* mantém o estilo existente do botão, ajustável */ }
+  </style>
+  <link rel="apple-touch-icon" href="/imagens/favicon.png">
+  <link rel="icon" href="/imagens/favicon.png" type="image/png">
+<body>
+
+
+  <!-- Cabeçalho -->
+  <%- include("../partials/header") %>  
+
+  <!-- Produto -->
+  <table class="anuncio">
+    <tr>
+      <td width="40%">
+        <img src="imagens/kitmedioo.png" alt="Painel Solar Médio" class="produto" />
+      </td>
+      <td width="60%" class="info">
+        <h2>Kit Energia Solar Portátil</h2>
+        <p>Aparelho de ventilação sustentável, focado em alta eficiência energética, materiais ecológicos e motores inovadores para minimizar o impacto ambiental.</p>
+        <p><strong>Preço:</strong> <span class="preco">R$ 399,90</span></p>
+        <p>Frete grátis | Vida útil longa</p>
+         <ul>
+          <li>Potência: 50W</li>
+          <li>Temperatura de cor: 30K</li>
+          <li>Compatível com  residências, escritórios e ambientes industriais </li>
+        </ul>
+         <section class="contador-quantidade" aria-label="Selecionar quantidade">
+          <button type="button" id="btn-minus" aria-label="Diminuir quantidade">−</button>
+          <input type="number" id="quantidade" name="quantidade" value="1" min="1" max="99" />
+          <button type="button" id="btn-plus" aria-label="Aumentar quantidade">+</button>
+        </section>
+        <button class="comprar">Comprar agora</button>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Itens Relacionados -->
+  <table width="90%" align="center" class="titulo-relacionados"><tr><td>Itens relacionados</td></tr></table>
+
+  <table class="produtos-relacionados">
+    <tr>
+      <td class="produto-card">
+        <img src="imagens/luminaria.png" alt="Luminária Solar LED" />
+        <b>Luminária Solar LED</b>
+        <span>R$ 199,99</span><br>
+        <a href="luminaria-solar-led.html"><button>Ver Produto</button></a>
+      </td>
+      <td class="produto-card">
+        <img src="imagens/kit.png" alt="Painel Solar 150W" />
+        <b>kit solar</b>
+        <span>R$ 399,90</span><br>
+        <a href="painel-solar-150w.html"><button>Ver Produto</button></a>
+      </td>
+      <td class="produto-card">
+        <img src="imagens/powerbankportatil.png" alt="powerbank" />
+        <b>power bank</b>
+        <span>R$ 89,90</span><br>
+        <a href="garrafa-termica-1l.html"><button>Ver Produto</button></a>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Rodapé -->
+  <footer>© 2025 EcoGeneration</footer>
+
+   <script>
+    (function(){
+      const minus = document.getElementById('btn-minus');
+      const plus = document.getElementById('btn-plus');
+      const qty   = document.getElementById('quantidade');
+      const comprar = document.getElementById('btn-comprar');
+
+      function sanitize() {
+        let v = parseInt(qty.value, 10);
+        if (isNaN(v) || v < 1) v = 1;
+        if (v > 99) v = 99;
+        qty.value = v;
+      }
+
+      minus.addEventListener('click', () => {
+        sanitize();
+        let v = parseInt(qty.value, 10);
+        if (v > 1) qty.value = v - 1;
+      });
+
+      plus.addEventListener('click', () => {
+        sanitize();
+        let v = parseInt(qty.value, 10);
+        if (v < 99) qty.value = v + 1;
+      });
+
+      qty.addEventListener('input', sanitize);
+
+      // Exemplo mínimo: quando clicar em comprar, o valor da quantidade está disponível em qty.value.
+      comprar.addEventListener('click', () => {
+        // Substitua por integração com carrinho/checkout conforme neces
+        console.log('Quantidade selecionada:', qty.value);
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -76,6 +76,35 @@ router.get("/sobre-nos", function (req, res) {
 router.get("/miniventilador", function (req, res) {
     res.render("miniventilador", {titulo:"Miniventilador"})
 });
+
+router.get("/painelsolarmedio", function (req, res) {
+    res.render("painelsolarmedio", {titulo:"Painel Solar Médio"})
+});
+
+router.get("/carregadorusb", function (req, res) {
+    res.render("carregadorusb", {titulo:"Carregador USB"})
+});
+
+router.get("/luminariasolar", function (req, res) {
+    res.render("luminariasolar", {titulo:"Luminaria Solar"})
+});
+
+router.get("/minipainel", function (req, res) {
+    res.render("minipainel", {titulo:"Mini Painel Solar"})
+});
+
+router.get("/ventiladormedio", function (req, res) {
+    res.render("ventiladormedio", {titulo:"Ventilador Medio Solar"})
+});
+
+router.get("/estacao", function (req, res) {
+    res.render("estacao", {titulo:"Estação de Energia Solar"})
+});
+
+router.get("/kitmedioo", function (req, res) {
+    res.render("kitmedioo", {titulo:"Kit Energia Solar Portátil"})
+});
+
 router.get('/cadastro', (req, res) => {
   // Note o 'pages/cadastro' em vez de 'pages/cadastro'
   res.render('cadastro', { titulo: 'Cadastro', old: {}, errors: {} });
