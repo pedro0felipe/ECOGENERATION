@@ -61,6 +61,7 @@
 
 .produto-card {
   background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(255, 255, 255, 0.08);
   overflow: hidden;
@@ -134,16 +135,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
+  background: transparent;
 }
 
 .produto-preco {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #2e7d32;
+  color: #172b18;
+  background: transparent;
 }
 
 .btn-comprar {
-  background: #2e7d32;
+  background: #3c8ee8;
   color: #fff;
   border-radius: 8px;
   padding: 0.4rem 1rem;
@@ -154,7 +157,7 @@
 }
 
 .btn-comprar:hover {
-  background: #1b5e20;
+  background: #2e73c5;
 }
 
 .acoes {
@@ -252,8 +255,16 @@
   color: #cccccc;
 }
 
-[data-theme="dark"] .produto-card .preco {
+[data-theme="dark"] .produto-preco {
   color: #7fcf80;
+}
+
+[data-theme="dark"] .btn-comprar {
+  background: #3c8ee8;
+}
+
+[data-theme="dark"] .btn-comprar:hover {
+  background: #2e73c5;
 }
 
 [data-theme="dark"] .btn-voltar {

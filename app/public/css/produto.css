@@ -160,3 +160,72 @@
     min-height: 200px;
   }
 }
+
+/* Dark mode for product detail */
+[data-theme="dark"] .produto-container {
+  background: #121212;
+}
+
+[data-theme="dark"] .produto-breadcrumb {
+  color: #d4d4d4;
+}
+
+[data-theme="dark"] .produto-breadcrumb a {
+  color: #8adebd;
+}
+
+[data-theme="dark"] .produto-detalhe {
+  background: #181818;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .produto-detalhe-img {
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .produto-detalhe-info {
+  color: #e5e5e5;
+}
+
+[data-theme="dark"] .produto-detalhe-info h1 {
+  color: #f3f3f3;
+}
+
+[data-theme="dark"] .produto-detalhe-preco {
+  color: #b1ffb4;
+}
+
+[data-theme="dark"] .produto-detalhe-descricao {
+  color: #c3c3c3;
+}
+
+[data-theme="dark"] .produto-detalhe-categoria {
+  color: #a5f3fc;
+  background: rgba(255,255,255,0.05);
+}
+
+[data-theme="dark"] .badge-estoque.disponivel {
+  background: rgba(63, 195, 128, 0.18);
+  color: #b7f0c6;
+}
+
+[data-theme="dark"] .badge-estoque.indisponivel {
+  background: rgba(255, 76, 57, 0.18);
+  color: #ffb7b0;
+}
+
+[data-theme="dark"] .btn-comprar-detalhe {
+  background: #2e7d32;
+  color: #fff;
+}
+
+[data-theme="dark"] .btn-voltar-loja {
+  background: #242424;
+  color: #e2e2e2;
+}
+
+[data-theme="dark"] .btn-voltar-loja:hover {
+  background: #2f2f2f;
+}

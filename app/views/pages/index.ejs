@@ -1,200 +1,173 @@
 <!DOCTYPE html>
 <html lang="pt-br" data-theme="light">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ecogeneration</title>
+  <title>EcoGeneration — Autonomia Energética para Todos</title>
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="apple-touch-icon" href="/imagens/favicon2.png">
   <link rel="icon" href="/imagens/favicon2.png" type="image/png">
-  
-
- <%- include("../partials/open-graph") %>
-  <!-- PWA -->
+  <%- include("../partials/open-graph") %>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#2e7d32">
 </head>
-
 <body>
+  <%- include("../partials/header") %>
 
-  
- <%- include("../partials/header") %>  
-  
+  <!-- ===== HERO CAROUSEL ===== -->
   <section class="hero-carousel" aria-label="Carrossel de banners">
     <section class="hero-slides">
-      <article class="hero-banner hero-slide">
-        <figure class="hero-banner-figure">
-          <img src="/imagens/itens-para-o-bunner.png" alt="Equipamentos solares para o dia a dia">
+
+      <!-- Banner 1: Loja -->
+       
+      <article class="hero-slide hero-banner hero-banner-green">
+        <figure class="hero-img-wrap">
+          <img src="/imagens/itens-para-o-bunner.png" alt="Equipamentos solares portáteis">
         </figure>
-        <section class="hero-banner-copy">
-          <h1>
-            <span class="hero-banner-title-line">SUSTENTABILIDADE</span>
-            <span class="hero-banner-title-line">QUE CABE NO DIA</span>
-            <span class="hero-banner-title-line">A DIA</span>
-          </h1>
-          <a href="/ecoloja" class="hero-banner-button">IR PARA LOJA</a>
+        <section class="hero-copy">
+          <p class="hero-label">Energia limpa e acessível</p>
+          <h1>Sustentabilidade<br><span>que cabe no<br>dia a dia</span></h1>
+          <a href="/ecoloja" class="hero-btn">Ver produtos</a>
         </section>
       </article>
 
-      <article class="hero-banner hero-banner-2 hero-slide">
-        <figure class="hero-banner-figure-2">
-          <img src="/imagens/celular-bunner.svg" alt="Equipamentos solares para o dia a dia">
+      <!-- Banner 2: Diagnóstico -->
+      <article class="hero-slide hero-banner hero-banner-blue">
+        <figure class="hero-img-wrap">
+          <img src="/imagens/celular-bunner.svg" alt="Diagnóstico energético no celular">
         </figure>
-        <section class="hero-banner-copy-2">
-          <h1>FAÇA SEU DIAGNÓSTICO E NÃO DEPENDA DA REDE ELÉTRICA</h1>
-          <a href="/diagnostico" class="hero-banner-button-2">FAZER DIAGNÓSTICO</a>
+        <section class="hero-copy">
+          <p class="hero-label">Em menos de 1 minuto</p>
+          <h1>Descubra sua<br><span>autonomia<br>energética</span></h1>
+          <a href="/diagnostico" class="hero-btn hero-btn-blue">Fazer diagnóstico</a>
         </section>
       </article>
+
     </section>
-
     <button type="button" class="hero-carousel-button hero-prev" aria-label="Anterior">‹</button>
     <button type="button" class="hero-carousel-button hero-next" aria-label="Próximo">›</button>
   </section>
- 
- 
-<main>
-  <section class="why-ecogeneration">
-    <h2 class="why">Por que escolher EcoGeneration?</h2>
-    <section class="cards-container">
-      <article class="card">
-        <figure class="card-icon">
-          <img src="imagens/icon plant.svg" alt="Ícone de energia limpa" class="card-icon">
-        </figure>
-        <h3>Energia Limpa</h3>
-        <p>Reduz sua pegada de carbono.</p>
-      </article>
 
-      <article class="card">
-        <figure class="card-icon">
-          <img src="imagens/icone econom.svg" alt="Ícone de economia" class="card-icon">
-        </figure>
-        <h3>Economia Real</h3>
-        <p>Reduz suas contas de energia com soluções solares.</p>
-      </article>
+  <main>
 
-      <article class="card">
-        <figure class="card-icon">
-          <img src="imagens/icone raio.svg" alt="Ícone de fácil instalação" class="card-icon">
-        </figure>
-        <h3>Autonomia</h3>
-        <p>Reduza sua dependência da rede elétrica.</p>
-      </article>
-    </section>
-  </section>
-  <section class="diagnostico">
-
-  <section class="diagnostico-container">
-
-    <h3>Tenha mais autonomia energética!</h3>
-
-    <p class="descricao">
-     Descubra como soluções inteligentes podem manter sua casa funcionando mesmo durante quedas de energia.
-Responda algumas perguntas rápidas para receber uma análise personalizada e encontrar a melhor opção para sua rotina
-    </p>
-
-    <section class="passos">
-
-      <article class="passo">
-        <article class="icone"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightning-fill" viewBox="0 0 16 16">
-  <path d="M5.52.359A.5.5 0 0 1 6 0h4a.5.5 0 0 1 .474.658L8.694 6H12.5a.5.5 0 0 1 .395.807l-7 9a.5.5 0 0 1-.873-.454L6.823 9.5H3.5a.5.5 0 0 1-.48-.641z"/>
-</svg></article>
-        <p>Mais Autonomia</p>
-      </article>
-
-      <article class="passo">
-        <article class="icone"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-houses-fill" viewBox="0 0 16 16">
-  <path d="M7.207 1a1 1 0 0 0-1.414 0L.146 6.646a.5.5 0 0 0 .708.708L1 7.207V12.5A1.5 1.5 0 0 0 2.5 14h.55a2.5 2.5 0 0 1-.05-.5V9.415a1.5 1.5 0 0 1-.56-2.475l5.353-5.354z"/>
-  <path d="M8.793 2a1 1 0 0 1 1.414 0L12 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l1.854 1.853a.5.5 0 0 1-.708.708L15 8.207V13.5a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 4 13.5V8.207l-.146.147a.5.5 0 1 1-.708-.708z"/>
-</svg></article>
-        <p>Economia e sustentabilidade</p>
-      </article>
-
-      <article class="passo">
-        <article class="icone"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-data-fill" viewBox="0 0 16 16">
-  <path d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5"/>
-  <path d="M4.085 1H3.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1h-.585q.084.236.085.5V2a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 4 2v-.5q.001-.264.085-.5M10 7a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0zm4-3a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0V9a1 1 0 0 1 1-1"/>
-</svg></article>
-        <p>Análise personalizada</p>
-      </article>
-
-    </section>
-     <a href="/calculadora-tela-inicial">
-    <button class="btn-diagnostico">
-      Iniciar Diagnóstico 
-    </button>
-     </a>
-</section>
-
-</section>
-  
-    <section aria-labelledby="produtos-destaque" id="produtos-destaque">
-      
-      <h1>Produtos em Destaque</h1>
-      <p>Conheça nossas soluções mais populares</p>
-      <section class="produtos-grid">
- 
-  <article>
-    <img src="imagens/carregadoraluzsolar.png" alt="Carregador USB">
-    <h3>Carregador USB</h3>
-    <a href="/carregador">
-    <button class="btn-comprar">Comprar</button></a>
-  </article>
-  <article>
-    <img src="imagens/luminaria.png" alt="Luminária Solar">
-    <h3>Luminária Solar</h3>
-    <a href="/luminaria">
-    <button class="btn-comprar">Comprar</button>
-    </a>
-  </article>
-  <article>
-    <img src="imagens/ventilador.png" alt="Ventilador">
-    <h3>Ventilador</h3>
-    <a href="/ventilador">
-    <button class="btn-comprar">Comprar</button>
-  </a>
-  </article>
-</section>
- 
+    <!-- ===== POR QUE ECOGENERATION ===== -->
+    <section class="why-ecogeneration">
+      <h2 class="why">Por que escolher EcoGeneration?</h2>
+      <section class="cards-container">
+        <article class="card">
+          <figure class="card-icon">
+            <img src="/imagens/icon plant.svg" alt="Energia limpa">
+          </figure>
+          <h3>Energia Limpa</h3>
+          <p>Reduza sua pegada de carbono com soluções solares portáteis.</p>
+        </article>
+        <article class="card">
+          <figure class="card-icon">
+            <img src="/imagens/icone econom.svg" alt="Economia">
+          </figure>
+          <h3>Economia Real</h3>
+          <p>Pague menos na conta de energia com soluções acessíveis.</p>
+        </article>
+        <article class="card">
+          <figure class="card-icon">
+            <img src="/imagens/icone raio.svg" alt="Autonomia">
+          </figure>
+          <h3>Autonomia</h3>
+          <p>Não dependa da rede elétrica para o que é essencial.</p>
+        </article>
+      </section>
     </section>
 
-  
-    <section class="imagemcalcu">
-      <a href="/calculadora-tela-inicial">
-   <a href="/ecoloja">
-      <img src="imagens/ECOLOJA.svg" alt="Imagem loja" class="ecoloja" >
-    </a>
-</section>
+    <!-- ===== COMO FUNCIONA ===== -->
+    <section class="como-funciona">
+      <h2>Como funciona?</h2>
+      <p class="como-subtitulo">Três passos simples para sua autonomia energética</p>
+      <section class="passos-grid">
+        <article class="passo-card">
+          <span class="passo-num">01</span>
+          <h3>Faça o diagnóstico</h3>
+          <p>Responda 5 perguntas rápidas sobre sua rotina energética.</p>
+        </article>
+        <article class="passo-card">
+          <span class="passo-num">02</span>
+          <h3>Receba recomendações</h3>
+          <p>Descubra seu nível de autonomia e veja produtos ideais para você.</p>
+        </article>
+        <article class="passo-card">
+          <span class="passo-num">03</span>
+          <h3>Compre com confiança</h3>
+          <p>Produtos curados, portáteis e de fácil instalação.</p>
+        </article>
+      </section>
+      <a href="/diagnostico" class="btn-cta">Iniciar diagnóstico gratuito</a>
+    </section>
 
-  </section>
- 
+    <!-- ===== PRODUTOS EM DESTAQUE ===== -->
+    <section class="produtos-destaque-section" aria-labelledby="produtos-destaque">
+      <h2 id="produtos-destaque">Produtos em Destaque</h2>
+      <p class="section-sub">Nossas soluções mais populares</p>
+      <section class="produtos-grid-home">
+        <article class="produto-card-home">
+          <figure>
+            <img src="/imagens/carregadoraluzsolar.png" alt="Carregador USB Solar">
+          </figure>
+          <h3>Carregador USB Solar</h3>
+          <a href="/carregador" class="btn-ver">Ver produto</a>
+        </article>
+        <article class="produto-card-home">
+          <figure>
+            <img src="/imagens/luminaria.png" alt="Luminária Solar">
+          </figure>
+          <h3>Luminária Solar</h3>
+          <a href="/luminaria" class="btn-ver">Ver produto</a>
+        </article>
+        <article class="produto-card-home">
+          <figure>
+            <img src="/imagens/ventilador.png" alt="Ventilador Solar">
+          </figure>
+          <h3>Ventilador Solar</h3>
+          <a href="/ventilador" class="btn-ver">Ver produto</a>
+        </article>
+      </section>
+      <a href="/ecoloja" class="btn-cta btn-cta-outline">Ver todos os produtos</a>
+    </section>
 
- </main>
+    <!-- ===== BANNER ECOLOJA ===== -->
+    <section class="banner-ecoloja">
+      <a href="/ecoloja">
+        <img src="/imagens/ECOLOJA.svg" alt="Ir para a EcoLoja" class="ecoloja-img">
+      </a>
+    </section>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const slidesContainer = document.querySelector('.hero-slides');
-    const slides = document.querySelectorAll('.hero-slide');
-    const prevButton = document.querySelector('.hero-prev');
-    const nextButton = document.querySelector('.hero-next');
-    let currentIndex = 0;
+  </main>
 
-    const updateCarousel = () => {
-      slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-    };
+  <%- include("../partials/footer") %>
 
-    prevButton.addEventListener('click', () => {
-      currentIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1;
-      updateCarousel();
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slidesContainer = document.querySelector('.hero-slides');
+      const slides = document.querySelectorAll('.hero-slide');
+      const prevButton = document.querySelector('.hero-prev');
+      const nextButton = document.querySelector('.hero-next');
+      let currentIndex = 0;
+      const updateCarousel = () => {
+        slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+      };
+      prevButton.addEventListener('click', () => {
+        currentIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1;
+        updateCarousel();
+      });
+      nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateCarousel();
+      });
+      // Auto-play
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateCarousel();
+      }, 5000);
     });
-
-    nextButton.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      updateCarousel();
-    });
-  });
-</script>
+  </script>
 </body>
-   <%- include("../partials/footer") %>   
 </html>
