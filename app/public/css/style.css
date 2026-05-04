@@ -293,8 +293,8 @@ p{
   background: linear-gradient(150deg, #a9e0ee 0%, #acffff 32%, #afdfff 100%);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: center;
+  gap: 12px;
 
   padding: 28px 34px;
   width: 100%;
@@ -305,7 +305,8 @@ p{
 }
 
 
-.hero-banner > * {
+.hero-banner > *,
+.hero-banner-2 > * {
   min-width: 0;
 }
 
@@ -328,7 +329,8 @@ p{
   margin: 0;
 }
 
-.hero-banner-copy {
+.hero-banner-copy,
+.hero-banner-copy-2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -341,19 +343,6 @@ p{
   margin: 0 auto;
 }
 
-.hero-banner-copy-2 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 18px;
-  flex: 1 1 58%;
-  max-width: 58%;
-  order: 2;
-  text-align: left;
-  margin: 0;
-}
-
 .hero-banner-copy h1,
 .hero-banner-copy-2 h1 {
   font-size: clamp(2.6rem, 4vw, 4.2rem);
@@ -361,6 +350,11 @@ p{
   margin-bottom: 10px;
   color: #154a24;
   letter-spacing: -0.03em;
+}
+
+.hero-banner-copy-2 h1 {
+  font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+  line-height: 1.06;
 }
 
 .hero-banner-copy h1 .hero-banner-title-line,
