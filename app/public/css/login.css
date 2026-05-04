@@ -121,3 +121,28 @@ h1 {
 a{
   text-decoration: none;
 }
+
+/* ── DARK MODE ──────────────────────────────────────────── */
+[data-theme="dark"] body {
+  background: #121212;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .ui.form .field label {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .ui.input input {
+  background: #1e1e1e;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+[data-theme="dark"] .ui.button {
+  background: #2e7d32;
+  color: #fff;
+}
+
+[data-theme="dark"] .ui.button:hover {
+  background: #1b5e20;
+}

@@ -250,3 +250,66 @@ body {
     display: block;
   }
 }
+
+/* ── DARK MODE ──────────────────────────────────────────── */
+[data-theme="dark"] body {
+  background: #121212;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .header-table {
+  background-color: #0d1f0d;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .header-table button {
+  background-color: #2e7d32;
+  color: #fff;
+}
+
+[data-theme="dark"] .anuncio {
+  background-color: #1e1e1e;
+}
+
+[data-theme="dark"] .produto-card b {
+  color: #7fcf80;
+}
+
+[data-theme="dark"] .produto-card span {
+  color: #cccccc;
+}
+
+[data-theme="dark"] .produto-card button {
+  background-color: #2e7d32;
+  color: #fff;
+}
+
+[data-theme="dark"] .comentarios {
+  background-color: #2a2a2a;
+  border-color: #444;
+}
+
+[data-theme="dark"] .comentarios .titulo {
+  color: #7fcf80;
+}
+
+[data-theme="dark"] .comentarios td {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .formulario-comentario input,
+[data-theme="dark"] .formulario-comentario textarea {
+  background: #1e1e1e;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+[data-theme="dark"] .formulario-comentario button {
+  background-color: #2e7d32;
+  color: #fff;
+}
+
+[data-theme="dark"] footer {
+  background-color: #0d1f0d;
+  color: #e0e0e0;
+}

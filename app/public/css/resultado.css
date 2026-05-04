@@ -61,6 +61,7 @@
 
 .produto-card {
   background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(255, 255, 255, 0.08);
   overflow: hidden;
@@ -134,16 +135,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
+  background: transparent;
 }
 
 .produto-preco {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #2e7d32;
+  color: #172b18;
+  background: transparent;
 }
 
 .btn-comprar {
-  background: #2e7d32;
+  background: #3c8ee8;
   color: #fff;
   border-radius: 8px;
   padding: 0.4rem 1rem;
@@ -154,7 +157,7 @@
 }
 
 .btn-comprar:hover {
-  background: #1b5e20;
+  background: #2e73c5;
 }
 
 .acoes {
@@ -197,6 +200,88 @@
   .produtos-grid {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
+}
+
+/* ── DARK MODE ──────────────────────────────────────────── */
+[data-theme="dark"] .resultado-container {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .resultado-header h1 {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .resultado h2 {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .alta {
+  background: #1b5e20;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .media {
+  background: #f57c00;
+  color: #000;
+}
+
+[data-theme="dark"] .baixa {
+  background: #d32f2f;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .recomendacoes h2 {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .recomendacoes p {
+  color: #cccccc;
+}
+
+[data-theme="dark"] .produtos-grid {
+  background: #2a2a2a;
+}
+
+[data-theme="dark"] .produto-card {
+  background: #1e1e1e;
+  border-color: #444;
+}
+
+[data-theme="dark"] .produto-card h3 {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .produto-card p {
+  color: #cccccc;
+}
+
+[data-theme="dark"] .produto-preco {
+  color: #7fcf80;
+}
+
+[data-theme="dark"] .btn-comprar {
+  background: #3c8ee8;
+}
+
+[data-theme="dark"] .btn-comprar:hover {
+  background: #2e73c5;
+}
+
+[data-theme="dark"] .btn-voltar {
+  background: #333;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .btn-voltar:hover {
+  background: #444;
+}
+
+[data-theme="dark"] .btn-home {
+  background: #2e7d32;
+}
+
+[data-theme="dark"] .btn-home:hover {
+  background: #1b5e20;
 }
 
 @media (max-width: 480px) {

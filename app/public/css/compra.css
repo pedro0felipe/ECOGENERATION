@@ -292,3 +292,59 @@
     text-align: center;
   }
 }
+
+/* ── DARK MODE ──────────────────────────────────────────── */
+[data-theme="dark"] body {
+  background: #121212;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .compra-container {
+  background: #2a2a2a;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .compra-header h1 {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .produto-info h2 {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .produto-info p {
+  color: #cccccc;
+}
+
+[data-theme="dark"] .preco {
+  color: #7fcf80;
+}
+
+[data-theme="dark"] .form-group label {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group select {
+  background: #1e1e1e;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+[data-theme="dark"] .btn-confirmar {
+  background: #2e7d32;
+  color: #fff;
+}
+
+[data-theme="dark"] .btn-confirmar:hover {
+  background: #1b5e20;
+}
+
+[data-theme="dark"] .btn-voltar {
+  background: #555;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .btn-voltar:hover {
+  background: #666;
+}

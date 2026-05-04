@@ -102,3 +102,26 @@ h2{
         grid-template-columns: 1fr;
     }
 }
+
+/* ── DARK MODE ──────────────────────────────────────────── */
+[data-theme="dark"] body {
+  background: #121212;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] h1 {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] h2 {
+  color: #7fcf80;
+}
+
+[data-theme="dark"] .TEXTO1 {
+  color: #cccccc;
+}
+
+[data-theme="dark"] .about {
+  background: #2a2a2a;
+  color: #e0e0e0;
+}

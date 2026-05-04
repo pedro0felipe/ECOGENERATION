@@ -47,6 +47,10 @@
         <a href="<%= typeof usuarioLogado !== 'undefined' && usuarioLogado ? '/perfil' : '/login' %>" class="login-btn login-header-btn">
           <%= typeof usuarioLogado !== 'undefined' && usuarioLogado ? 'Olá, ' + (usuarioNome ? usuarioNome.split(' ')[0] : 'Usuário') : 'Entrar' %>
         </a>
+        <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo escuro">
+          <span class="icon-moon">🌙</span>
+          <span class="icon-sun">☀️</span>
+        </button>
       </section>
     </section>
   </section>
@@ -71,4 +75,30 @@
       });
     });
   });
+
+  // Dark mode
+  (function() {
+    var html = document.documentElement;
+    var logo = document.querySelector('.logo');
+    var saved = localStorage.getItem('eco-theme') || 'light';
+    html.setAttribute('data-theme', saved);
+
+    function updateLogo(theme) {
+      if (!logo) return;
+      logo.src = theme === 'dark' ? '/imagens/logo-darkmode.svg' : '/imagens/GENERATIONN.svg';
+    }
+
+    updateLogo(saved);
+
+    var btn = document.getElementById('darkToggle');
+    if (btn) {
+      btn.addEventListener('click', function() {
+        var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('eco-theme', next);
+        updateLogo(next);
+      });
+    }
+  })();
+
 </script>

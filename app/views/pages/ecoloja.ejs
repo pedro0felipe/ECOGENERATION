@@ -41,17 +41,10 @@
       <p>Conheça nossas soluções mais populares</p>
     </section>
 
-    <section class="ecoloja-categoria-titulo">
-      <h2><%= tituloCategoria %></h2>
-    </section>
-
     <section class="produtos-grid" aria-label="Lista de produtos">
       <% if (produtos && produtos.length > 0) { %>
         <% produtos.forEach(function(produto) { %>
           <article class="produto-card">
-            <header class="produto-categoria <%= produto.categoria_produto %>">
-              <span><%= produto.categoria_produto === 'entrada' ? 'Entrada' : produto.categoria_produto === 'medio' ? 'Médio' : produto.categoria_produto === 'avancado' ? 'Avançado' : produto.categoria_produto %></span>
-            </header>
             <% 
            
               switch (produto.categoria_produto) {

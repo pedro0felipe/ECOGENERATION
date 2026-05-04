@@ -6,3 +6,9 @@ footer {
   margin-top: 40px;
   font-size: 0.9rem;
 }
+
+/* ── DARK MODE ──────────────────────────────────────────── */
+[data-theme="dark"] footer {
+  background-color: #1b5e20;
+  color: #e0e0e0;
+}

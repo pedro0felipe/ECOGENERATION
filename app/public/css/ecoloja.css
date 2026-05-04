@@ -46,6 +46,7 @@
 
 .produto-card {
   background: #ffffff;
+  border: 1px solid rgba(18, 47, 18, 0.08);
   border-radius: 18px;
   box-shadow: 0 16px 40px rgba(18, 47, 18, 0.08);
   overflow: hidden;
@@ -64,32 +65,28 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  padding: 0.45rem 0.9rem;
+  padding: 0.2rem 0.35rem;
   border-radius: 999px;
   margin: 0.75rem 1rem 0;
   width: fit-content;
+  background: transparent;
+  border: none;
 }
 
 .produto-categoria.entrada {
-  background: rgba(34, 197, 94, 0.22);
   color: #166534;
-  border: 1px solid rgba(34, 197, 94, 0.45);
 }
 
 .produto-categoria.medio {
-  background: rgba(59, 130, 246, 0.22);
   color: #1d4ed8;
-  border: 1px solid rgba(59, 130, 246, 0.45);
 }
 
 .produto-categoria.avancado {
-  background: rgba(255, 238, 0, 0.281);
-  color: #d69d00;
-  border: 1px solid rgba(238, 255, 0, 0.45);
+  color: #b45309;
 }
 
 .produto-categoria span {
@@ -158,7 +155,7 @@
 .produto-preco {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #2e7d32;
+  color: #172b18;
   background: transparent;
 }
 
@@ -342,4 +339,70 @@
     padding: 0.55rem 0.9rem;
     font-size: 0.8rem;
   }
+}
+
+/* ── DARK MODE ──────────────────────────────────────────── */
+[data-theme="dark"] .ecoloja-header h1 {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .ecoloja-subtitulo,
+[data-theme="dark"] .ecoloja-header p {
+  color: #cccccc;
+}
+
+[data-theme="dark"] .produto-card {
+  background: #2a2a2a;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .produto-card h3 {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .produto-card p {
+  color: #cccccc;
+}
+
+[data-theme="dark"] .produto-categoria {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  text-shadow: none;
+}
+
+[data-theme="dark"] .produto-categoria.entrada {
+  color: #93c5fd;
+}
+
+[data-theme="dark"] .produto-categoria.medio {
+  color: #a5b4fc;
+}
+
+[data-theme="dark"] .produto-categoria.avancado {
+  color: #facc15;
+}
+
+[data-theme="dark"] .produto-preco {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .btn-comprar {
+  background: #3c8ee8;
+}
+
+[data-theme="dark"] .btn-comprar:hover {
+  background: #2e73c5;
+}
+
+[data-theme="dark"] .sem-produtos {
+  color: #999;
+}
+
+[data-theme="dark"] .ecoloja-categoria-titulo h2 {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .ecoloja-categoria-titulo p {
+  color: #cccccc;
 }
