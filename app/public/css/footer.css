@@ -86,10 +86,8 @@
 }
 
 /* ── DARK MODE ──────────────────────────────────────────── */
-[data-theme="dark"] .site-footer {
-  background: linear-gradient(135deg, #143a13 0%, #1b5e20 50%, #2e7d32 100%);
-  color: #e0e0e0;
-}
+
+
 
 [data-theme="dark"] .footer-section a,
 [data-theme="dark"] .footer-logo {
