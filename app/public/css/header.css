@@ -335,24 +335,50 @@ header {
 [data-theme="dark"] .search-form input  { background: #1a2a1a; color: #d4e8d4; border-color: #2a4a2a; }
 [data-theme="dark"] .login-btn          { background: #256029; }
 
-/* Botão de alternar tema */
+/* Botão de alternar tema - Toggle Switch */
 .dark-toggle {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.2rem;
-  line-height: 1;
-  padding: 4px 6px;
-  border-radius: 6px;
+  padding: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
 }
-.dark-toggle:hover { background: rgba(0,0,0,0.08); }
 
-/* Mostra lua no claro, sol no escuro */
-.dark-toggle .icon-sun  { display: none; }
-.dark-toggle .icon-moon { display: inline; }
-[data-theme="dark"] .dark-toggle .icon-sun  { display: inline; }
-[data-theme="dark"] .dark-toggle .icon-moon { display: none; }
+.dark-toggle .toggle-switch {
+  width: 50px;
+  height: 28px;
+  background: #ccc;
+  border: 2px solid #999;
+  border-radius: 14px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.dark-toggle .toggle-switch::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  left: 3px;
+  transition: left 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Estado Dark Mode */
+[data-theme="dark"] .dark-toggle .toggle-switch {
+  background: #a0d995;
+  border-color: #7fcf80;
+}
+
+[data-theme="dark"] .dark-toggle .toggle-switch::after {
+  left: 27px;
+}
