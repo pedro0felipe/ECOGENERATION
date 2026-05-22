@@ -139,19 +139,6 @@
   white-space: normal;
 }
 
-.produto-rodape {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.8rem;
-  flex-wrap: wrap;
-  background: transparent;
-  padding: 0;
-  margin-top: auto;
-  border-top: 1px solid #e5e5e5;
-  padding-top: 0.9rem;
-}
-
 .produto-preco {
   font-size: 1.3rem;
   font-weight: 700;
@@ -159,7 +146,19 @@
   background: transparent;
 }
 
+.produto-acoes {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
 .btn-comprar {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
   background: #3c8ee8;
   color: #fff;
   border-radius: 8px;

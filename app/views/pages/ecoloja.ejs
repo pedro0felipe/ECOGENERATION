@@ -71,10 +71,10 @@
             <section class="produto-info">
               <h2 class="produto-nome"><%= produto.nome_produto %></h2>
               <p class="produto-desc"><%= produto.descricao_produto %></p>
-              <footer class="produto-rodape">
+              <section class="produto-acoes">
                 <strong class="produto-preco">R$ <%= produto.preco_produto %></strong>
                 <a href="/produto/<%= produto.id_produto %>" class="btn-comprar">Ver produto</a>
-              </footer>
+              </section>
             </section>
           </article>
         <% }) %>
