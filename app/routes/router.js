@@ -9,6 +9,66 @@ const { validationResult, check } = require('express-validator');
 // ===== IMPORTAR ROTAS DE ADMIN =====
 const routerAdmin = require('../admin/routes/router-adm');
 
+// ===== VALIDADORES CUSTOMIZADOS =====
+const validarCPF = (cpf) => {
+    cpf = cpf.replace(/[^\d]/g, '');
+    if (cpf.length !== 11) return false;
+    
+    let soma = 0, resto;
+    for (let i = 1; i <= 9; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.substring(9, 10))) return false;
+
+    soma = 0;
+    for (let i = 1; i <= 10; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.substring(10, 11))) return false;
+    
+    return true;
+};
+
+const validarCNPJ = (cnpj) => {
+    cnpj = cnpj.replace(/[^\d]/g, '');
+    if (cnpj.length !== 14) return false;
+    
+    if (cnpj === '00000000000000') return false;
+
+    let tamanho = cnpj.length - 2;
+    let numeros = cnpj.substring(0, tamanho);
+    let digitos = cnpj.substring(tamanho);
+    let soma = 0;
+    let pos = tamanho - 7;
+
+    for (let i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2) pos = 9;
+    }
+
+    let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado !== parseInt(digitos.charAt(0))) return false;
+
+    tamanho = tamanho + 1;
+    numeros = cnpj.substring(0, tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+
+    for (let i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2) pos = 9;
+    }
+
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado !== parseInt(digitos.charAt(1))) return false;
+
+    return true;
+};
+
 // ===== MIDDLEWARE — protege rotas que precisam de login =====
 function requireLogin(req, res, next) {
     if (!req.session.usuarioLogado) {
@@ -168,6 +228,10 @@ router.post('/cadastro',
         check('nome').notEmpty().withMessage('Nome é obrigatório'),
         check('email').isEmail().withMessage('Email inválido'),
         check('senha').isLength({ min: 6 }).withMessage('Senha deve ter pelo menos 6 caracteres'),
+        check('cpf').optional({ checkFalsy: true }).custom(validarCPF).withMessage('CPF inválido'),
+        check('cnpj').optional({ checkFalsy: true }).custom(validarCNPJ).withMessage('CNPJ inválido'),
+        check('telefone').optional({ checkFalsy: true }).matches(/^\(\d{2}\)\s?\d{5}-\d{4}$/).withMessage('Telefone inválido. Formato: (XX) XXXXX-XXXX'),
+        check('rg').optional({ checkFalsy: true }).isLength({ min: 5 }).withMessage('RG deve ter no mínimo 5 caracteres'),
     ],
     async (req, res) => {
         const errors = validationResult(req);

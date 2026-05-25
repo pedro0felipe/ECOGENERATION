@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="produtos solares, <% if(produto && produto.nome_produto) { %><%= produto.nome_produto.toLowerCase() %>,<% } %> energia solar, sustentabilidade, compra online">
+  <meta name="description" content="<% if(produto && produto.descricao_produto) { %><%= produto.descricao_produto.substring(0, 160) %>...<% } else { %>Descubra nossos produtos solares portáteis<% } %>">
   <title><%= produto.nome_produto %> — EcoGeneration</title>
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/style.css">

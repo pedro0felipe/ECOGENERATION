@@ -9,6 +9,7 @@
   "author": "pedro",
   "license": "ISC",
   "dependencies": {
+    "cleave.js": "^1.6.0",
     "dotenv": "^17.4.0",
     "ejs": "^3.1.10",
     "express": "^5.1.0",

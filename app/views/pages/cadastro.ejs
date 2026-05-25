@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ecogeneration</title>
+  <meta name="keywords" content="cadastro, criar conta, energia solar, autonomia energética, sustentabilidade">
+  <meta name="description" content="Crie sua conta na EcoGeneration e salve seu histórico de diagnósticos energéticos.">
+  <title>Cadastro — EcoGeneration</title>
   <!-- Semantic UI CDN -->
   
   <link rel="stylesheet" href="/css/header.css" >
@@ -34,6 +36,8 @@
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#2e7d32">
+  <!-- Cleave.js CDN for input masks -->
+  <script src="https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
 </head>
   <%- include("../partials/header") %>
 <body class="layout">
@@ -70,6 +74,62 @@
       <section class="ui pointing red basic label"><%= errors.email.msg %></section>
       <% } %>
 
+      <label for="cpf">CPF (Opcional)</label>
+      <input
+        type="text"
+        id="cpf"
+        name="cpf"
+        data-mask="cpf"
+        value="<%= old.cpf ? old.cpf : '' %>"
+        placeholder="000.000.000-00"
+        maxlength="14"
+      />
+      <% if (errors.cpf) { %>
+      <section class="ui pointing red basic label"><%= errors.cpf.msg %></section>
+      <% } %>
+
+      <label for="cnpj">CNPJ (Opcional)</label>
+      <input
+        type="text"
+        id="cnpj"
+        name="cnpj"
+        data-mask="cnpj"
+        value="<%= old.cnpj ? old.cnpj : '' %>"
+        placeholder="00.000.000/0000-00"
+        maxlength="18"
+      />
+      <% if (errors.cnpj) { %>
+      <section class="ui pointing red basic label"><%= errors.cnpj.msg %></section>
+      <% } %>
+
+      <label for="telefone">Telefone (Opcional)</label>
+      <input
+        type="text"
+        id="telefone"
+        name="telefone"
+        data-mask="phone"
+        value="<%= old.telefone ? old.telefone : '' %>"
+        placeholder="(XX) XXXXX-XXXX"
+        maxlength="14"
+      />
+      <% if (errors.telefone) { %>
+      <section class="ui pointing red basic label"><%= errors.telefone.msg %></section>
+      <% } %>
+
+      <label for="rg">RG (Opcional)</label>
+      <input
+        type="text"
+        id="rg"
+        name="rg"
+        data-mask="rg"
+        value="<%= old.rg ? old.rg : '' %>"
+        placeholder="0.000.000-00"
+        maxlength="12"
+      />
+      <% if (errors.rg) { %>
+      <section class="ui pointing red basic label"><%= errors.rg.msg %></section>
+      <% } %>
+
       <label for="senha">Senha</label>
       <input
         type="password"
@@ -103,6 +163,7 @@
   </main>
 <footer> 2025-Ecogeneration </footer>
   <script src="/js/validation.js"></script>
+  <script src="/js/mascaras.js"></script>
   <!-- Semantic UI JS CDN -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script> -->
   <script>
@@ -110,3 +171,4 @@
   </script>
 </body>
 </html>
+
