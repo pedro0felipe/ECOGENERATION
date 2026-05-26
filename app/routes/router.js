@@ -82,7 +82,10 @@ function requireLogin(req, res, next) {
 router.get("/", async function (req, res) {
     try {
         const rotasDestaque = ["ventilador", "powerbank", "lampadasolar"];
-        const produtosDestaque = await produtosModel.findByRotaList(rotasDestaque);
+        let produtosDestaque = await produtosModel.findByRotaList(rotasDestaque);
+        if (!Array.isArray(produtosDestaque) || produtosDestaque.length === 0) {
+            produtosDestaque = await produtosModel.findAll(3);
+        }
         res.render("index", { titulo: "Pagina inicial", produtosDestaque });
     } catch (erro) {
         console.log(erro);
@@ -393,31 +396,47 @@ router.get("/entrada", (req, res) => res.render("entrada", { titulo: "Entrada" }
 router.get("/medio", (req, res) => res.render("medio", { titulo: "Médio" }));
 router.get("/avancado", (req, res) => res.render("avancado", { titulo: "Avançado" }));
 router.get("/lampada", (req, res) => res.render("lampada", { titulo: "Lâmpada" }));
-router.get("/ventilador", (req, res) => res.render("ventilador", { titulo: "Ventilador" }));
-router.get("/lumi", (req, res) => res.render("lumi", { titulo: "Lumi" }));
-router.get("/miniventilador", (req, res) => res.render("miniventilador", { titulo: "Mini Ventilador" }));
-router.get("/painel-solar", (req, res) => res.render("painel-solar", { titulo: "Painel Solar" }));
-router.get("/powerbank", (req, res) => res.render("powerbank", { titulo: "Powerbank" }));
-router.get("/ventiladorsolar", (req, res) => res.render("ventiladorsolar", { titulo: "Ventilador Solar" }));
-router.get("/lampadasolar", (req, res) => res.render("lampadasolar", { titulo: "Lâmpada Solar" }));
-router.get("/kitenergiasolarportatil", (req, res) => res.render("kitenergiasolarportatil", { titulo: "Kit Energia Solar" }));
-router.get("/carregador", (req, res) => res.render("carregador", { titulo: "Carregador" }));
-router.get("/painelsolarmedio", (req, res) => res.render("painelsolarmedio", { titulo: "Painel Solar Médio" }));
-router.get("/carregadorusb", (req, res) => res.render("carregadorusb", { titulo: "Carregador USB" }));
-router.get("/luminariasolar", (req, res) => res.render("luminariasolar", { titulo: "Luminária Solar" }));
-router.get("/minipainel", (req, res) => res.render("minipainel", { titulo: "Mini Painel Solar" }));
-router.get("/ventiladormedio", (req, res) => res.render("ventiladormedio", { titulo: "Ventilador Médio" }));
-router.get("/estacao", (req, res) => res.render("estacao", { titulo: "Estação de Energia" }));
-router.get("/kitmedioo", (req, res) => res.render("kitmedioo", { titulo: "Kit Médio" }));
-router.get("/estacaodeenergiaportatil", (req, res) => res.render("estacaodeenergiaportatil", { titulo: "Estação de Energia Portátil" }));
-router.get("/bluetti", (req, res) => res.render("bluetti", { titulo: "Bluetti EB3A" }));
-router.get("/estacaoeolica", (req, res) => res.render("estacaoeolica", { titulo: "Estação Eólica" }));
-router.get("/kitgerador", (req, res) => res.render("kitgerador", { titulo: "Kit Gerador Solar" }));
-router.get("/estacaogeradorsolar", (req, res) => res.render("estacaogeradorsolar", { titulo: "Gerador Solar" }));
-router.get("/ecoflow", (req, res) => res.render("ecoflow", { titulo: "Ecoflow River 3" }));
-router.get("/esttacao", (req, res) => res.render("esttacao", { titulo: "Estação Solar" }));
-router.get("/placamil", (req, res) => res.render("placamil", { titulo: "Kit Painel Solar Ecoflow" }));
-router.get("/luminaria", (req, res) => res.render("luminaria", { titulo: "Luminária" }));
+
+const renderProdutoPorRota = async (req, res) => {
+    try {
+        const rota = req.path.replace(/^\//, '');
+        const resultados = await produtosModel.findByRota(rota);
+        if (!resultados || resultados.length === 0) {
+            return res.status(404).render('404', { titulo: 'Produto não encontrado' });
+        }
+        const produto = resultados[0];
+        res.render('produto', { titulo: produto.nome_produto, produto });
+    } catch (erro) {
+        console.log(erro);
+        res.status(500).send('Erro interno do servidor');
+    }
+};
+
+router.get("/ventilador", renderProdutoPorRota);
+router.get("/lumi", renderProdutoPorRota);
+router.get("/miniventilador", renderProdutoPorRota);
+router.get("/painel-solar", renderProdutoPorRota);
+router.get("/powerbank", renderProdutoPorRota);
+router.get("/ventiladorsolar", renderProdutoPorRota);
+router.get("/lampadasolar", renderProdutoPorRota);
+router.get("/kitenergiasolarportatil", renderProdutoPorRota);
+router.get("/carregador", renderProdutoPorRota);
+router.get("/painelsolarmedio", renderProdutoPorRota);
+router.get("/carregadorusb", renderProdutoPorRota);
+router.get("/luminariasolar", renderProdutoPorRota);
+router.get("/minipainel", renderProdutoPorRota);
+router.get("/ventiladormedio", renderProdutoPorRota);
+router.get("/estacao", renderProdutoPorRota);
+router.get("/kitmedioo", renderProdutoPorRota);
+router.get("/estacaodeenergiaportatil", renderProdutoPorRota);
+router.get("/bluetti", renderProdutoPorRota);
+router.get("/estacaoeolica", renderProdutoPorRota);
+router.get("/kitgerador", renderProdutoPorRota);
+router.get("/estacaogeradorsolar", renderProdutoPorRota);
+router.get("/ecoflow", renderProdutoPorRota);
+router.get("/esttacao", renderProdutoPorRota);
+router.get("/placamil", renderProdutoPorRota);
+router.get("/luminaria", renderProdutoPorRota);
 router.get("/calculadora-tela-inicial", (req, res) => res.render("diagnosticotela-inicial", { titulo: "Diagnóstico" }));
 router.get("/calculadora-perguntas", (req, res) => res.render("calculadora-perguntas", { titulo: "EcoCalculadora" }));
 

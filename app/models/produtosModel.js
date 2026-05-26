@@ -2,11 +2,15 @@ const pool = require("../../config/pool_conexoes");
 
 const produtosModel = {
 
-    findAll: async () => {
+    findAll: async (limit = null) => {
         try {
-            const [resultado] = await pool.query(
-                "SELECT * FROM produtos WHERE status_produto = 1"
-            );
+            let query = "SELECT * FROM produtos WHERE status_produto = 1";
+            const params = [];
+            if (limit && Number.isInteger(limit)) {
+                query += " LIMIT ?";
+                params.push(limit);
+            }
+            const [resultado] = await pool.query(query, params);
             return resultado;
         } catch (erro) {
             return erro;
@@ -34,6 +38,18 @@ const produtosModel = {
                 params.push(limit);
             }
             const [resultado] = await pool.query(query, params);
+            return resultado;
+        } catch (erro) {
+            return erro;
+        }
+    },
+
+    findByRota: async (rota) => {
+        try {
+            const [resultado] = await pool.query(
+                "SELECT * FROM produtos WHERE rota_produto = ? AND status_produto = 1",
+                [rota]
+            );
             return resultado;
         } catch (erro) {
             return erro;
