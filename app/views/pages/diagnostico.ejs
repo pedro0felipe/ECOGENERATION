@@ -3,31 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- WCAG 2.4.2 — título descritivo da página -->
   <title>Diagnóstico de Autonomia Energética — EcoGeneration</title>
-  <!-- White Hat SEO -->
-  <meta name="description" content="Responda 5 perguntas e descubra seu nível de autonomia energética. Receba recomendações personalizadas de produtos solares.">
+  <meta name="description" content="Responda 6 perguntas e descubra seu nível de autonomia energética. Receba recomendações personalizadas de produtos solares.">
   <meta name="robots" content="index, follow">
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/diagnostico.css">
   <link rel="apple-touch-icon" href="/imagens/favicon2.png">
   <link rel="icon" href="/imagens/favicon2.png" type="image/png">
-  <link rel="stylesheet" href="/css/diagnostico.css">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Diagnóstico de Autonomia Energética — EcoGeneration">
-  <meta property="og:description" content="Responda 5 perguntas e descubra seu nível de autonomia energética. Receba recomendações personalizadas.">
+  <meta property="og:description" content="Responda 6 perguntas e descubra seu nível de autonomia energética.">
   <meta property="og:url" content="https://ecogeneration-final-4hh3.onrender.com/diagnostico">
   <meta property="og:site_name" content="EcoGeneration">
   <meta property="og:image" content="https://ecogeneration-final-4hh3.onrender.com/imagens/og-cover-v2.png">
-  <meta property="og:image:secure_url" content="https://ecogeneration-final-4hh3.onrender.com/imagens/og-cover-v2.png">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="EcoGeneration — Diagnóstico Energético">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Diagnóstico de Autonomia Energética — EcoGeneration">
-  <meta name="twitter:description" content="Responda 5 perguntas e descubra seu nível de autonomia energética.">
   <meta name="twitter:image" content="https://ecogeneration-final-4hh3.onrender.com/imagens/og-cover-v2.png">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#2e7d32">
@@ -35,68 +27,106 @@
 <body>
   <%- include('../partials/header') %>
 
-  <!-- WCAG 2.4.1 — alvo do skip link -->
   <main class="diagnostico-container" id="conteudo-principal" tabindex="-1">
 
     <header class="diagnostico-header">
       <h1>Diagnóstico de Autonomia Energética</h1>
-      <p>Responda às 5 perguntas abaixo para avaliar sua autonomia energética.</p>
+      <p>6 perguntas rápidas para descobrir a solução solar ideal para você.</p>
+      <div class="progresso-barra" aria-hidden="true">
+        <div class="progresso-fill" id="progressoFill" style="width:0%"></div>
+      </div>
+      <span class="progresso-texto" id="progressoTexto">0 de 6 respondidas</span>
     </header>
 
-    <!-- WCAG 4.1.2 — aria-live para anunciar erros de validação -->
     <section role="alert" aria-live="polite" aria-atomic="true" id="form-feedback" class="visually-hidden"></section>
 
-    <!-- WCAG 1.3.1 — novalidate para controle de validação customizada acessível -->
     <form action="/diagnostico" method="POST" class="diagnostico-form" id="diagnostico-form" novalidate>
 
-      <!-- WCAG 1.3.1 — fieldset + legend em cada grupo de radio -->
-      <fieldset class="pergunta">
-        <legend>1. Com que frequência ocorrem quedas de energia na sua região?</legend>
-        <label><input type="radio" name="frequencia" value="nunca" required> Nunca</label>
-        <label><input type="radio" name="frequencia" value="poucas"> Poucas vezes no ano</label>
-        <label><input type="radio" name="frequencia" value="algumas"> Algumas vezes no mês</label>
-        <label><input type="radio" name="frequencia" value="frequentemente"> Frequentemente</label>
+      <!-- PERGUNTA 1 -->
+      <fieldset class="pergunta" id="q1">
+        <legend>1. Com que frequência falta energia na sua região?</legend>
+        <label><input type="radio" name="frequencia" value="nunca" required> Nunca falta</label>
+        <label><input type="radio" name="frequencia" value="poucas"> Raramente (1-2x no ano)</label>
+        <label><input type="radio" name="frequencia" value="algumas"> Com certa frequência (toda semana/mês)</label>
+        <label><input type="radio" name="frequencia" value="frequentemente"> Quase todo dia ou todo dia</label>
       </fieldset>
 
-      <fieldset class="pergunta">
-        <legend>2. Qual o impacto das quedas de energia no seu dia a dia?</legend>
-        <label><input type="radio" name="impacto" value="nao_afeta" required> Não afeta</label>
-        <label><input type="radio" name="impacto" value="afeta_pouco"> Afeta pouco</label>
-        <label><input type="radio" name="impacto" value="afeta_bastante"> Afeta bastante</label>
-        <label><input type="radio" name="impacto" value="afeta_muito"> Afeta muito</label>
+      <!-- PERGUNTA 2 -->
+      <fieldset class="pergunta" id="q2">
+        <legend>2. Quando a energia cai, quanto tempo ela costuma ficar fora?</legend>
+        <label><input type="radio" name="duracao" value="menos1h" required> Menos de 1 hora</label>
+        <label><input type="radio" name="duracao" value="1a4h"> Entre 1 e 4 horas</label>
+        <label><input type="radio" name="duracao" value="4a12h"> Entre 4 e 12 horas</label>
+        <label><input type="radio" name="duracao" value="mais12h"> Mais de 12 horas ou dias</label>
       </fieldset>
 
-      <fieldset class="pergunta">
-        <legend>3. Qual é a sua preparação atual para quedas de energia?</legend>
-        <p class="checkbox-hint">Marque todas as opções que se aplicam.</p>
-        <label class="checkbox-option"><input type="checkbox" name="preparacao" value="sistema_completo"> Sistema completo (solar)</label>
-        <label class="checkbox-option"><input type="checkbox" name="preparacao" value="power_bank"> Power bank / bateria</label>
-        <label class="checkbox-option"><input type="checkbox" name="preparacao" value="lanternas"> Apenas lanternas</label>
-        <label class="checkbox-option"><input type="checkbox" name="preparacao" value="vela"> Vela</label>
-        <label class="checkbox-option"><input type="checkbox" name="preparacao" value="nenhuma"> Nenhuma alternativa</label>
+      <!-- PERGUNTA 3 -->
+      <fieldset class="pergunta" id="q3">
+        <legend>3. O que você já tem em casa para quando a energia falta?</legend>
+        <p class="checkbox-hint">Pode marcar mais de uma opção.</p>
+        <label class="checkbox-option"><input type="checkbox" name="preparacao" value="sistema_completo"> Sistema solar completo instalado</label>
+        <label class="checkbox-option"><input type="checkbox" name="preparacao" value="gerador"> Gerador a combustível</label>
+        <label class="checkbox-option"><input type="checkbox" name="preparacao" value="power_bank"> Power bank ou bateria portátil</label>
+        <label class="checkbox-option"><input type="checkbox" name="preparacao" value="lanternas"> Só lanterna ou vela</label>
+        <label class="checkbox-option"><input type="checkbox" name="preparacao" value="nenhuma"> Nada, fico sem energia mesmo</label>
       </fieldset>
 
-      <fieldset class="pergunta">
-        <legend>4. Qual seria sua prioridade de uso durante uma queda de energia?</legend>
-        <label><input type="radio" name="prioridade" value="iluminacao" required> Iluminação</label>
-        <label><input type="radio" name="prioridade" value="celular"> Celular/internet</label>
-        <label><input type="radio" name="prioridade" value="geladeira"> Geladeira</label>
-        <label><input type="radio" name="prioridade" value="trabalho"> Trabalho/estudo</label>
+      <!-- PERGUNTA 4 -->
+      <fieldset class="pergunta" id="q4">
+        <legend>4. Quando falta energia, o que você mais precisa manter funcionando?</legend>
+        <label><input type="radio" name="prioridade" value="iluminacao" required> Iluminação dos cômodos</label>
+        <label><input type="radio" name="prioridade" value="carregamento"> Celular e internet</label>
+        <label><input type="radio" name="prioridade" value="climatizacao"> Ventilador ou ar-condicionado</label>
+        <label><input type="radio" name="prioridade" value="geladeira"> Geladeira e alimentos</label>
+        <label><input type="radio" name="prioridade" value="trabalho"> Computador / trabalho em casa</label>
       </fieldset>
 
-      <fieldset class="pergunta">
-        <legend>5. Por quanto tempo você consegue tolerar a falta de energia?</legend>
-        <label><input type="radio" name="tolerancia" value="um_dia" required> Um dia ou mais</label>
-        <label><input type="radio" name="tolerancia" value="algumas_horas"> Algumas horas</label>
-        <label><input type="radio" name="tolerancia" value="uma_hora"> Até 1 hora</label>
-        <label><input type="radio" name="tolerancia" value="nao_consigo"> Não consigo ficar</label>
+      <!-- PERGUNTA 5 -->
+      <fieldset class="pergunta" id="q5">
+        <legend>5. Qual é a sua situação de moradia?</legend>
+        <label><input type="radio" name="moradia" value="casa_propria" required> Casa própria</label>
+        <label><input type="radio" name="moradia" value="apartamento"> Apartamento (próprio ou financiado)</label>
+        <label><input type="radio" name="moradia" value="aluguel"> Imóvel alugado</label>
+        <label><input type="radio" name="moradia" value="area_rural"> Área rural ou zona sem rede estável</label>
       </fieldset>
 
-      <button type="submit" class="btn-submit">Enviar Diagnóstico</button>
+      <!-- PERGUNTA 6 -->
+      <fieldset class="pergunta" id="q6">
+        <legend>6. Quanto você estaria disposto a investir em uma solução de energia solar?</legend>
+        <label><input type="radio" name="orcamento" value="ate200" required> Até R$ 200</label>
+        <label><input type="radio" name="orcamento" value="200a500"> Entre R$ 200 e R$ 500</label>
+        <label><input type="radio" name="orcamento" value="500a1000"> Entre R$ 500 e R$ 1.000</label>
+        <label><input type="radio" name="orcamento" value="acima1000"> Acima de R$ 1.000</label>
+      </fieldset>
+
+      <button type="submit" class="btn-submit">Ver meu resultado</button>
     </form>
   </main>
 
   <%- include('../partials/footer') %>
   <script src="/js/diagnostico.js"></script>
+  <script>
+    // Barra de progresso
+    (function() {
+      var form = document.getElementById('diagnostico-form');
+      var fill = document.getElementById('progressoFill');
+      var texto = document.getElementById('progressoTexto');
+      var total = 6;
+
+      function atualizar() {
+        var respondidas = new Set();
+        form.querySelectorAll('input[type="radio"]:checked').forEach(function(r) {
+          respondidas.add(r.name);
+        });
+        var checkboxMarcado = form.querySelectorAll('input[type="checkbox"]:checked').length > 0;
+        if (checkboxMarcado) respondidas.add('preparacao');
+        var n = respondidas.size;
+        fill.style.width = Math.round((n / total) * 100) + '%';
+        texto.textContent = n + ' de ' + total + ' respondidas';
+      }
+
+      form.addEventListener('change', atualizar);
+    })();
+  </script>
 </body>
 </html>

@@ -4,10 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!diagnosticoForm) return;
 
   diagnosticoForm.addEventListener('submit', function(e) {
-    const campos = ['frequencia', 'impacto', 'preparacao', 'prioridade', 'tolerancia'];
-    const naoRespondidas = campos.filter(campo =>
-      !document.querySelector(`input[name="${campo}"]:checked`)
-    );
+    const campos = ['frequencia', 'duracao', 'preparacao', 'prioridade', 'moradia', 'orcamento'];
+    const naoRespondidas = campos.filter(campo => {
+      if (campo === 'preparacao') {
+        // preparacao usa checkboxes, então precisa ter pelo menos um marcado
+        return document.querySelectorAll(`input[name="${campo}"]:checked`).length === 0;
+      }
+      // outros campos usam radio buttons
+      return !document.querySelector(`input[name="${campo}"]:checked`);
+    });
     const feedback = document.getElementById('form-feedback');
 
     if (naoRespondidas.length > 0) {
