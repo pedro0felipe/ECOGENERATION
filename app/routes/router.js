@@ -126,6 +126,49 @@ router.get("/ecoloja", async function (req, res) {
     }
 });
 
+// ===== BUSCA =====
+router.get("/search", async function (req, res) {
+    try {
+        const termo = req.query.q || '';
+        const page = parseInt(req.query.page, 10) || 1;
+
+        if (!termo || termo.trim().length === 0) {
+            return res.render("busca", {
+                titulo: "Buscar Produtos",
+                termo: '',
+                resultados: [],
+                total: 0,
+                page: 1,
+                totalPages: 0,
+                mensagem: 'Digite um termo para buscar produtos.'
+            });
+        }
+
+        const resultadoBusca = await produtosModel.search(termo.trim(), page);
+
+        res.render("busca", {
+            titulo: `Resultados para: "${termo}"`,
+            termo: termo,
+            resultados: resultadoBusca.produtos || [],
+            total: resultadoBusca.total || 0,
+            page: resultadoBusca.page,
+            totalPages: resultadoBusca.totalPages,
+            mensagem: resultadoBusca.total === 0 ? 'Nenhum produto encontrado para este termo.' : null
+        });
+    } catch (erro) {
+        console.log(erro);
+        res.render("busca", {
+            titulo: "Buscar Produtos",
+            termo: '',
+            resultados: [],
+            total: 0,
+            page: 1,
+            totalPages: 0,
+            mensagem: 'Erro ao processar a busca. Tente novamente.'
+        });
+    }
+});
+
 // ===== DETALHE DO PRODUTO =====
 router.get('/produto/:id', async function (req, res) {
     try {
@@ -327,67 +370,96 @@ router.get('/diagnostico', requireLogin, (req, res) => {
 });
 
 router.post('/diagnostico', requireLogin, async (req, res) => {
-    const { frequencia, impacto, preparacao, prioridade, tolerancia } = req.body;
+    const { frequencia, duracao, preparacao, prioridade, moradia, orcamento } = req.body;
     let pontuacao = 0;
 
+    // 1. Frequência de quedas
     switch (frequencia) {
-        case 'nunca': pontuacao += 10; break;
-        case 'poucas': pontuacao += 5; break;
-        case 'algumas': pontuacao -= 5; break;
-        case 'frequentemente': pontuacao -= 10; break;
-    }
-    switch (impacto) {
-        case 'nao_afeta': pontuacao += 10; break;
-        case 'afeta_pouco': pontuacao += 5; break;
-        case 'afeta_bastante': pontuacao -= 5; break;
-        case 'afeta_muito': pontuacao -= 10; break;
+        case 'nunca':         pontuacao += 10; break;
+        case 'poucas':        pontuacao += 6;  break;
+        case 'algumas':       pontuacao += 2;  break;
+        case 'frequentemente':pontuacao -= 4;  break;
     }
 
+    // 2. Duração média das quedas
+    switch (duracao) {
+        case 'menos1h':   pontuacao += 8;  break;
+        case '1a4h':      pontuacao += 3;  break;
+        case '4a12h':     pontuacao -= 3;  break;
+        case 'mais12h':   pontuacao -= 8;  break;
+    }
+
+    // 3. Preparação atual (checkbox — múltipla)
     const preparacoes = Array.isArray(preparacao) ? preparacao : preparacao ? [preparacao] : [];
     preparacoes.forEach((item) => {
         switch (item) {
             case 'sistema_completo': pontuacao += 10; break;
-            case 'power_bank': pontuacao += 5; break;
-            case 'lanternas': pontuacao -= 5; break;
-            case 'vela': pontuacao -= 5; break;
-            case 'nenhuma': pontuacao -= 10; break;
+            case 'gerador':          pontuacao += 6;  break;
+            case 'power_bank':       pontuacao += 4;  break;
+            case 'lanternas':        pontuacao += 1;  break;
+            case 'nenhuma':          pontuacao -= 6;  break;
         }
     });
 
-    switch (prioridade) {
-        case 'iluminacao': pontuacao += 5; break;
-        case 'celular': pontuacao += 0; break;
-        case 'geladeira': pontuacao -= 5; break;
-        case 'trabalho': pontuacao -= 10; break;
+    // 4. Prioridade de uso — define a categoria de produto recomendado
+    // (não altera pontuação — define a categoria diretamente)
+    const categoriaPorPrioridade = {
+        iluminacao:    'iluminacao',
+        carregamento:  'portatil',
+        climatizacao:  'climatizacao',
+        trabalho:      'energia',
+        geladeira:     'energia',
+    };
+    const categoriaFoco = categoriaPorPrioridade[prioridade] || 'portatil';
+
+    // 5. Tipo de moradia
+    switch (moradia) {
+        case 'casa_propria':  pontuacao += 6;  break;
+        case 'apartamento':   pontuacao += 2;  break;
+        case 'aluguel':       pontuacao += 0;  break;
+        case 'area_rural':    pontuacao -= 4;  break;
     }
 
-    switch (tolerancia) {
-        case 'um_dia': pontuacao += 10; break;
-        case 'algumas_horas': pontuacao += 5; break;
-        case 'uma_hora': pontuacao -= 5; break;
-        case 'nao_consigo': pontuacao -= 10; break;
+    // 6. Orçamento disponível para investir
+    switch (orcamento) {
+        case 'ate200':    pontuacao += 2;  break;
+        case '200a500':   pontuacao += 5;  break;
+        case '500a1000':  pontuacao += 8;  break;
+        case 'acima1000': pontuacao += 10; break;
     }
 
-    let nivel = pontuacao >= 20 ? 'alta' : pontuacao >= 0 ? 'media' : 'baixa';
+    // Nível: máximo possível ~50, mínimo ~-16
+    let nivel = pontuacao >= 28 ? 'alta' : pontuacao >= 12 ? 'media' : 'baixa';
+
+    // Categoria final: combina nível + foco
+    // alta = produtos avançados da categoria foco
+    // media = produtos médios da categoria foco
+    // baixa = produtos de entrada, qualquer categoria
+    const categoriaFinal = nivel === 'baixa' ? 'entrada' : nivel === 'media' ? 'medio' : 'avancado';
 
     try {
         await diagnosticosModel.create({
             id_usuario: req.session.usuarioId ? parseInt(req.session.usuarioId) : null,
             frequencia,
-            impacto,
+            impacto: duracao,
             preparacao: preparacoes.join(', '),
             prioridade,
-            tolerancia,
+            tolerancia: moradia,
             nivel_autonomia: nivel
         });
     } catch (erro) {
         console.log('Erro ao salvar diagnóstico:', erro);
     }
 
-    const categoria = nivel === 'alta' ? 'avancado' : nivel === 'media' ? 'medio' : 'entrada';
-    let produtosRecomendados = await produtosModel.findByCategoria(categoria);
-    produtosRecomendados = produtosRecomendados.sort((a, b) => parseFloat(a.preco_produto) - parseFloat(b.preco_produto));
-    res.render('resultado', { nivel, produtosRecomendados });
+    let produtosRecomendados = await produtosModel.findByCategoria(categoriaFinal);
+    if (!produtosRecomendados || produtosRecomendados.length === 0) {
+        produtosRecomendados = await produtosModel.findByCategoria('entrada');
+    }
+    produtosRecomendados = produtosRecomendados
+        .sort((a, b) => parseFloat(a.preco_produto) - parseFloat(b.preco_produto))
+        .slice(0, 4);
+
+    res.render('resultado', { nivel, produtosRecomendados, prioridade, pontuacao });
 });
 
 // ===== PÁGINAS DE PRODUTOS INDIVIDUAIS =====

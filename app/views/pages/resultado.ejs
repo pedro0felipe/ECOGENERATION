@@ -44,18 +44,31 @@
       <% if (nivel === 'alta') { %>
         <section class="resultado alta" role="status">
           <h2>✅ Autonomia Energética: Alta</h2>
-          <p>Você está bem preparado para quedas de energia. Confira produtos avançados para maximizar sua autonomia.</p>
+          <p>Você já tem boa estrutura energética. Os produtos abaixo vão elevar ainda mais sua independência da rede elétrica.</p>
         </section>
       <% } else if (nivel === 'media') { %>
         <section class="resultado media" role="status">
           <h2>⚡ Autonomia Energética: Média</h2>
-          <p>Você tem alguma preparação, mas ainda há espaço para melhorias. Veja nossas recomendações.</p>
+          <p>Você tem alguma preparação, mas ainda depende bastante da rede. Com as soluções abaixo você dá um salto real de autonomia.</p>
         </section>
       <% } else { %>
         <section class="resultado baixa" role="status">
           <h2>⚠️ Autonomia Energética: Baixa</h2>
-          <p>Você depende fortemente da rede elétrica. Recomendamos começar com produtos acessíveis para aumentar sua autonomia.</p>
+          <p>Você depende quase totalmente da rede elétrica. Comece com produtos acessíveis e portáteis — pequenas mudanças já fazem grande diferença.</p>
         </section>
+      <% } %>
+
+      <% const labelPrioridade = {
+        iluminacao:   'iluminação',
+        carregamento: 'carregamento de dispositivos',
+        climatizacao: 'climatização',
+        geladeira:    'conservação de alimentos',
+        trabalho:     'trabalho em casa'
+      }; %>
+      <% if (prioridade && labelPrioridade[prioridade]) { %>
+        <p class="resultado-foco">
+          Com base na sua prioridade — <strong><%= labelPrioridade[prioridade] %></strong> — selecionamos os produtos mais indicados para o seu perfil.
+        </p>
       <% } %>
     </section>
 
@@ -65,7 +78,7 @@
     </section>
 
     <section class="recomendacoes" aria-labelledby="titulo-recomendacoes">
-      <h2 id="titulo-recomendacoes">Produtos recomendados para você</h2>
+      <h2 id="titulo-recomendacoes">Produtos selecionados para o seu perfil</h2>
       <section class="produtos-grid" role="list">
         <% produtosRecomendados.forEach(function(produto) { %>
           <article class="produto-card" role="listitem">
