@@ -70,46 +70,6 @@ const produtosModel = {
         } catch (erro) {
             return erro;
         }
-    },
-
-    search: async (termo, page = 1) => {
-        try {
-            const limit = 12;
-            const offset = (page - 1) * limit;
-            const searchTerm = `%${termo}%`;
-
-            // Buscar produtos que correspondem ao termo
-            const [resultados] = await pool.query(
-                `SELECT * FROM produtos 
-                WHERE status_produto = 1 AND 
-                (nome_produto LIKE ? OR 
-                descricao_produto LIKE ? OR 
-                categoria_produto LIKE ?)
-                ORDER BY nome_produto ASC
-                LIMIT ? OFFSET ?`,
-                [searchTerm, searchTerm, searchTerm, limit, offset]
-            );
-
-            // Contar total de resultados
-            const [countResult] = await pool.query(
-                `SELECT COUNT(*) as total FROM produtos 
-                WHERE status_produto = 1 AND 
-                (nome_produto LIKE ? OR 
-                descricao_produto LIKE ? OR 
-                categoria_produto LIKE ?)`,
-                [searchTerm, searchTerm, searchTerm]
-            );
-
-            return {
-                produtos: resultados,
-                total: countResult[0].total,
-                page: page,
-                limit: limit,
-                totalPages: Math.ceil(countResult[0].total / limit)
-            };
-        } catch (erro) {
-            return erro;
-        }
     }
 
 }

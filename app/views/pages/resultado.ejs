@@ -31,6 +31,7 @@
   <meta name="theme-color" content="#2e7d32">
 </head>
 <body>
+
   <%- include('../partials/header') %>
 
   <main class="resultado-container" id="conteudo-principal" tabindex="-1">
@@ -39,77 +40,133 @@
       <h1>Resultado do Diagnóstico</h1>
     </header>
 
-    <!-- WCAG 4.1.3 — aria-live assertive anuncia o resultado para leitores de tela -->
-    <section aria-live="assertive" aria-atomic="true">
-      <% if (nivel === 'alta') { %>
-        <section class="resultado alta" role="status">
-          <h2>✅ Autonomia Energética: Alta</h2>
-          <p>Você já tem boa estrutura energética. Os produtos abaixo vão elevar ainda mais sua independência da rede elétrica.</p>
-        </section>
-      <% } else if (nivel === 'media') { %>
-        <section class="resultado media" role="status">
-          <h2>⚡ Autonomia Energética: Média</h2>
-          <p>Você tem alguma preparação, mas ainda depende bastante da rede. Com as soluções abaixo você dá um salto real de autonomia.</p>
-        </section>
+    <%
+      const labelPrioridade = {
+        iluminacao:   'iluminação dos cômodos',
+        carregamento: 'carregamento de celular e internet',
+        climatizacao: 'ventilação e climatização',
+        geladeira:    'conservação de alimentos',
+        trabalho:     'trabalho e estudo em casa'
+      };
+      const vulnPct  = Math.round((vulnerabilidade / 10) * 100);
+      const prepPct  = Math.round((preparo / 10) * 100);
+      const vulnLabel = vulnerabilidade >= 7 ? 'Alta' : vulnerabilidade >= 3 ? 'Média' : 'Baixa';
+      const prepLabel = preparo >= 7 ? 'Alto'  : preparo >= 3 ? 'Médio' : 'Baixo';
+    %>
+
+    <!-- Resultado do perfil -->
+    <section aria-live="assertive" aria-atomic="true" class="resultado-perfil">
+
+      <% if (perfil === 'independente') { %>
+        <article class="resultado alta" role="status">
+          <h2>🏆 Parabéns — você já é independente da rede!</h2>
+          <p>Você já conta com uma boa estrutura de proteção energética. Os produtos abaixo são complementos práticos para deixar sua autonomia ainda mais completa.</p>
+        </article>
+
+      <% } else if (perfil === 'critico') { %>
+        <article class="resultado baixa" role="status">
+          <h2>⚠️ Situação crítica de dependência</h2>
+          <p>Você sofre com quedas frequentes ou longas e ainda não tem proteção. A boa notícia: pequenas soluções já fazem grande diferença — e custam menos do que você imagina.</p>
+        </article>
+
+      <% } else if (perfil === 'medio') { %>
+        <article class="resultado media" role="status">
+          <h2>⚡ Você está no caminho certo</h2>
+          <p>Você tem alguma proteção, mas ainda é vulnerável em quedas mais longas ou frequentes. Os produtos abaixo vão fechar essa lacuna.</p>
+        </article>
+
       <% } else { %>
-        <section class="resultado baixa" role="status">
-          <h2>⚠️ Autonomia Energética: Baixa</h2>
-          <p>Você depende quase totalmente da rede elétrica. Comece com produtos acessíveis e portáteis — pequenas mudanças já fazem grande diferença.</p>
-        </section>
+        <article class="resultado media" role="status">
+          <h2>🌱 Hora de se preparar antes de precisar</h2>
+          <p>Você raramente enfrenta quedas agora, mas estar preparado custa muito menos do que remediar depois. Veja opções simples e acessíveis.</p>
+        </article>
       <% } %>
 
-      <% const labelPrioridade = {
-        iluminacao:   'iluminação',
-        carregamento: 'carregamento de dispositivos',
-        climatizacao: 'climatização',
-        geladeira:    'conservação de alimentos',
-        trabalho:     'trabalho em casa'
-      }; %>
+      <!-- Medidores das duas dimensões -->
+      <section class="dimensoes" aria-label="Detalhes do seu diagnóstico">
+
+        <figure class="dimensao">
+          <figcaption class="dimensao-titulo">Vulnerabilidade a quedas</figcaption>
+          <meter class="barra-vuln"
+                 min="0" max="10"
+                 value="<%= vulnerabilidade %>"
+                 aria-label="Vulnerabilidade: <%= vulnLabel %>">
+          </meter>
+          <output class="dimensao-valor"><%= vulnLabel %></output>
+        </figure>
+
+        <figure class="dimensao">
+          <figcaption class="dimensao-titulo">Preparo atual</figcaption>
+          <meter class="barra-prep"
+                 min="0" max="10"
+                 value="<%= preparo %>"
+                 aria-label="Preparo: <%= prepLabel %>">
+          </meter>
+          <output class="dimensao-valor"><%= prepLabel %></output>
+        </figure>
+
+      </section>
+
       <% if (prioridade && labelPrioridade[prioridade]) { %>
         <p class="resultado-foco">
-          Com base na sua prioridade — <strong><%= labelPrioridade[prioridade] %></strong> — selecionamos os produtos mais indicados para o seu perfil.
+          <% if (perfil === 'independente') { %>
+            Com base na sua estrutura atual, selecionamos complementos para <strong><%= labelPrioridade[prioridade] %></strong>.
+          <% } else { %>
+            Sua prioridade é <strong><%= labelPrioridade[prioridade] %></strong> — os produtos abaixo foram selecionados com isso em mente.
+          <% } %>
         </p>
       <% } %>
+
     </section>
 
-    <!-- Heurística Nielsen 1 — feedback claro de que o diagnóstico foi salvo -->
+    <!-- Feedback de salvamento -->
     <section class="diagnostico-salvo" role="status" aria-label="Diagnóstico salvo">
       <p>✓ Seu diagnóstico foi salvo com sucesso no seu perfil.</p>
     </section>
 
+    <!-- Produtos recomendados -->
     <section class="recomendacoes" aria-labelledby="titulo-recomendacoes">
       <h2 id="titulo-recomendacoes">Produtos selecionados para o seu perfil</h2>
-      <section class="produtos-grid" role="list">
-        <% produtosRecomendados.forEach(function(produto) { %>
-          <article class="produto-card" role="listitem">
-            <header class="produto-categoria">
-              <span><%= produto.categoria_produto %></span>
-            </header>
-            <figure class="produto-figura">
-              <img src="/imagens/<%= produto.imagem_produto %>"
-                   alt="Foto do produto: <%= produto.nome_produto %>"
-                   class="produto-img"
-                   loading="lazy">
-            </figure>
-            <section class="produto-info">
-              <h3 class="produto-nome"><%= produto.nome_produto %></h3>
-              <p class="produto-desc"><%= produto.descricao_produto %></p>
-              <footer class="produto-rodape">
-                <strong class="produto-preco" aria-label="Preço: R$ <%= produto.preco_produto %>">
-                  R$ <%= produto.preco_produto %>
-                </strong>
-                <a href="/produto/<%= produto.id_produto %>"
-                   class="btn-comprar"
-                   aria-label="Ver detalhes do produto <%= produto.nome_produto %>">
-                  Ver produto
-                </a>
-              </footer>
-            </section>
-          </article>
-        <% }) %>
-      </section>
+
+      <% if (!produtosRecomendados || produtosRecomendados.length === 0) { %>
+        <p class="sem-produtos">
+          Nenhum produto encontrado.
+          <a href="/ecoloja">Acesse a EcoLoja</a> para ver todos os produtos.
+        </p>
+      <% } else { %>
+        <ol class="produtos-grid" role="list">
+          <% produtosRecomendados.forEach(function(produto) { %>
+            <li class="produto-card" role="listitem">
+              <span class="produto-categoria"><%= produto.categoria_produto %></span>
+              <figure class="produto-figura">
+                <img src="/imagens/<%= produto.imagem_produto %>"
+                     alt="<%= produto.nome_produto %>"
+                     class="produto-img"
+                     loading="lazy">
+              </figure>
+              <article class="produto-info">
+                <h3 class="produto-nome"><%= produto.nome_produto %></h3>
+                <p class="produto-desc"><%= produto.descricao_produto %></p>
+                <footer class="produto-rodape">
+                  <strong class="produto-preco"
+                          aria-label="Preço: R$ <%= produto.preco_produto %>">
+                    R$ <%= produto.preco_produto %>
+                  </strong>
+                  <a href="/produto/<%= produto.id_produto %>"
+                     class="btn-comprar"
+                     aria-label="Ver detalhes de <%= produto.nome_produto %>">
+                    Ver produto
+                  </a>
+                </footer>
+              </article>
+            </li>
+          <% }); %>
+        </ol>
+      <% } %>
+
     </section>
 
+    <!-- Ações pós-resultado -->
     <nav class="acoes" aria-label="Ações pós-diagnóstico">
       <a href="/diagnostico" class="btn-voltar">Refazer Diagnóstico</a>
       <a href="/ecoloja" class="btn-home">Ver toda a loja</a>
@@ -118,5 +175,6 @@
   </main>
 
   <%- include('../partials/footer') %>
+
 </body>
 </html>
