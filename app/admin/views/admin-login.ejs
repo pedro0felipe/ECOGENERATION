@@ -11,7 +11,7 @@
 </head>
 <body class="admin-body">
   <main class="admin-container">
-    <div class="admin-login-box">
+    <section class="admin-login-box" aria-label="Login administrativo">
       <header class="admin-header">
         <h1>🔐 ADMIN ECOGENERATION</h1>
       
@@ -24,7 +24,7 @@
       <% } %>
       
       <form method="POST" action="/admin-login" class="admin-form">
-        <div class="form-group">
+        <fieldset class="form-group">
           <label for="usuario">Usuário</label>
           <input 
             type="text" 
@@ -33,9 +33,9 @@
             placeholder="Digite o usuário" 
             required
           >
-        </div>
+        </fieldset>
         
-        <div class="form-group">
+        <fieldset class="form-group">
           <label for="senha">Senha</label>
           <input 
             type="password" 
@@ -47,7 +47,7 @@
           <label class="mostrar-senha-label">
             <input type="checkbox" onchange="toggleSenha('senha', this)"> Mostrar senha
           </label>
-        </div>
+        </fieldset>
         
         <button type="submit" class="btn btn-primary btn-block">
           Entrar
@@ -57,7 +57,7 @@
       <footer class="admin-footer">
         <a href="/">Voltar à página inicial</a>
       </footer>
-    </div>
+    </section>
   </main>
 
   <script src="/js/login.js"></script>

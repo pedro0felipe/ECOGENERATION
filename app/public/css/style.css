@@ -428,6 +428,13 @@ p  { color: var(--texto-suave); }
   text-align: center;
 }
 
+.produto-preco-home {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--verde);
+  margin-top: -4px;
+}
+
 .btn-ver {
   padding: 8px 20px;
   background: var(--azul);

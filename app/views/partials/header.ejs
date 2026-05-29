@@ -1,5 +1,5 @@
 <header>
-  <div class="header-container">
+  <section class="header-container" aria-label="Cabeçalho principal">
     <figure class="logo-figure">
       <a href="/">
         <img src="/imagens/GENERATIONN.svg" alt="EcoGeneration Logo" class="logo">
@@ -10,7 +10,7 @@
       <span></span><span></span><span></span>
     </button>
 
-    <div class="header-actions">
+    <section class="header-actions" aria-label="Menu principal e ações do usuário">
       <nav class="nav-categorias" id="nav-categorias" aria-label="Navegação principal">
         <ul>
           <li class="<%= currentPath === '/ecoloja' ? 'active' : '' %>">
@@ -19,9 +19,7 @@
           <li class="<%= currentPath === '/diagnostico' ? 'active' : '' %>">
             <a href="/diagnostico">Diagnóstico</a>
           </li>
-          <li class="<%= currentPath === '/sobre-nos' ? 'active' : '' %>">
-            <a href="/sobre-nos">Sobre</a>
-          </li>
+        
           <% if (typeof usuarioLogado !== 'undefined' && usuarioLogado) { %>
             <li>
               <a href="/logout">Sair</a>
@@ -34,7 +32,7 @@
         </ul>
       </nav>
 
-      <div class="search-actions">
+      <section class="search-actions" aria-label="Busca e acesso da conta">
         <form action="/search" method="get" class="search-form" aria-label="Buscar produtos">
           <input type="text" name="q" placeholder="Pesquisar..." aria-label="Campo de busca" />
           <button type="submit" class="search-btn" aria-label="Pesquisar">
@@ -50,8 +48,8 @@
         <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo escuro">
           <span class="toggle-switch"></span>
         </button>
-      </div>
-    </div>
-  </div>
+      </section>
+    </section>
+  </section>
   
 </header>

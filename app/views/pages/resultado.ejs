@@ -60,38 +60,37 @@
 
       <% if (perfil === 'independente') { %>
         <article class="resultado alta" role="status">
-          
-          <div class="resultado-body">
+          <section class="resultado-body" aria-label="Resumo do resultado">
             <h2>Parabéns — você já é independente da rede!</h2>
             <p>Você já conta com uma boa estrutura de proteção energética. Os produtos abaixo são complementos práticos para deixar sua autonomia ainda mais completa.</p>
-          </div>
+          </section>
         </article>
 
       <% } else if (perfil === 'critico') { %>
         <article class="resultado baixa" role="status">
           <span class="resultado-icon" aria-hidden="true">⚠️</span>
-          <div class="resultado-body">
+          <section class="resultado-body" aria-label="Resumo do resultado">
             <h2>Situação crítica de dependência</h2>
             <p>Você sofre com quedas frequentes ou longas e ainda não tem proteção. A boa notícia: pequenas soluções já fazem grande diferença — e custam menos do que você imagina.</p>
-          </div>
+          </section>
         </article>
 
       <% } else if (perfil === 'medio') { %>
         <article class="resultado media" role="status">
           <span class="resultado-icon" aria-hidden="true">⚡</span>
-          <div class="resultado-body">
+          <section class="resultado-body" aria-label="Resumo do resultado">
             <h2>Você está no caminho certo</h2>
             <p>Você tem alguma proteção, mas ainda é vulnerável em quedas mais longas ou frequentes. Os produtos abaixo vão fechar essa lacuna.</p>
-          </div>
+          </section>
         </article>
 
       <% } else { %>
         <article class="resultado media" role="status">
           <span class="resultado-icon" aria-hidden="true">🌱</span>
-          <div class="resultado-body">
+          <section class="resultado-body" aria-label="Resumo do resultado">
             <h2>Hora de se preparar antes de precisar</h2>
             <p>Você raramente enfrenta quedas agora, mas estar preparado custa muito menos do que remediar depois. Veja opções simples e acessíveis.</p>
-          </div>
+          </section>
         </article>
       <% } %>
 
@@ -147,35 +146,18 @@
           <a href="/ecoloja">Acesse a EcoLoja</a> para ver todos os produtos.
         </p>
       <% } else { %>
-        <ol class="produtos-grid" role="list">
+        <ul class="produtos-grid-home">
           <% produtosRecomendados.forEach(function(produto) { %>
-            <li class="produto-card" role="listitem">
-              <span class="produto-categoria"><%= produto.categoria_produto %></span>
-              <figure class="produto-figura">
-                <img src="/imagens/<%= produto.imagem_produto %>"
-                     alt="<%= produto.nome_produto %> — produto de energia solar portátil"
-                     class="produto-img"
-                     loading="lazy"
-                     width="130" height="130">
+            <li class="produto-card-home">
+              <figure>
+                <img src="/imagens/<%= produto.imagem_produto %>" alt="<%= produto.nome_produto %>">
               </figure>
-              <article class="produto-info">
-                <h3 class="produto-nome"><%= produto.nome_produto %></h3>
-                <p class="produto-desc"><%= produto.descricao_produto %></p>
-                <footer class="produto-rodape">
-                  <strong class="produto-preco"
-                          aria-label="Preço: R$ <%= produto.preco_produto %>">
-                    R$ <%= produto.preco_produto %>
-                  </strong>
-                  <a href="/produto/<%= produto.id_produto %>"
-                     class="btn-comprar"
-                     aria-label="Ver detalhes de <%= produto.nome_produto %>">
-                    Ver produto
-                  </a>
-                </footer>
-              </article>
+              <h3><%= produto.nome_produto %></h3>
+              <p class="produto-preco-home">R$ <%= produto.preco_produto %></p>
+              <a href="/produto/<%= produto.id_produto %>" class="btn-ver">Ver produto</a>
             </li>
           <% }); %>
-        </ol>
+        </ul>
       <% } %>
 
     </section>

@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<div class="admin-wrapper">
+<section class="admin-wrapper" aria-label="Gestão de usuários">
   <aside class="admin-sidebar" aria-label="Menu de administração">
     <header class="admin-brand">
       <h2>⚙️ ADMIN</h2>
@@ -43,7 +43,7 @@
     </header>
     
     <% if (usuarios.length > 0) { %>
-      <div class="table-container">
+      <section class="table-container" aria-label="Tabela de usuários">
         <table class="admin-table">
           <thead>
             <tr>
@@ -72,15 +72,15 @@
             <% }); %>
           </tbody>
         </table>
-      </div>
+      </section>
     <% } else { %>
-      <div class="empty-state">
+      <section class="empty-state" aria-label="Estado vazio">
         <p>📭 Nenhum usuário cadastrado ainda</p>
         <a href="/cadastro" class="btn btn-primary">Criar Primeiro Usuário</a>
-      </div>
+      </section>
     <% } %>
   </main>
-</div>
+</section>
 
 </body>
 </html>
