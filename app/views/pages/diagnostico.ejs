@@ -43,13 +43,14 @@
     <form action="/diagnostico" method="POST" class="diagnostico-form" id="diagnostico-form" novalidate>
 
       <!-- PERGUNTA 1 -->
-      <fieldset class="pergunta" id="q1">
-        <legend>1. Com que frequência falta energia na sua região?</legend>
-        <label><input type="radio" name="frequencia" value="nunca" required> Nunca falta</label>
-        <label><input type="radio" name="frequencia" value="poucas"> Raramente (1-2x no ano)</label>
-        <label><input type="radio" name="frequencia" value="algumas"> Com certa frequência (toda semana/mês)</label>
-        <label><input type="radio" name="frequencia" value="frequentemente"> Quase todo dia ou todo dia</label>
-      </fieldset>
+<fieldset class="pergunta" id="q1">
+  <legend>1. Com que frequência falta energia na sua região?</legend>
+  <label><input type="radio" name="frequencia" value="nunca" required> Nunca falta</label>
+  <label><input type="radio" name="frequencia" value="poucas"> Raramente (1-2x por ano)</label>
+  <label><input type="radio" name="frequencia" value="regularmente"> Ocasionalmente (algumas vezes ao ano)</label>
+  <label><input type="radio" name="frequencia" value="algumas"> Com frequência (toda semana)</label>
+  <label><input type="radio" name="frequencia" value="frequentemente"> Quase todo dia ou todo dia</label>
+</fieldset>
 
       <!-- PERGUNTA 2 -->
       <fieldset class="pergunta" id="q2">
@@ -71,16 +72,14 @@
         <label class="checkbox-option"><input type="checkbox" name="preparacao" value="nenhuma"> Nada, fico sem energia mesmo</label>
       </fieldset>
 
-      <!-- PERGUNTA 4 -->
-      <fieldset class="pergunta" id="q4">
-        <legend>4. Quando falta energia, o que você mais precisa manter funcionando?</legend>
-        <label><input type="radio" name="prioridade" value="iluminacao" required> Iluminação dos cômodos</label>
-        <label><input type="radio" name="prioridade" value="carregamento"> Celular e internet</label>
-        <label><input type="radio" name="prioridade" value="climatizacao"> Ventilador ou ar-condicionado</label>
-        <label><input type="radio" name="prioridade" value="geladeira"> Geladeira e alimentos</label>
-        <label><input type="radio" name="prioridade" value="trabalho"> Computador / trabalho em casa</label>
-      </fieldset>
-
+     <!-- PERGUNTA 4 -->
+<fieldset class="pergunta" id="q4">
+  <legend>4. Quando falta energia, o que você mais precisa manter funcionando?</legend>
+  <label><input type="radio" name="prioridade" value="iluminacao" required> Iluminação dos cômodos</label>
+  <label><input type="radio" name="prioridade" value="carregamento"> Celular e internet</label>
+  <label><input type="radio" name="prioridade" value="climatizacao"> Ventilador ou ar-condicionado</label>
+  <label><input type="radio" name="prioridade" value="trabalho"> Computador / trabalho em casa</label>
+</fieldset>
       <!-- PERGUNTA 5 -->
       <fieldset class="pergunta" id="q5">
         <legend>5. Qual é a sua situação de moradia?</legend>

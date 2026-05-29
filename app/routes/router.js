@@ -310,21 +310,22 @@ router.get('/logout', (req, res) => {
 });
 
 // ===== DIAGNÓSTICO =====
-router.get('/diagnostico', (req, res) => {
+router.get('/diagnostico', requireLogin, (req, res) => {
     res.render('diagnostico', { titulo: 'Diagnóstico de Autonomia Energética' });
 });
 
-router.post('/diagnostico', async (req, res) => {
+router.post('/diagnostico', requireLogin, async (req, res) => {
     const { frequencia, duracao, preparacao, prioridade, moradia, orcamento } = req.body;
 
     // ── VULNERABILIDADE (0–10) ───────────────────────────────
     let vulnerabilidade = 0;
     switch (frequencia) {
-        case 'nunca':          vulnerabilidade += 0; break;
-        case 'poucas':         vulnerabilidade += 2; break;
-        case 'algumas':        vulnerabilidade += 4; break;
-        case 'frequentemente': vulnerabilidade += 5; break;
-    }
+    case 'nunca':          vulnerabilidade += 0; break;
+    case 'poucas':         vulnerabilidade += 1; break;
+    case 'regularmente':   vulnerabilidade += 3; break;
+    case 'algumas':        vulnerabilidade += 4; break;
+    case 'frequentemente': vulnerabilidade += 5; break;
+}
     switch (duracao) {
         case 'menos1h':  vulnerabilidade += 0; break;
         case '1a4h':     vulnerabilidade += 1; break;
