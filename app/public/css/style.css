@@ -34,6 +34,9 @@ body {
   line-height: 1.6;
 }
 
+ol {
+  list-style: none;}
+
 img { max-width: 100%; height: auto; display: block; }
 a   { text-decoration: none; }
 
@@ -865,7 +868,7 @@ fieldset.pergunta legend {
 
 .msg-erro::before {
   content: "⚠ ";
-  aria-hidden: true;
+ 
 }
 
 .dica-campo {
