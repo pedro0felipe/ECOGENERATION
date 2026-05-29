@@ -17,6 +17,30 @@ const produtosModel = {
         }
     },
 
+    findPaginated: async (page = 1, perPage = 8) => {
+        try {
+            const offset = (page - 1) * perPage;
+            const [resultado] = await pool.query(
+                "SELECT * FROM produtos WHERE status_produto = 1 LIMIT ? OFFSET ?",
+                [perPage, offset]
+            );
+            return resultado;
+        } catch (erro) {
+            return erro;
+        }
+    },
+
+    countAll: async () => {
+        try {
+            const [resultado] = await pool.query(
+                "SELECT COUNT(*) as total FROM produtos WHERE status_produto = 1"
+            );
+            return resultado[0].total;
+        } catch (erro) {
+            return 0;
+        }
+    },
+
     findById: async (id) => {
         try {
             const [resultado] = await pool.query(

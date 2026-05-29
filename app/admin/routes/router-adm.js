@@ -2,6 +2,32 @@ const express = require('express');
 const router = express.Router();
 const adminAuth = require('../middleware/auth');
 const { adminModel } = require('../../models/adminModel');
+const multer = require('multer');
+const path = require('path');
+
+// Configuração do Multer para upload de imagens
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '../../public/imagens'));
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    const nomeUnico = `produto_${Date.now()}${ext}`;
+    cb(null, nomeUnico);
+  }
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  fileFilter: (req, file, cb) => {
+    const permitidos = /jpeg|jpg|png|webp|gif/;
+    const ext = permitidos.test(path.extname(file.originalname).toLowerCase());
+    const mime = permitidos.test(file.mimetype);
+    if (ext && mime) cb(null, true);
+    else cb(new Error('Apenas imagens são permitidas!'));
+  }
+});
 
 // LOGIN ADMIN 
 router.get('/admin-login', (req, res) => {
@@ -117,15 +143,17 @@ router.get('/admin/produtos/novo', adminAuth, (req, res) => {
   });
 });
 
-router.post('/admin/produtos', adminAuth, async (req, res) => {
+router.post('/admin/produtos', adminAuth, upload.single('imagem'), async (req, res) => {
   try {
     const { nome, categoria, preco, descricao, estoque } = req.body;
+    const imagem = req.file ? req.file.filename : null;
     await adminModel.addProduto({
       nome,
       categoria,
       preco: parseFloat(preco),
       descricao,
-      estoque: parseInt(estoque)
+      estoque: parseInt(estoque),
+      imagem
     });
     res.redirect('/admin/produtos');
   } catch (erro) {
@@ -149,15 +177,17 @@ router.get('/admin/produtos/:id/editar', adminAuth, async (req, res) => {
   }
 });
 
-router.post('/admin/produtos/:id', adminAuth, async (req, res) => {
+router.post('/admin/produtos/:id', adminAuth, upload.single('imagem'), async (req, res) => {
   try {
     const { nome, categoria, preco, descricao, estoque } = req.body;
+    const imagem = req.file ? req.file.filename : null;
     await adminModel.updateProduto(req.params.id, {
       nome,
       categoria,
       preco: parseFloat(preco),
       descricao,
-      estoque: parseInt(estoque)
+      estoque: parseInt(estoque),
+      imagem
     });
     res.redirect('/admin/produtos');
   } catch (erro) {

@@ -41,7 +41,7 @@
     </header>
     
     <section class="form-container">
-      <form method="POST" action="<%= isNovo ? '/admin/produtos' : '/admin/produtos/' + produto.id_produto %>" class="admin-form">
+      <form method="POST" action="<%= isNovo ? '/admin/produtos' : '/admin/produtos/' + produto.id_produto %>" class="admin-form" enctype="multipart/form-data">
         <p class="form-group">
           <label for="nome">Nome do Produto *</label>
           <input 
@@ -104,6 +104,28 @@
             placeholder="Descreva os detalhes do produto, especificações, benefícios, etc."
             required
           ><%= isNovo ? '' : produto.descricao %></textarea>
+        </p>
+        
+        <p class="form-group">
+          <label for="imagem">Imagem do Produto</label>
+          <% if (!isNovo && produto.imagem_produto) { %>
+            <div style="margin-bottom: 8px;">
+              <img 
+                src="/imagens/<%= produto.imagem_produto %>" 
+                alt="Imagem atual" 
+                style="max-width: 150px; max-height: 150px; border-radius: 8px; border: 1px solid #ddd; object-fit: cover;"
+              >
+              <small style="display:block; color:#888; margin-top:4px;">Imagem atual. Envie uma nova para substituir.</small>
+            </div>
+          <% } %>
+          <input 
+            type="file" 
+            id="imagem" 
+            name="imagem" 
+            accept="image/*"
+            style="padding: 6px 0;"
+          >
+          <small style="color:#888;">Formatos aceitos: JPG, PNG, WEBP, GIF</small>
         </p>
         
         <footer class="form-actions">

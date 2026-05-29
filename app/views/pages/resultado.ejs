@@ -36,9 +36,9 @@
 
   <main class="resultado-container" id="conteudo-principal" tabindex="-1">
 
-    
-      <h1 class="resultado-header">Resultado do Diagnóstico</h1>
-
+    <header class="resultado-header">
+      <h1>Resultado do Diagnóstico</h1>
+    </header>
 
     <%
       const labelPrioridade = {
@@ -120,7 +120,10 @@
     </section>
 
     <!-- Feedback de salvamento -->
-   
+    <section class="diagnostico-salvo" role="status" aria-label="Diagnóstico salvo">
+      <p>✓ Seu diagnóstico foi salvo com sucesso no seu perfil.</p>
+    </section>
+
     <!-- Produtos recomendados -->
     <section class="recomendacoes" aria-labelledby="titulo-recomendacoes">
       <h2 id="titulo-recomendacoes">Produtos selecionados para o seu perfil</h2>

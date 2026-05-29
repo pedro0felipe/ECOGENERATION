@@ -135,10 +135,15 @@ const adminModel = {
 
   updateProduto: async (id, dados) => {
     try {
-      const [resultado] = await pool.query(
-        "UPDATE produtos SET nome_produto = ?, categoria_produto = ?, preco_produto = ?, descricao_produto = ?, estoque_produto = ? WHERE id_produto = ?",
-        [dados.nome, dados.categoria, dados.preco, dados.descricao, dados.estoque, id]
-      );
+      let query, params;
+      if (dados.imagem) {
+        query = "UPDATE produtos SET nome_produto = ?, categoria_produto = ?, preco_produto = ?, descricao_produto = ?, estoque_produto = ?, imagem_produto = ? WHERE id_produto = ?";
+        params = [dados.nome, dados.categoria, dados.preco, dados.descricao, dados.estoque, dados.imagem, id];
+      } else {
+        query = "UPDATE produtos SET nome_produto = ?, categoria_produto = ?, preco_produto = ?, descricao_produto = ?, estoque_produto = ? WHERE id_produto = ?";
+        params = [dados.nome, dados.categoria, dados.preco, dados.descricao, dados.estoque, id];
+      }
+      const [resultado] = await pool.query(query, params);
       return resultado;
     } catch (erro) { return erro; }
   },

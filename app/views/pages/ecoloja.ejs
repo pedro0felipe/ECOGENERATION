@@ -32,7 +32,6 @@
   <meta name="theme-color" content="#2e7d32">
 </head>
 <body>
-  <!-- WCAG 2.4.1 — Skip link para pular navegação direto ao conteúdo -->
   <a href="#conteudo-principal" class="skip-link">Ir para o conteúdo principal</a>
 
   <%- include("../partials/header") %>
@@ -77,11 +76,26 @@
       <% } %>
     </section>
 
+    <% if (totalPages > 1) { %>
     <nav class="ecoloja-paginacao" aria-label="Paginação de produtos">
-      <a href="/ecoloja?page=1" class="pagina-link <%= currentPage === 1 ? 'ativo' : '' %>" aria-label="Página 1" aria-current="<%= currentPage === 1 ? 'page' : 'false' %>">1</a>
-      <a href="/ecoloja?page=2" class="pagina-link <%= currentPage === 2 ? 'ativo' : '' %>" aria-label="Página 2" aria-current="<%= currentPage === 2 ? 'page' : 'false' %>">2</a>
-      <a href="/ecoloja?page=3" class="pagina-link <%= currentPage === 3 ? 'ativo' : '' %>" aria-label="Página 3" aria-current="<%= currentPage === 3 ? 'page' : 'false' %>">3</a>
+      <% if (currentPage > 1) { %>
+        <a href="/ecoloja?page=<%= currentPage - 1 %>" class="pagina-link" aria-label="Página anterior">&#8592;</a>
+      <% } %>
+
+      <% for (let i = 1; i <= totalPages; i++) { %>
+        <a
+          href="/ecoloja?page=<%= i %>"
+          class="pagina-link <%= currentPage === i ? 'ativo' : '' %>"
+          aria-label="Página <%= i %>"
+          aria-current="<%= currentPage === i ? 'page' : 'false' %>"
+        ><%= i %></a>
+      <% } %>
+
+      <% if (currentPage < totalPages) { %>
+        <a href="/ecoloja?page=<%= currentPage + 1 %>" class="pagina-link" aria-label="Próxima página">&#8594;</a>
+      <% } %>
     </nav>
+    <% } %>
 
   </main>
 
