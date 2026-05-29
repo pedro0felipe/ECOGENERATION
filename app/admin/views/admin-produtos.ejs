@@ -9,15 +9,12 @@
   <link rel="stylesheet" href="/css/admin.css">
     <link rel="icon" href="/imagens/favicon2.png" type="image/png">
 </head>
-<body>
 
-<section class="admin-wrapper" aria-label="Catálogo de produtos">
-  <aside class="admin-sidebar" aria-label="Menu de administração">
-    <header class="admin-brand">
-      <h2>⚙️ ADMIN</h2>
-    </header>
+<section class="admin-wrapper">
+  <aside class="admin-sidebar">
+   
     
-    <nav class="admin-nav" aria-label="Navegação administrativa">
+    <nav class="admin-nav">
       <a href="/admin" class="nav-item">
         📊 Dashboard
       </a>
@@ -29,6 +26,9 @@
       </a>
       <a href="/admin/produtos" class="nav-item active">
         📦 Produtos
+      </a>
+      <a href="/admin/pedidos" class="nav-item">
+        🛒 Pedidos
       </a>
       <a href="/admin-logout" class="nav-item nav-logout">
         🚪 Sair
@@ -46,7 +46,7 @@
     </header>
     
     <% if (produtos.length > 0) { %>
-      <section class="table-container" aria-label="Tabela de produtos">
+      <section class="table-container">
         <table class="admin-table">
           <thead>
             <tr>
@@ -86,14 +86,11 @@
         </table>
       </section>
     <% } else { %>
-      <section class="empty-state" aria-label="Estado vazio">
+      <section class="empty-state">
         <p>📭 Nenhum produto cadastrado ainda</p>
         <a href="/admin/produtos/novo" class="btn btn-primary">Criar Primeiro Produto</a>
       </section>
     <% } %>
   </main>
 </section>
-
-</body>
-</html>
 

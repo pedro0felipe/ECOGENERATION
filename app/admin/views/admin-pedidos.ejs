@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedidos — Admin EcoGeneration</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="icon" href="/imagens/favicon2.png" type="image/png">
+  <style>
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-confirmado  { background: #e8f5e9; color: #2e7d32; }
+    .badge-enviado     { background: #e3f2fd; color: #1565c0; }
+    .badge-entregue    { background: #f3e5f5; color: #6a1b9a; }
+    .badge-cancelado   { background: #ffebee; color: #c62828; }
+
+    .status-form { display: flex; gap: 0.5rem; align-items: center; }
+    .status-form select {
+      padding: 0.3rem 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 0.85rem;
+    }
+    .status-form button {
+      padding: 0.3rem 0.75rem;
+      background: #2e7d32;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .status-form button:hover { background: #1b5e20; }
+
+    .produto-thumb {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 6px;
+      background: #f5f5f5;
+      padding: 2px;
+    }
+  </style>
+</head>
+
+<section class="admin-wrapper">
+  <aside class="admin-sidebar">
+    
+    <nav class="admin-nav">
+      <a href="/admin" class="nav-item">📊 Dashboard</a>
+      <a href="/admin/usuarios" class="nav-item">👥 Usuários</a>
+      <a href="/admin/diagnosticos" class="nav-item">📋 Diagnósticos</a>
+      <a href="/admin/produtos" class="nav-item">📦 Produtos</a>
+      <a href="/admin/pedidos" class="nav-item active">🛒 Pedidos</a>
+      <a href="/admin-logout" class="nav-item nav-logout">🚪 Sair</a>
+    </nav>
+  </aside>
+
+  <main class="admin-main">
+    <header class="admin-header">
+      <h1>🛒 Gerenciamento de Pedidos</h1>
+      <p>Total de pedidos: <strong><%= pedidos.length %></strong></p>
+    </header>
+
+    <% if (pedidos.length > 0) { %>
+      <section class="table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Produto</th>
+              <th>Cliente</th>
+              <th>Email</th>
+              <th>Valor</th>
+              <th>Status</th>
+              <th>Alterar Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% pedidos.forEach(pedido => { %>
+              <tr>
+                <td>#<%= pedido.id_compra %></td>
+                <td style="display:flex; align-items:center; gap:0.6rem;">
+                  <img src="/imagens/<%= pedido.imagem_produto %>" alt="<%= pedido.nome_produto %>" class="produto-thumb">
+                  <%= pedido.nome_produto %>
+                </td>
+                <td><%= pedido.nome_usuario || 'Visitante' %></td>
+                <td><%= pedido.email_usuario || '—' %></td>
+                <td>R$ <%= parseFloat(pedido.preco_produto).toFixed(2) %></td>
+                <td>
+                  <span class="badge badge-<%= pedido.status_compra %>">
+                    <%= pedido.status_compra %>
+                  </span>
+                </td>
+                <td>
+                  <form method="POST" action="/admin/pedidos/<%= pedido.id_compra %>/status" class="status-form">
+                    <select name="status">
+                      <option value="confirmado"  <%= pedido.status_compra === 'confirmado'  ? 'selected' : '' %>>Confirmado</option>
+                      <option value="enviado"     <%= pedido.status_compra === 'enviado'     ? 'selected' : '' %>>Enviado</option>
+                      <option value="entregue"    <%= pedido.status_compra === 'entregue'    ? 'selected' : '' %>>Entregue</option>
+                      <option value="cancelado"   <%= pedido.status_compra === 'cancelado'   ? 'selected' : '' %>>Cancelado</option>
+                    </select>
+                    <button type="submit">Salvar</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </section>
+    <% } else { %>
+      <p style="text-align:center; color:#999; padding:3rem;">Nenhum pedido encontrado.</p>
+    <% } %>
+  </main>
+</section>
+</html>
