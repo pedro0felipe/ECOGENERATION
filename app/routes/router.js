@@ -364,15 +364,37 @@ router.post('/diagnostico', requireLogin, async (req, res) => {
 
     // ── CATEGORIA DE PRODUTO ─────────────────────────────────
     const categoriaPorPerfil = {
-        independente: 'entrada',
+        independente: 'avancado',
         critico:      'entrada',
         medio:        'medio',
         preventivo:   'entrada'
     };
-    let categoriaFinal = categoriaPorPerfil[perfil];
-    if (perfil === 'medio' && orcamento === 'ate200')                                       categoriaFinal = 'entrada';
-    if (perfil === 'medio' && (orcamento === '500a1000' || orcamento === 'acima1000'))      categoriaFinal = 'avancado';
-    if (perfil === 'critico' && (orcamento === '500a1000' || orcamento === 'acima1000'))    categoriaFinal = 'medio';
+
+    const niveisCategoria = ['entrada', 'medio', 'avancado'];
+    const fatorPrioridade = {
+        iluminacao: 0,
+        carregamento: 0,
+        climatizacao: 1,
+        trabalho: 1
+    };
+
+    let categoriaFinal = categoriaPorPerfil[perfil] || 'entrada';
+
+    // Ajusta a categoria com base no orçamento e na prioridade do usuário.
+    const indiceOrcamento = {
+        ate200: 0,
+        '200a500': 1,
+        '500a1000': 2,
+        acima1000: 2
+    };
+
+    const indiceAtual = niveisCategoria.indexOf(categoriaFinal);
+    const indiceMaximo = Math.min(
+        2,
+        Math.max(indiceAtual, indiceOrcamento[orcamento] || 0) + (fatorPrioridade[prioridade] || 0)
+    );
+
+    categoriaFinal = niveisCategoria[indiceMaximo];
 
     // ── SALVAR ───────────────────────────────────────────────
     try {

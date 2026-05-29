@@ -83,7 +83,7 @@
       <% } %>
 
       <label for="senha">Senha <span aria-hidden="true">*</span></label>
-      <div class="campo-senha-wrapper">
+      <section class="campo-senha-wrapper" aria-label="Senha">
         <input
           type="password"
           id="senha"
@@ -95,7 +95,7 @@
           aria-describedby="dica-senha <%= errors.senha ? 'erro-senha' : '' %>"
           aria-invalid="<%= errors.senha ? 'true' : 'false' %>"
         />
-      </div>
+      </section>
       <label class="mostrar-senha-label">
         <input type="checkbox" onchange="toggleSenha('senha', this)"> Mostrar senha
       </label>
@@ -105,7 +105,7 @@
       <% } %>
 
       <label for="confirmar-senha">Confirmar Senha <span aria-hidden="true">*</span></label>
-      <div class="campo-senha-wrapper">
+      <section class="campo-senha-wrapper" aria-label="Confirmação de senha">
         <input
           type="password"
           id="confirmar-senha"
@@ -117,7 +117,7 @@
           aria-describedby="<%= errors.confirmar_senha ? 'erro-confirmar-senha' : '' %>"
           aria-invalid="<%= errors.confirmar_senha ? 'true' : 'false' %>"
         />
-      </div>
+      </section>
       <label class="mostrar-senha-label">
         <input type="checkbox" onchange="toggleSenha('confirmar-senha', this)"> Mostrar senha
       </label>

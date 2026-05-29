@@ -45,7 +45,7 @@
 
   <!-- ===== HERO CAROUSEL ===== -->
   <section class="hero-carousel" aria-label="Carrossel de banners">
-    <div class="hero-slides">
+    <section class="hero-slides" aria-label="Slides de destaque">
 
       <!-- Banner 1: Loja -->
        
@@ -53,11 +53,11 @@
         <figure class="hero-img-wrap">
           <img src="/imagens/itens-para-o-bunner.png" alt="Equipamentos solares portáteis">
         </figure>
-        <div class="hero-copy">
+        <section class="hero-copy">
           <p class="hero-label">Energia limpa e acessível</p>
           <h1>Sustentabilidade<br><span>que cabe no<br>dia a dia</span></h1>
           <a href="/ecoloja" class="hero-btn">Ver produtos</a>
-        </div>
+        </section>
       </article>
 
       <!-- Banner 2: Diagnóstico -->
@@ -65,14 +65,14 @@
         <figure class="hero-img-wrap">
           <img src="/imagens/celular-bunner.svg" alt="Diagnóstico energético no celular">
         </figure>
-        <div class="hero-copy">
+        <section class="hero-copy">
           <p class="hero-label">Em menos de 1 minuto</p>
           <h1>Descubra sua<br><span>autonomia<br>energética</span></h1>
           <a href="/diagnostico" class="hero-btn hero-btn-blue">Fazer diagnóstico</a>
-        </div>
+        </section>
       </article>
 
-    </div>
+    </section>
     <button type="button" class="hero-carousel-button hero-prev" aria-label="Anterior">‹</button>
     <button type="button" class="hero-carousel-button hero-next" aria-label="Próximo">›</button>
   </section>
@@ -82,52 +82,52 @@
     <!-- ===== POR QUE ECOGENERATION ===== -->
     <section class="why-ecogeneration">
       <h2 class="why">Por que escolher EcoGeneration?</h2>
-      <div class="cards-container">
-        <article class="card">
+      <ul class="cards-container">
+        <li class="card">
           <figure class="card-icon">
             <img src="/imagens/icon plant.svg" alt="Energia limpa">
           </figure>
           <h3>Energia Limpa</h3>
           <p>Reduza sua pegada de carbono com soluções solares portáteis.</p>
-        </article>
-        <article class="card">
+        </li>
+        <li class="card">
           <figure class="card-icon">
             <img src="/imagens/icone econom.svg" alt="Economia">
           </figure>
           <h3>Economia Real</h3>
           <p>Pague menos na conta de energia com soluções acessíveis.</p>
-        </article>
-        <article class="card">
+        </li>
+        <li class="card">
           <figure class="card-icon">
             <img src="/imagens/icone raio.svg" alt="Autonomia">
           </figure>
           <h3>Autonomia</h3>
           <p>Não dependa da rede elétrica para o que é essencial.</p>
-        </article>
-      </div>
+        </li>
+      </ul>
     </section>
 
     <!-- ===== COMO FUNCIONA ===== -->
     <section class="como-funciona">
       <h2>Como funciona?</h2>
       <p class="como-subtitulo">Três passos simples para sua autonomia energética</p>
-      <div class="passos-grid">
-        <article class="passo-card">
+      <ol class="passos-grid">
+        <li class="passo-card">
           <span class="passo-num">01</span>
           <h3>Faça o diagnóstico</h3>
           <p>Responda 5 perguntas rápidas sobre sua rotina energética.</p>
-        </article>
-        <article class="passo-card">
+        </li>
+        <li class="passo-card">
           <span class="passo-num">02</span>
           <h3>Receba recomendações</h3>
           <p>Descubra seu nível de autonomia e veja produtos ideais para você.</p>
-        </article>
-        <article class="passo-card">
+        </li>
+        <li class="passo-card">
           <span class="passo-num">03</span>
           <h3>Compre com confiança</h3>
           <p>Produtos curados, portáteis e de fácil instalação.</p>
-        </article>
-      </div>
+        </li>
+      </ol>
       <a href="/diagnostico" class="btn-cta">Iniciar diagnóstico gratuito</a>
     </section>
 
@@ -135,30 +135,30 @@
     <section class="produtos-destaque-section" aria-labelledby="produtos-destaque">
       <h2 id="produtos-destaque">Produtos em Destaque</h2>
       <p class="section-sub">Nossas soluções mais populares</p>
-      <div class="produtos-grid-home">
+      <ul class="produtos-grid-home">
         <% if (produtosDestaque && produtosDestaque.length > 0) { %>
           <% produtosDestaque.forEach(function(produto) { %>
-            <article class="produto-card-home">
+            <li class="produto-card-home">
               <figure>
                 <img src="/imagens/<%= produto.imagem_produto %>" alt="<%= produto.nome_produto %>">
               </figure>
               <h3><%= produto.nome_produto %></h3>
               <a href="/produto/<%= produto.id_produto %>" class="btn-ver">Ver produto</a>
-            </article>
+            </li>
           <% }); %>
         <% } else { %>
             <p>Não há produtos em destaque no momento. Visite a EcoLoja para ver todos os produtos.</p>
         <% } %>
-      </div>
+      </ul>
       <a href="/ecoloja" class="btn-cta btn-cta-outline">Ver todos os produtos</a>
     </section>
 
     <!-- ===== BANNER ECOLOJA ===== -->
-    <div class="banner-ecoloja">
+    <aside class="banner-ecoloja">
       <a href="/ecoloja">
         <img src="/imagens/ECOLOJA.svg" alt="Ir para a EcoLoja" class="ecoloja-img">
       </a>
-    </div>
+    </aside>
 
   </main>
 

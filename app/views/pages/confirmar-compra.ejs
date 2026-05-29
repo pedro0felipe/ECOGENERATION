@@ -49,12 +49,12 @@
         <img src="/imagens/<%= produto.imagem_produto %>" alt="<%= produto.nome_produto %>">
       </figure>
 
-      <div class="compra-produto-info">
+      <section class="compra-produto-info" aria-label="Informações do produto">
         <span class="compra-categoria"><%= produto.categoria_produto %></span>
         <h2><%= produto.nome_produto %></h2>
         <p class="compra-descricao"><%= produto.descricao_produto %></p>
         <p class="compra-preco">R$ <%= produto.preco_produto %></p>
-      </div>
+      </section>
 
     </article>
 

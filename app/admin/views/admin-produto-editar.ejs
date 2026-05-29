@@ -109,14 +109,14 @@
         <p class="form-group">
           <label for="imagem">Imagem do Produto</label>
           <% if (!isNovo && produto.imagem_produto) { %>
-            <div style="margin-bottom: 8px;">
+            <section style="margin-bottom: 8px;" aria-label="Campo adicional">
               <img 
                 src="/imagens/<%= produto.imagem_produto %>" 
                 alt="Imagem atual" 
                 style="max-width: 150px; max-height: 150px; border-radius: 8px; border: 1px solid #ddd; object-fit: cover;"
               >
               <small style="display:block; color:#888; margin-top:4px;">Imagem atual. Envie uma nova para substituir.</small>
-            </div>
+            </section>
           <% } %>
           <input 
             type="file" 
