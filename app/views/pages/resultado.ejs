@@ -36,9 +36,9 @@
 
   <main class="resultado-container" id="conteudo-principal" tabindex="-1">
 
-    <header class="resultado-header">
+    <section class="resultado-header">
       <h1>Resultado do Diagnóstico</h1>
-    </header>
+    </section>
 
     <%
       const labelPrioridade = {
@@ -120,9 +120,6 @@
     </section>
 
     <!-- Feedback de salvamento -->
-    <section class="diagnostico-salvo" role="status" aria-label="Diagnóstico salvo">
-      <p>✓ Seu diagnóstico foi salvo com sucesso no seu perfil.</p>
-    </section>
 
     <!-- Produtos recomendados -->
     <section class="recomendacoes" aria-labelledby="titulo-recomendacoes">
@@ -147,8 +144,7 @@
               <article class="produto-info">
                 <h3 class="produto-nome"><%= produto.nome_produto %></h3>
                 <p class="produto-desc"><%= produto.descricao_produto %></p>
-                <footer class="produto-rodape">
-                  <strong class="produto-preco"
+                   <strong class="produto-preco"
                           aria-label="Preço: R$ <%= produto.preco_produto %>">
                     R$ <%= produto.preco_produto %>
                   </strong>
@@ -157,7 +153,7 @@
                      aria-label="Ver detalhes de <%= produto.nome_produto %>">
                     Ver produto
                   </a>
-                </footer>
+              
               </article>
             </li>
           <% }); %>
