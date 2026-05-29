@@ -4,8 +4,8 @@
 <head>
  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name=\"keywords\" content=\"diagnóstico, calculadora, energia solar, autonomia energética, sustentabilidade\">
-  <meta name=\"description\" content=\"Inicie seu diagnóstico de autonomia energética - Descubra qual tipo de energia renovável é ideal para você.\">
+  <meta name="keywords" content="diagnóstico, calculadora, energia solar, autonomia energética, sustentabilidade">
+  <meta name="description" content="Inicie seu diagnóstico de autonomia energética - Descubra qual tipo de energia renovável é ideal para você.">
   <title>Diagnóstico de Autonomia Energética — EcoGeneration</title>
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/calculadora.css">
@@ -35,12 +35,10 @@
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#2e7d32">
 </head>
+<body>
   <%- include("../partials/header") %>
 
-
-<body>
-
-  <main class="eco-main">
+  <main class="eco-main" id="conteudo-principal">
     <article class="eco-calculator-section">
       <h1 class="calculator-hero-title">Faça seu Diagnóstico Energético</h1>
       <p class="calculator-hero-description">Responda algumas perguntas rápidas e descubra as melhores soluções solares para sua casa.</p>
@@ -60,8 +58,6 @@
     
   </main>
    
+  <%- include("../partials/footer") %>
 </body>
-<footer>
-     <%- include("../partials/footer") %>
-     </footer>
 </html>

@@ -74,6 +74,9 @@
         aria-describedby="<%= errors.senha ? 'erro-senha' : '' %>"
         aria-invalid="<%= errors.senha ? 'true' : 'false' %>"
       />
+      <label class="mostrar-senha-label">
+        <input type="checkbox" onchange="toggleSenha('senha', this)"> Mostrar senha
+      </label>
       <% if (errors.senha) { %>
         <p id="erro-senha" role="alert" class="campo-erro"><%= errors.senha.msg %></p>
       <% } %>
@@ -87,5 +90,6 @@
 
   <%- include('../partials/footer') %>
   <script src="/js/validation.js"></script>
+  <script src="/js/senha-toggle.js"></script>
 </body>
 </html>

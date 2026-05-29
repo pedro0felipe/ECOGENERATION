@@ -1191,3 +1191,32 @@ footer[role="contentinfo"] nav a:focus-visible {
   color: #fff;
   text-decoration: underline;
 }
+/* ── MOSTRAR SENHA (checkbox) ────────────────────────────── */
+.mostrar-senha-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: #555;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  user-select: none;
+  width: fit-content;
+}
+
+.mostrar-senha-label input[type="checkbox"] {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px;
+  margin: 0 !important;
+  padding: 0 !important;
+  accent-color: #2e7d32;
+  cursor: pointer;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .mostrar-senha-label {
+  color: #9ab09a;
+}

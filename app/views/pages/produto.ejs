@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= produto.nome_produto %> — EcoGeneration</title>
-  <meta name="description" content="<%= produto.descricao_produto %>. Compre na EcoGeneration.">
+  <meta name="description" content="<%= produto.descricao_produto %>. Compre com segurança na EcoGeneration.">
   <meta name="robots" content="index, follow">
-  <meta name="description" content="<%= produto.descricao_produto %> Compre com segurança na EcoGeneration.">
-  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ecogeneration-final-4hh3.onrender.com/produto/<%= produto.id_produto %>">
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/produto.css">
   <link rel="icon" href="/imagens/favicon2.png" type="image/png">
+  <link rel="apple-touch-icon" href="/imagens/favicon2.png">
   <!-- OG dinâmico -->
   <meta property="og:locale" content="pt_BR">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="product">
   <meta property="og:title" content="<%= produto.nome_produto %> — EcoGeneration">
   <meta property="og:description" content="<%= produto.descricao_produto %>">
   <meta property="og:url" content="https://ecogeneration-final-4hh3.onrender.com/produto/<%= produto.id_produto %>">
@@ -27,6 +27,24 @@
   <meta name="twitter:image" content="https://ecogeneration-final-4hh3.onrender.com/imagens/<%= produto.imagem_produto %>">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#2e7d32">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "<%= produto.nome_produto %>",
+    "description": "<%= produto.descricao_produto %>",
+    "image": "https://ecogeneration-final-4hh3.onrender.com/imagens/<%= produto.imagem_produto %>",
+    "url": "https://ecogeneration-final-4hh3.onrender.com/produto/<%= produto.id_produto %>",
+    "brand": { "@type": "Brand", "name": "EcoGeneration" },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "BRL",
+      "price": "<%= produto.preco_produto %>",
+      "availability": "https://schema.org/InStock",
+      "seller": { "@type": "Organization", "name": "EcoGeneration" }
+    }
+  }
+  </script>
 </head>
 <body>
   

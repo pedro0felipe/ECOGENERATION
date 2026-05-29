@@ -11,20 +11,20 @@
 </head>
 <body class="admin-body">
   <main class="admin-container">
-    <section class="admin-login-box">
+    <div class="admin-login-box">
       <header class="admin-header">
         <h1>🔐 ADMIN ECOGENERATION</h1>
       
       </header>
       
       <% if (erro) { %>
-        <aside class="alert alert-error">
+        <aside class="alert alert-error" role="alert">
           <%= erro %>
         </aside>
       <% } %>
       
       <form method="POST" action="/admin-login" class="admin-form">
-        <p class="form-group">
+        <div class="form-group">
           <label for="usuario">Usuário</label>
           <input 
             type="text" 
@@ -33,28 +33,21 @@
             placeholder="Digite o usuário" 
             required
           >
-        </p>
+        </div>
         
-        <p class="form-group">
+        <div class="form-group">
           <label for="senha">Senha</label>
-          <span class="password-input-wrapper">
-            <input 
-              type="password" 
-              id="senha" 
-              name="senha" 
-              placeholder="Digite a senha" 
-              required
-            >
-            <button 
-              type="button" 
-              class="btn-toggle-password" 
-              onclick="togglePasswordVisibility()"
-              title="Mostrar/Ocultar senha"
-            >
-              👁️
-            </button>
-          </span>
-        </p>
+          <input 
+            type="password" 
+            id="senha" 
+            name="senha" 
+            placeholder="Digite a senha" 
+            required
+          >
+          <label class="mostrar-senha-label">
+            <input type="checkbox" onchange="toggleSenha('senha', this)"> Mostrar senha
+          </label>
+        </div>
         
         <button type="submit" class="btn btn-primary btn-block">
           Entrar
@@ -64,9 +57,10 @@
       <footer class="admin-footer">
         <a href="/">Voltar à página inicial</a>
       </footer>
-    </section>
+    </div>
   </main>
 
   <script src="/js/login.js"></script>
+  <script src="/js/senha-toggle.js"></script>
 </body>
 </html>

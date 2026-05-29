@@ -13,18 +13,11 @@
 </head>
 <body>
     
-</body>
-</html>
 
-
-
-<section class="admin-wrapper">
-  <aside class="admin-sidebar">
-    <header class="admin-brand">
-      <h2> ADMIN</h2>
-    </header>
-    
-    <nav class="admin-nav">
+<div class="admin-wrapper">
+  <aside class="admin-sidebar" aria-label="Menu de administração">
+  
+    <nav class="admin-nav" aria-label="Navegação administrativa">
       <a href="/admin" class="nav-item <%= currentPath === '/admin' ? 'active' : '' %>">
         📊 Dashboard
       </a>
@@ -45,48 +38,51 @@
   
   <main class="admin-main">
     <header class="admin-header">
-      <h1> Dashboard de Administração</h1>
+      <h1> Dashboard Ecogeneration</h1>
      
     </header>
     
-    <section class="dashboard-stats">
+    <div class="dashboard-stats" aria-label="Estatísticas do painel">
       <article class="stat-card">
-        <span class="stat-icon">👥</span>
-        <p class="stat-content">
+        <span class="stat-icon" aria-hidden="true">👥</span>
+        <div class="stat-content">
           <h3>Usuários Cadastrados</h3>
           <p class="stat-number"><%= totalUsuarios %></p>
-        </p>
+        </div>
       </article>
       
       <article class="stat-card">
-        <span class="stat-icon">📋</span>
-        <p class="stat-content">
+        <span class="stat-icon" aria-hidden="true">📋</span>
+        <div class="stat-content">
           <h3>Diagnósticos Realizados</h3>
           <p class="stat-number"><%= totalDiagnosticos %></p>
-        </p>
+        </div>
       </article>
       
       <article class="stat-card">
-        <span class="stat-icon">📦</span>
-        <p class="stat-content">
+        <span class="stat-icon" aria-hidden="true">📦</span>
+        <div class="stat-content">
           <h3>Produtos em Catálogo</h3>
           <p class="stat-number"><%= totalProdutos %></p>
-        </p>
+        </div>
       </article>
       
       <article class="stat-card <%= produtosBaixoEstoque.length > 0 ? 'warning' : '' %>">
-        <span class="stat-icon">⚠️</span>
-        <p class="stat-content">
+        <span class="stat-icon" aria-hidden="true">⚠️</span>
+        <div class="stat-content">
           <h3>Produtos Baixo Estoque</h3>
           <p class="stat-number"><%= produtosBaixoEstoque.length %></p>
-        </p>
+        </div>
       </article>
-    </section>
+    </div>
     
   
 
     
    
   </main>
-</section>
+</div>
+
+</body>
+</html>
 

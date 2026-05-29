@@ -36,29 +36,29 @@
 <body>
   <%- include('../partials/header') %>
 
-  <main class="compra-container">
+  <main class="compra-container" id="conteudo-principal">
 
     <header class="compra-header">
       <h1>Confirmar Compra</h1>
       <p>Verifique os detalhes antes de finalizar</p>
     </header>
 
-    <section class="compra-card">
+    <article class="compra-card">
 
       <figure class="compra-produto-img">
         <img src="/imagens/<%= produto.imagem_produto %>" alt="<%= produto.nome_produto %>">
       </figure>
 
-      <section class="compra-produto-info">
+      <div class="compra-produto-info">
         <span class="compra-categoria"><%= produto.categoria_produto %></span>
         <h2><%= produto.nome_produto %></h2>
         <p class="compra-descricao"><%= produto.descricao_produto %></p>
         <p class="compra-preco">R$ <%= produto.preco_produto %></p>
-      </section>
+      </div>
 
-    </section>
+    </article>
 
-    <section class="compra-resumo">
+    <section class="compra-resumo" aria-label="Resumo do pedido">
       <h3>Resumo do pedido</h3>
       <ul>
         <li>
@@ -76,11 +76,8 @@
       </ul>
     </section>
 
-    <section class="compra-aviso">
-      <p>⚡ Esta é uma simulação de compra para fins de demonstração. Nenhum pagamento real será processado.</p>
-    </section>
-
-    <nav class="compra-acoes">
+   
+    <nav class="compra-acoes" aria-label="Ações da compra">
       <form action="/confirmar-compra/<%= produto.id_produto %>" method="POST">
         <button type="submit" class="btn-confirmar">Confirmar Compra</button>
       </form>

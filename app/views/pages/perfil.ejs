@@ -46,10 +46,10 @@
       <figure class="perfil-avatar">
         <span><%= usuario.nome_usuario.charAt(0).toUpperCase() %></span>
       </figure>
-      <section class="perfil-info">
+      <div class="perfil-info">
         <h1><%= usuario.nome_usuario %></h1>
         <p><%= usuario.email_usuario %></p>
-      </section>
+      </div>
     </header>
 
     <!-- COMPRAS -->
@@ -62,16 +62,16 @@
               <figure class="compra-item-img">
                 <img src="/imagens/<%= compra.imagem_produto %>" alt="<%= compra.nome_produto %>">
               </figure>
-              <section class="compra-item-info">
+              <div class="compra-item-info">
                 <h3><%= compra.nome_produto %></h3>
                 <p class="compra-item-preco">R$ <%= compra.preco_produto %></p>
                 <p class="compra-item-status">
                   <span class="badge-confirmado"><%= compra.status_compra %></span>
                 </p>
-              </section>
-              <section class="compra-item-id">
+              </div>
+              <div class="compra-item-id">
                 <p>Pedido #<%= compra.id_compra %></p>
-              </section>
+              </div>
             </li>
           <% }) %>
         </ul>
@@ -88,16 +88,16 @@
         <ul class="diagnosticos-lista">
           <% diagnosticos.forEach(function(diag) { %>
             <li class="diagnostico-item">
-              <section class="diagnostico-nivel <%= diag.nivel_autonomia %>">
+              <div class="diagnostico-nivel <%= diag.nivel_autonomia %>">
                 <strong>Autonomia <%= diag.nivel_autonomia %></strong>
-              </section>
-              <section class="diagnostico-detalhes">
+              </div>
+              <div class="diagnostico-detalhes">
                 <p><strong>Frequência:</strong> <%= diag.frequencia %></p>
                 <p><strong>Impacto:</strong> <%= diag.impacto %></p>
                 <p><strong>Preparação:</strong> <%= diag.preparacao %></p>
                 <p><strong>Prioridade:</strong> <%= diag.prioridade %></p>
                 <p><strong>Tolerância:</strong> <%= diag.tolerancia %></p>
-              </section>
+              </div>
               <footer class="diagnostico-acoes">
                 <a href="/diagnostico" class="btn-refazer">Refazer diagnóstico</a>
               </footer>
@@ -116,18 +116,18 @@
       <p>Ao excluir sua conta, todos os seus dados serão removidos permanentemente.</p>
       <button class="btn-excluir" id="btn-excluir-conta">Excluir minha conta</button>
 
-      <section class="modal-confirmacao" id="modal-excluir" aria-hidden="true">
+      <div class="modal-confirmacao" id="modal-excluir" aria-hidden="true">
         <article class="modal-box">
           <h3>Tem certeza?</h3>
           <p>Esta ação não pode ser desfeita. Todos os seus dados serão excluídos.</p>
-          <nav class="modal-acoes">
+          <div class="modal-acoes">
             <form action="/excluir-conta" method="POST">
               <button type="submit" class="btn-confirmar-excluir">Sim, excluir minha conta</button>
             </form>
             <button class="btn-cancelar" id="btn-cancelar-excluir">Cancelar</button>
-          </nav>
+          </div>
         </article>
-      </section>
+      </div>
     </section>
 
   </main>

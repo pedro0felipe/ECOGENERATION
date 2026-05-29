@@ -4,13 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resultado do Diagnóstico — EcoGeneration</title>
-  <meta name="description" content="Veja seu nível de autonomia energética e os produtos recomendados especialmente para você.">
+  <meta name="description" content="Veja seu nível de autonomia energética e os produtos recomendados especialmente para você pela EcoGeneration.">
   <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://ecogeneration-final-4hh3.onrender.com/diagnostico">
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/resultado.css">
   <link rel="apple-touch-icon" href="/imagens/favicon2.png">
   <link rel="icon" href="/imagens/favicon2.png" type="image/png">
+  <!-- Open Graph -->
   <meta property="og:locale" content="pt_BR">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Resultado do Diagnóstico — EcoGeneration">
@@ -22,10 +24,11 @@
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="EcoGeneration — Resultado do Diagnóstico">
+  <meta property="og:image:alt" content="EcoGeneration — Resultado do Diagnóstico Energético">
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Resultado do Diagnóstico — EcoGeneration">
-  <meta name="twitter:description" content="Veja seu nível de autonomia energética e os produtos recomendados para você.">
+  <meta name="twitter:description" content="Veja seu nível de autonomia energética e produtos recomendados para você.">
   <meta name="twitter:image" content="https://ecogeneration-final-4hh3.onrender.com/imagens/og-cover-v2.png">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#2e7d32">
@@ -48,8 +51,6 @@
         geladeira:    'conservação de alimentos',
         trabalho:     'trabalho e estudo em casa'
       };
-      const vulnPct  = Math.round((vulnerabilidade / 10) * 100);
-      const prepPct  = Math.round((preparo / 10) * 100);
       const vulnLabel = vulnerabilidade >= 7 ? 'Alta' : vulnerabilidade >= 3 ? 'Média' : 'Baixa';
       const prepLabel = preparo >= 7 ? 'Alto'  : preparo >= 3 ? 'Médio' : 'Baixo';
     %>
@@ -59,26 +60,38 @@
 
       <% if (perfil === 'independente') { %>
         <article class="resultado alta" role="status">
-          <h2>🏆 Parabéns — você já é independente da rede!</h2>
-          <p>Você já conta com uma boa estrutura de proteção energética. Os produtos abaixo são complementos práticos para deixar sua autonomia ainda mais completa.</p>
+          
+          <div class="resultado-body">
+            <h2>Parabéns — você já é independente da rede!</h2>
+            <p>Você já conta com uma boa estrutura de proteção energética. Os produtos abaixo são complementos práticos para deixar sua autonomia ainda mais completa.</p>
+          </div>
         </article>
 
       <% } else if (perfil === 'critico') { %>
         <article class="resultado baixa" role="status">
-          <h2>⚠️ Situação crítica de dependência</h2>
-          <p>Você sofre com quedas frequentes ou longas e ainda não tem proteção. A boa notícia: pequenas soluções já fazem grande diferença — e custam menos do que você imagina.</p>
+          <span class="resultado-icon" aria-hidden="true">⚠️</span>
+          <div class="resultado-body">
+            <h2>Situação crítica de dependência</h2>
+            <p>Você sofre com quedas frequentes ou longas e ainda não tem proteção. A boa notícia: pequenas soluções já fazem grande diferença — e custam menos do que você imagina.</p>
+          </div>
         </article>
 
       <% } else if (perfil === 'medio') { %>
         <article class="resultado media" role="status">
-          <h2>⚡ Você está no caminho certo</h2>
-          <p>Você tem alguma proteção, mas ainda é vulnerável em quedas mais longas ou frequentes. Os produtos abaixo vão fechar essa lacuna.</p>
+          <span class="resultado-icon" aria-hidden="true">⚡</span>
+          <div class="resultado-body">
+            <h2>Você está no caminho certo</h2>
+            <p>Você tem alguma proteção, mas ainda é vulnerável em quedas mais longas ou frequentes. Os produtos abaixo vão fechar essa lacuna.</p>
+          </div>
         </article>
 
       <% } else { %>
         <article class="resultado media" role="status">
-          <h2>🌱 Hora de se preparar antes de precisar</h2>
-          <p>Você raramente enfrenta quedas agora, mas estar preparado custa muito menos do que remediar depois. Veja opções simples e acessíveis.</p>
+          <span class="resultado-icon" aria-hidden="true">🌱</span>
+          <div class="resultado-body">
+            <h2>Hora de se preparar antes de precisar</h2>
+            <p>Você raramente enfrenta quedas agora, mas estar preparado custa muito menos do que remediar depois. Veja opções simples e acessíveis.</p>
+          </div>
         </article>
       <% } %>
 
@@ -120,6 +133,9 @@
     </section>
 
     <!-- Feedback de salvamento -->
+    <section class="diagnostico-salvo" role="status" aria-label="Diagnóstico salvo">
+      <p>✓ Seu diagnóstico foi salvo com sucesso no seu perfil.</p>
+    </section>
 
     <!-- Produtos recomendados -->
     <section class="recomendacoes" aria-labelledby="titulo-recomendacoes">
@@ -137,14 +153,16 @@
               <span class="produto-categoria"><%= produto.categoria_produto %></span>
               <figure class="produto-figura">
                 <img src="/imagens/<%= produto.imagem_produto %>"
-                     alt="<%= produto.nome_produto %>"
+                     alt="<%= produto.nome_produto %> — produto de energia solar portátil"
                      class="produto-img"
-                     loading="lazy">
+                     loading="lazy"
+                     width="130" height="130">
               </figure>
               <article class="produto-info">
                 <h3 class="produto-nome"><%= produto.nome_produto %></h3>
                 <p class="produto-desc"><%= produto.descricao_produto %></p>
-                   <strong class="produto-preco"
+                <footer class="produto-rodape">
+                  <strong class="produto-preco"
                           aria-label="Preço: R$ <%= produto.preco_produto %>">
                     R$ <%= produto.preco_produto %>
                   </strong>
@@ -153,7 +171,7 @@
                      aria-label="Ver detalhes de <%= produto.nome_produto %>">
                     Ver produto
                   </a>
-              
+                </footer>
               </article>
             </li>
           <% }); %>

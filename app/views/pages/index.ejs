@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EcoGeneration — Autonomia Energética para Todos</title>
   <meta name="description" content="Faça seu diagnóstico de autonomia energética e encontre soluções solares portáteis e acessíveis para sua realidade.">
+  <meta name="keywords" content="autonomia energética, energia solar, diagnóstico energético, produtos solares, queda de luz, energia renovável">
   <meta name="robots" content="index, follow">
-  <meta name="description" content="Plataforma de diagnóstico energético e loja de soluções solares portáteis. Descubra sua autonomia e encontre o produto ideal.">
-  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ecogeneration-final-4hh3.onrender.com/">
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="apple-touch-icon" href="/imagens/favicon2.png">
@@ -15,6 +15,28 @@
   <%- include("../partials/open-graph") %>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#2e7d32">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "EcoGeneration",
+    "url": "https://ecogeneration-final-4hh3.onrender.com",
+    "description": "Plataforma de diagnóstico energético e loja de soluções solares portáteis.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://ecogeneration-final-4hh3.onrender.com/ecoloja",
+      "query-input": "required"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EcoGeneration",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://ecogeneration-final-4hh3.onrender.com/imagens/GENERATIONN.svg"
+      }
+    }
+  }
+  </script>
 </head>
 <body>
   <a href="#conteudo-principal" class="skip-link">Ir para o conteúdo principal</a>
@@ -23,7 +45,7 @@
 
   <!-- ===== HERO CAROUSEL ===== -->
   <section class="hero-carousel" aria-label="Carrossel de banners">
-    <section class="hero-slides">
+    <div class="hero-slides">
 
       <!-- Banner 1: Loja -->
        
@@ -31,11 +53,11 @@
         <figure class="hero-img-wrap">
           <img src="/imagens/itens-para-o-bunner.png" alt="Equipamentos solares portáteis">
         </figure>
-        <section class="hero-copy">
+        <div class="hero-copy">
           <p class="hero-label">Energia limpa e acessível</p>
           <h1>Sustentabilidade<br><span>que cabe no<br>dia a dia</span></h1>
           <a href="/ecoloja" class="hero-btn">Ver produtos</a>
-        </section>
+        </div>
       </article>
 
       <!-- Banner 2: Diagnóstico -->
@@ -43,14 +65,14 @@
         <figure class="hero-img-wrap">
           <img src="/imagens/celular-bunner.svg" alt="Diagnóstico energético no celular">
         </figure>
-        <section class="hero-copy">
+        <div class="hero-copy">
           <p class="hero-label">Em menos de 1 minuto</p>
           <h1>Descubra sua<br><span>autonomia<br>energética</span></h1>
           <a href="/diagnostico" class="hero-btn hero-btn-blue">Fazer diagnóstico</a>
-        </section>
+        </div>
       </article>
 
-    </section>
+    </div>
     <button type="button" class="hero-carousel-button hero-prev" aria-label="Anterior">‹</button>
     <button type="button" class="hero-carousel-button hero-next" aria-label="Próximo">›</button>
   </section>
@@ -60,7 +82,7 @@
     <!-- ===== POR QUE ECOGENERATION ===== -->
     <section class="why-ecogeneration">
       <h2 class="why">Por que escolher EcoGeneration?</h2>
-      <section class="cards-container">
+      <div class="cards-container">
         <article class="card">
           <figure class="card-icon">
             <img src="/imagens/icon plant.svg" alt="Energia limpa">
@@ -82,14 +104,14 @@
           <h3>Autonomia</h3>
           <p>Não dependa da rede elétrica para o que é essencial.</p>
         </article>
-      </section>
+      </div>
     </section>
 
     <!-- ===== COMO FUNCIONA ===== -->
     <section class="como-funciona">
       <h2>Como funciona?</h2>
       <p class="como-subtitulo">Três passos simples para sua autonomia energética</p>
-      <section class="passos-grid">
+      <div class="passos-grid">
         <article class="passo-card">
           <span class="passo-num">01</span>
           <h3>Faça o diagnóstico</h3>
@@ -105,7 +127,7 @@
           <h3>Compre com confiança</h3>
           <p>Produtos curados, portáteis e de fácil instalação.</p>
         </article>
-      </section>
+      </div>
       <a href="/diagnostico" class="btn-cta">Iniciar diagnóstico gratuito</a>
     </section>
 
@@ -113,7 +135,7 @@
     <section class="produtos-destaque-section" aria-labelledby="produtos-destaque">
       <h2 id="produtos-destaque">Produtos em Destaque</h2>
       <p class="section-sub">Nossas soluções mais populares</p>
-      <section class="produtos-grid-home">
+      <div class="produtos-grid-home">
         <% if (produtosDestaque && produtosDestaque.length > 0) { %>
           <% produtosDestaque.forEach(function(produto) { %>
             <article class="produto-card-home">
@@ -127,16 +149,16 @@
         <% } else { %>
             <p>Não há produtos em destaque no momento. Visite a EcoLoja para ver todos os produtos.</p>
         <% } %>
-      </section>
+      </div>
       <a href="/ecoloja" class="btn-cta btn-cta-outline">Ver todos os produtos</a>
     </section>
 
     <!-- ===== BANNER ECOLOJA ===== -->
-    <section class="banner-ecoloja">
+    <div class="banner-ecoloja">
       <a href="/ecoloja">
         <img src="/imagens/ECOLOJA.svg" alt="Ir para a EcoLoja" class="ecoloja-img">
       </a>
-    </section>
+    </div>
 
   </main>
 
