@@ -868,7 +868,7 @@ fieldset.pergunta legend {
 
 .msg-erro::before {
   content: "⚠ ";
-  aria-hidden: true;
+ 
 }
 
 .dica-campo {
