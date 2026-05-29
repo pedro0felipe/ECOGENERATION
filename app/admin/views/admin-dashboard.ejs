@@ -13,11 +13,16 @@
 </head>
 <body>
     
+</body>
+</html>
 
-<section class="admin-wrapper" aria-label="Painel administrativo">
-  <aside class="admin-sidebar" aria-label="Menu de administração">
-  
-    <nav class="admin-nav" aria-label="Navegação administrativa">
+
+
+<section class="admin-wrapper">
+  <aside class="admin-sidebar">
+   
+    
+    <nav class="admin-nav">
       <a href="/admin" class="nav-item <%= currentPath === '/admin' ? 'active' : '' %>">
         📊 Dashboard
       </a>
@@ -30,6 +35,9 @@
       <a href="/admin/produtos" class="nav-item <%= currentPath === '/admin/produtos' ? 'active' : '' %>">
         📦 Produtos
       </a>
+      <a href="/admin/pedidos" class="nav-item">
+        🛒 Pedidos
+      </a>
       <a href="/admin-logout" class="nav-item nav-logout">
         🚪 Sair
       </a>
@@ -38,41 +46,51 @@
   
   <main class="admin-main">
     <header class="admin-header">
-      <h1> Dashboard Ecogeneration</h1>
+      <h1> Dashboard de Administração</h1>
      
     </header>
     
-    <section class="dashboard-stats" aria-label="Estatísticas do painel">
+    <section class="dashboard-stats">
       <article class="stat-card">
-        <span class="stat-icon" aria-hidden="true">👥</span>
-        <header class="stat-content">
+        <span class="stat-icon">👥</span>
+        <p class="stat-content">
           <h3>Usuários Cadastrados</h3>
           <p class="stat-number"><%= totalUsuarios %></p>
-        </header>
+        </p>
       </article>
       
       <article class="stat-card">
-        <span class="stat-icon" aria-hidden="true">📋</span>
-        <header class="stat-content">
+        <span class="stat-icon">📋</span>
+        <p class="stat-content">
           <h3>Diagnósticos Realizados</h3>
           <p class="stat-number"><%= totalDiagnosticos %></p>
-        </header>
+        </p>
       </article>
       
       <article class="stat-card">
-        <span class="stat-icon" aria-hidden="true">📦</span>
-        <header class="stat-content">
+        <span class="stat-icon">🛒</span>
+        <p class="stat-content">
+          <h3>Pedidos Realizados</h3>
+          <p class="stat-number"><%= typeof totalPedidos !== 'undefined' ? totalPedidos : 0 %></p>
+        </p>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-icon">📦</span>
+        <p class="stat-content">
           <h3>Produtos em Catálogo</h3>
           <p class="stat-number"><%= totalProdutos %></p>
-        </header>
+        </p>
       </article>
+
+       
       
       <article class="stat-card <%= produtosBaixoEstoque.length > 0 ? 'warning' : '' %>">
-        <span class="stat-icon" aria-hidden="true">⚠️</span>
-        <header class="stat-content">
+        <span class="stat-icon">⚠️</span>
+        <p class="stat-content">
           <h3>Produtos Baixo Estoque</h3>
           <p class="stat-number"><%= produtosBaixoEstoque.length %></p>
-        </header>
+        </p>
       </article>
     </section>
     
@@ -82,7 +100,4 @@
    
   </main>
 </section>
-
-</body>
-</html>
 

@@ -8,16 +8,44 @@
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/admin.css">
     <link rel="icon" href="/imagens/favicon2.png" type="image/png">
+  <style>
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-confirmado { background: #e8f5e9; color: #2e7d32; }
+    .badge-enviado    { background: #e3f2fd; color: #1565c0; }
+    .badge-entregue   { background: #f3e5f5; color: #6a1b9a; }
+    .badge-cancelado  { background: #ffebee; color: #c62828; }
+    .pedidos-resumo {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 2rem 0 1rem;
+    }
+    .pedidos-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 16px;
+      padding: 1rem 1.25rem;
+      flex: 1 1 220px;
+      min-width: 220px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    }
+  </style>
 </head>
-<body>
 
-<section class="admin-wrapper" aria-label="Gestão de usuários">
-  <aside class="admin-sidebar" aria-label="Menu de administração">
-    <header class="admin-brand">
-      <h2>⚙️ ADMIN</h2>
-    </header>
+<section class="admin-wrapper">
+  <aside class="admin-sidebar">
+   
     
-    <nav class="admin-nav" aria-label="Navegação administrativa">
+    <nav class="admin-nav">
       <a href="/admin" class="nav-item">
         📊 Dashboard
       </a>
@@ -29,6 +57,9 @@
       </a>
       <a href="/admin/produtos" class="nav-item">
         📦 Produtos
+      </a>
+      <a href="/admin/pedidos" class="nav-item">
+        🛒 Pedidos
       </a>
       <a href="/admin-logout" class="nav-item nav-logout">
         🚪 Sair
@@ -43,7 +74,7 @@
     </header>
     
     <% if (usuarios.length > 0) { %>
-      <section class="table-container" aria-label="Tabela de usuários">
+      <section class="table-container">
         <table class="admin-table">
           <thead>
             <tr>
@@ -74,14 +105,49 @@
         </table>
       </section>
     <% } else { %>
-      <section class="empty-state" aria-label="Estado vazio">
+      <section class="empty-state">
         <p>📭 Nenhum usuário cadastrado ainda</p>
         <a href="/cadastro" class="btn btn-primary">Criar Primeiro Usuário</a>
       </section>
     <% } %>
+
+    <section class="admin-header" style="margin-top:2rem;">
+      <h2>🛒 Últimos Pedidos</h2>
+      <p>Total de pedidos cadastrados: <strong><%= (pedidos && pedidos.length) || 0 %></strong></p>
+    </section>
+
+    <% if (pedidos && pedidos.length > 0) { %>
+      <section class="table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Produto</th>
+              <th>Valor</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% pedidos.forEach(pedido => { %>
+              <tr>
+                <td>#<%= pedido.id_compra %></td>
+                <td><%= pedido.nome_usuario || 'Visitante' %></td>
+                <td><%= pedido.nome_produto %></td>
+                <td>R$ <%= parseFloat(pedido.preco_produto).toFixed(2) %></td>
+                <td>
+                  <span class="badge badge-<%= pedido.status_compra %>">
+                    <%= pedido.status_compra %>
+                  </span>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </section>
+    <% } else { %>
+      <p style="text-align:center; color:#999; padding:2rem;">Nenhum pedido encontrado.</p>
+    <% } %>
   </main>
 </section>
-
-</body>
-</html>
 

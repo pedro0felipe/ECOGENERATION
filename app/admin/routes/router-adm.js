@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const adminAuth = require('../middleware/auth');
 const { adminModel } = require('../../models/adminModel');
+const { comprasModel } = require('../../models/comprasModel');
 const multer = require('multer');
 const path = require('path');
 
@@ -63,6 +64,14 @@ router.get('/admin', adminAuth, async (req, res) => {
     const totalUsuarios = await adminModel.countUsuarios();
     const totalDiagnosticos = await adminModel.countDiagnosticos();
     const totalProdutos = await adminModel.countProdutos();
+    const pedidos = await comprasModel.findAll();
+    let totalPedidos = Array.isArray(pedidos) ? pedidos.length : 0;
+
+    if (totalPedidos === 0) {
+      const fallbackCount = await comprasModel.countAll();
+      totalPedidos = Number.isInteger(fallbackCount) ? fallbackCount : totalPedidos;
+    }
+
     const usuariosRecentes = await adminModel.getUsuariosRecentes();
     const diagnosticosRecentes = await adminModel.getDiagnosticosRecentes();
     const produtosBaixoEstoque = await adminModel.getProdutosBaixoEstoque();
@@ -72,6 +81,7 @@ router.get('/admin', adminAuth, async (req, res) => {
       totalUsuarios,
       totalDiagnosticos,
       totalProdutos,
+      totalPedidos,
       usuariosRecentes,
       diagnosticosRecentes,
       produtosBaixoEstoque
@@ -86,7 +96,8 @@ router.get('/admin', adminAuth, async (req, res) => {
 router.get('/admin/usuarios', adminAuth, async (req, res) => {
   try {
     const usuarios = await adminModel.getAllUsuarios();
-    res.render('admin-usuarios', { titulo: 'Gerenciar Usuários', usuarios });
+    const pedidos = await comprasModel.findAll();
+    res.render('admin-usuarios', { titulo: 'Gerenciar Usuários', usuarios, pedidos });
   } catch (erro) {
     console.log(erro);
     res.redirect('/admin');
@@ -121,6 +132,28 @@ router.get('/admin/diagnosticos/deletar/:id', adminAuth, async (req, res) => {
   } catch (erro) {
     console.log(erro);
     res.redirect('/admin/diagnosticos');
+  }
+});
+
+// ===== PEDIDOS =====
+router.get('/admin/pedidos', adminAuth, async (req, res) => {
+  try {
+    const pedidos = await comprasModel.findAll();
+    res.render('admin-pedidos', { titulo: 'Gerenciar Pedidos', pedidos });
+  } catch (erro) {
+    console.log(erro);
+    res.redirect('/admin');
+  }
+});
+
+router.post('/admin/pedidos/:id/status', adminAuth, async (req, res) => {
+  try {
+    const { status } = req.body;
+    await comprasModel.updateStatus(req.params.id, status);
+    res.redirect('/admin/pedidos');
+  } catch (erro) {
+    console.log(erro);
+    res.redirect('/admin/pedidos');
   }
 });
 

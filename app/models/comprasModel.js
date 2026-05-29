@@ -48,6 +48,19 @@ const comprasModel = {
         }
     },
 
+    // Atualizar status de uma compra (para admin)
+    updateStatus: async (id, status) => {
+        try {
+            const [resultado] = await pool.query(
+                "UPDATE compras SET status_compra = ? WHERE id_compra = ?",
+                [status, id]
+            );
+            return resultado;
+        } catch (erro) {
+            return erro;
+        }
+    },
+
     // Buscar todas as compras (para admin)
     findAll: async () => {
         try {
@@ -57,6 +70,18 @@ const comprasModel = {
             return resultado;
         } catch (erro) {
             return erro;
+        }
+    },
+
+    // Contar todas as compras (para dashboard)
+    countAll: async () => {
+        try {
+            const [resultado] = await pool.query(
+                "SELECT COUNT(*) AS total FROM compras"
+            );
+            return resultado[0].total;
+        } catch (erro) {
+            return 0;
         }
     }
 
