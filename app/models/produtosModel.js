@@ -94,6 +94,26 @@ const produtosModel = {
         } catch (erro) {
             return erro;
         }
+    },
+
+    findByQuery: async (busca, limit = null) => {
+        try {
+            const termo = `%${busca}%`;
+            let query = `SELECT * FROM produtos WHERE status_produto = 1 AND (
+                nome_produto LIKE ? OR descricao_produto LIKE ? OR categoria_produto LIKE ? OR rota_produto LIKE ?
+            )`;
+            const params = [termo, termo, termo, termo];
+
+            if (limit && Number.isInteger(limit)) {
+                query += ' LIMIT ?';
+                params.push(limit);
+            }
+
+            const [resultado] = await pool.query(query, params);
+            return resultado;
+        } catch (erro) {
+            return erro;
+        }
     }
 
 }

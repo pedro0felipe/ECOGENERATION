@@ -499,6 +499,37 @@ router.get("/luminaria", renderProdutoPorRota);
 router.get("/calculadora-tela-inicial", (req, res) => res.render("diagnosticotela-inicial", { titulo: "Diagnóstico" }));
 router.get("/calculadora-perguntas", (req, res) => res.render("calculadora-perguntas", { titulo: "EcoCalculadora" }));
 
+// ===== BUSCA DE PRODUTOS =====
+router.get('/search', async (req, res) => {
+    try {
+        const termo = req.query.q ? req.query.q.trim() : '';
+        if (!termo) {
+            return res.render('ecoloja', {
+                titulo: 'Resultados da busca',
+                produtos: [],
+                currentPage: 1,
+                totalPages: 0
+            });
+        }
+
+        const produtos = await produtosModel.findByQuery(termo);
+        res.render('ecoloja', {
+            titulo: `Busca: ${termo}`,
+            produtos,
+            currentPage: 1,
+            totalPages: 0
+        });
+    } catch (erro) {
+        console.log(erro);
+        res.render('ecoloja', {
+            titulo: 'Resultados da busca',
+            produtos: [],
+            currentPage: 1,
+            totalPages: 0
+        });
+    }
+});
+
 // ===== ROTAS DE ADMIN =====
 router.use('/', routerAdmin);
 
