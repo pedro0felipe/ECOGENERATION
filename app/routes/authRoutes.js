@@ -1,0 +1,32 @@
+const express = require("express");
+const router = express.Router();
+const { check } = require('express-validator');
+const authController = require("../controllers/authController");
+const { validarCPF, validarCNPJ } = require("../helpers/validadores");
+
+router.get('/cadastro', authController.cadastroForm);
+router.post('/cadastro',
+    [
+        check('nome').notEmpty().withMessage('Nome é obrigatório'),
+        check('email').isEmail().withMessage('Email inválido'),
+        check('senha').isLength({ min: 6 }).withMessage('Senha deve ter pelo menos 6 caracteres'),
+        check('cpf').optional({ checkFalsy: true }).custom(validarCPF).withMessage('CPF inválido'),
+        check('cnpj').optional({ checkFalsy: true }).custom(validarCNPJ).withMessage('CNPJ inválido'),
+        check('telefone').optional({ checkFalsy: true }).matches(/^\(\d{2}\)\s?\d{5}-\d{4}$/).withMessage('Telefone inválido. Formato: (XX) XXXXX-XXXX'),
+        check('rg').optional({ checkFalsy: true }).isLength({ min: 5 }).withMessage('RG deve ter no mínimo 5 caracteres'),
+    ],
+    authController.cadastroSubmit
+);
+
+router.get('/login', authController.loginForm);
+router.post('/login',
+    [
+        check('email').isEmail().withMessage('Email inválido'),
+        check('senha').isLength({ min: 6 }).withMessage('Senha deve ter pelo menos 6 caracteres'),
+    ],
+    authController.loginSubmit
+);
+
+router.get('/logout', authController.logout);
+
+module.exports = router;

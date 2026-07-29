@@ -60,7 +60,20 @@
     </section>
   </main>
 
-  <script src="/js/login.js"></script>
+  <script src="/js/admin-login.js"></script>
   <script src="/js/senha-toggle.js"></script>
+
+<!-- Simple-Notify -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1/dist/simple-notify.css">
+<script src="https://cdn.jsdelivr.net/npm/simple-notify@1/dist/simple-notify.min.js"></script>
+<script>
+  window.notify = function(status, text) {
+    var titles = { success: "Sucesso!", error: "Erro", warning: "Atencao", info: "Informacao" };
+    new Notify({ status: status, title: titles[status] || "Aviso", text: text, effect: "slide", speed: 300, showIcon: true, showCloseButton: true, autoclose: true, autotimeout: 4500, position: "right top" });
+  };
+</script>
+<% if (typeof flashMessage !== "undefined" && flashMessage) { %>
+<script>window.notify("<%= flashMessage.status %>", "<%= flashMessage.text %>");</script>
+<% } %>
 </body>
 </html>

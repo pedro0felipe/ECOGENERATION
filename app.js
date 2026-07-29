@@ -5,6 +5,7 @@ const pool = require("./config/pool_conexoes");
 const session = require("express-session");
 const app = express();
  
+app.use('/simple-notify', express.static(path.join(__dirname, 'node_modules/simple-notify/dist')));
 // ESSENCIAL para o Render (proxy reverso com HTTPS)
 app.set("trust proxy", 1);
  
@@ -17,12 +18,16 @@ app.set("views", [
   path.join(__dirname, "app/admin/views")
 ]);
  
+app.set("trust proxy", 1);
+
 app.use(session({
   secret: process.env.SESSION_SECRET || 'ecogeneration-secret-key',
-  resave: false,
-  saveUninitialized: false,
+  resave: true,
+  saveUninitialized: true,
   cookie: {
-    secure: process.env.NODE_ENV === 'production', // HTTPS no Render, HTTP local
+    secure: false,
+    httpOnly: true,
+    sameSite: 'lax',
     maxAge: 24 * 60 * 60 * 1000
   }
 }));
