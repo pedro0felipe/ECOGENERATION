@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, "app/admin/public")));
 app.set("view engine", "ejs");
 app.set("views", [
   path.join(__dirname, "app/views/pages"),
-  path.join(__dirname, "app/admin/views")
+  path.join(__dirname, "app/views/admin")
 ]);
  
 app.set("trust proxy", 1);
