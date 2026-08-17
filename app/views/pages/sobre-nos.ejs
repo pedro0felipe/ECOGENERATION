@@ -33,6 +33,8 @@
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#2e7d32">
+  <!-- simple-notify para Flash Messages -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.css">
 </head>
 <%- include("../partials/header") %>
 <body>
@@ -101,6 +103,12 @@
 </section>
     </section>
     </main>
+  <!-- simple-notify JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.min.js"></script>
+  <!-- Função centralizada de notificações -->
+  <script src="/js/notify.js"></script>
+  <!-- Flash Message -->
+  <%- include('../partials/flash') %>
 
   <%- include('../partials/footer') %>
 </body>

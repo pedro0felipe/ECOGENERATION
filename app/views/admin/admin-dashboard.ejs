@@ -10,28 +10,10 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/admin.css">
       <link rel="icon" href="/imagens/favicon2.png" type="image/png">
+  <!-- simple-notify para Flash Messages -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.css">
 </head>
 <body>
-    
-
-<!-- Simple-Notify -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1/dist/simple-notify.css">
-<script src="https://cdn.jsdelivr.net/npm/simple-notify@1/dist/simple-notify.min.js"></script>
-<script>
-  window.notify = function(status, text) {
-    var titles = { success: "Sucesso!", error: "Erro", warning: "Atencao", info: "Informacao" };
-    new Notify({ status: status, title: titles[status] || "Aviso", text: text, effect: "slide", speed: 300, showIcon: true, showCloseButton: true, autoclose: true, autotimeout: 4500, position: "right top" });
-  };
-</script>
-<% if (typeof flashMessage !== "undefined" && flashMessage) { %>
-<script>window.notify("<%= flashMessage.status %>", "<%= flashMessage.text %>");</script>
-<% } %>
-</body>
-</html>
-
-
-
-<section class="admin-wrapper">
   <aside class="admin-sidebar">
    
     
@@ -114,3 +96,12 @@
   </main>
 </section>
 
+<!-- simple-notify JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.min.js"></script>
+<!-- Função centralizada de notificações -->
+<script src="/js/notify.js"></script>
+<!-- Flash Message -->
+<%- include('../partials/flash') %>
+
+</body>
+</html>

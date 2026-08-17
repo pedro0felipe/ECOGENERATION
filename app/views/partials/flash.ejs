@@ -1,0 +1,15 @@
+<!-- Flash Message Partial — Exibe notificações via simple-notify.js -->
+<% if (flashMessage && typeof flashMessage === 'object' && flashMessage.status && flashMessage.text) { %>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof exibirFlashMessage === 'function') {
+        exibirFlashMessage({
+          status: '<%= flashMessage.status %>',
+          text: '<%= flashMessage.text %>',
+          titulo: '<%= flashMessage.titulo || '' %>',
+          posicao: '<%= flashMessage.posicao || 'top-right' %>'
+        });
+      }
+    });
+  </script>
+<% } %>

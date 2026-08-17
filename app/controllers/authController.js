@@ -79,9 +79,16 @@ exports.loginSubmit = async (req, res) => {
 // ===== LOGOUT =====
 exports.logout = (req, res) => {
     req.session.flash = { status: 'success', text: 'Você saiu da sua conta. Até logo!' };
+    req.session.usuarioLogado = null;
+    req.session.usuarioNome = null;
+    req.session.usuarioEmail = null;
+    req.session.usuarioId = null;
     console.log('FLASH GRAVADO (logout):', req.session.flash);
     req.session.save(() => {
-        req.session.destroy();
+        // Destruir sessão APÓS a próxima página renderizar (via timeout curto)
+        setTimeout(() => {
+            req.session.destroy(() => {});
+        }, 100);
         res.redirect('/login');
     });
 };
