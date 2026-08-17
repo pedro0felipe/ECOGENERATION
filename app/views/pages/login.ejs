@@ -27,6 +27,8 @@
   <meta name="twitter:image" content="https://ecogeneration-final-4hh3.onrender.com/imagens/og-cover-v2.png">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#2e7d32">
+  <!-- simple-notify para Flash Messages -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.css">
 </head>
 <body class="layout">
 
@@ -89,6 +91,12 @@
   </main>
 
   <%- include('../partials/footer') %>
+  <!-- simple-notify JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.min.js"></script>
+  <!-- Função centralizada de notificações -->
+  <script src="/js/notify.js"></script>
+  <!-- Flash Message -->
+  <%- include('../partials/flash') %>
   <script src="/js/validation.js"></script>
   <script src="/js/senha-toggle.js"></script>
 </body>

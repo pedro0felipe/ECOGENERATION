@@ -23,7 +23,16 @@ exports.loginSubmit = (req, res) => {
 
 // ===== LOGOUT ADMIN =====
 exports.logout = (req, res) => {
-  req.session.destroy(() => {
+  req.session.flash = { status: 'success', text: 'Você saiu da administração. Até logo!' };
+  req.session.adminLoggedIn = null;
+  req.session.adminNome = null;
+  req.session.adminEmail = null;
+  console.log('FLASH GRAVADO (admin logout):', req.session.flash);
+  req.session.save(() => {
+    // Destruir sessão APÓS a próxima página renderizar (via timeout curto)
+    setTimeout(() => {
+      req.session.destroy(() => {});
+    }, 100);
     res.redirect('/');
   });
 };

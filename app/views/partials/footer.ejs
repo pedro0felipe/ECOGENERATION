@@ -35,39 +35,3 @@
 </footer>
 
 <script src="/js/header.js"></script>
-
-<link rel="stylesheet" href="/simple-notify/simple-notify.css">
-<script src="/simple-notify/simple-notify.min.js"></script>
-
-<script>
-  window.notify = function(status, text) {
-    var titles = { success: 'Sucesso!', error: 'Erro', warning: 'Atenção', info: 'Informação' };
-    new Notify({
-      status: status,
-      title: titles[status] || 'Aviso',
-      text: text,
-      effect: 'slide',
-      speed: 300,
-      showIcon: true,
-      showCloseButton: true,
-      autoclose: true,
-      autotimeout: 4500,
-      position: 'right top'
-    });
-  };
-
-  var __f = document.getElementById('__flash');
-  if (__f) {
-    window.notify(__f.value, atob(__f.dataset.text));
-  }
-</script>
-
-<% if (typeof flashMessage !== 'undefined' && flashMessage) { %>
-<data id="__flash" value="<%= flashMessage.status %>" data-text="<%= Buffer.from(flashMessage.text).toString('base64') %>" hidden></data>
-<script>
-  var __f = document.getElementById('__flash');
-  if (__f) {
-    window.notify(__f.value, atob(__f.dataset.text));
-  }
-</script>
-<% } %>

@@ -31,6 +31,10 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000
   }
 }));
+
+// ===== MIDDLEWARE DE FLASH MESSAGES =====
+const flash = require('./app/middlewares/flash');
+app.use(flash);
  
 // Middleware global — disponibiliza dados da sessão para TODAS as views
 app.use((req, res, next) => {
