@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
 const { validationResult } = require('express-validator');
 const { usuariosModel } = require("../models/usuariosModel");
+const { criarToken, verificarToken, getBaseUrl } = require('../helpers/tokens');
+const { enviarEmail } = require('../services/emailService');
 
 // ===== CADASTRO =====
 exports.cadastroForm = (req, res) => {
@@ -13,19 +15,37 @@ exports.cadastroSubmit = async (req, res) => {
         return res.render('cadastro', { old: req.body, errors: errors.mapped() });
     }
     try {
-        const existente = await usuariosModel.findByEmail(req.body.email);
+        const existente = await usuariosModel.findByEmailAny(req.body.email);
         if (existente.length > 0) {
             return res.render('cadastro', {
                 old: req.body,
                 errors: { email: { msg: 'Este e-mail já está cadastrado.' } }
             });
         }
-        await usuariosModel.create({
+        const resultado = await usuariosModel.create({
             nome: req.body.nome,
             email: req.body.email,
-            senha: req.body.senha
+            senha: req.body.senha,
+            cpf: req.body.cpf,
+            telefone: req.body.telefone,
+            cep: req.body.cep,
+            numero: req.body.numero,
+            complemento: req.body.complemento
         });
-        req.session.flash = { status: 'success', text: 'Cadastro realizado com sucesso! Faça login para continuar.' };
+        if (!resultado || !resultado.insertId) throw new Error('Usuário não foi criado');
+        const token = criarToken({ id_usuario: resultado.insertId, tipo: 'ativacao' }, '24h');
+        const link = `${getBaseUrl()}/ativar-conta?token=${encodeURIComponent(token)}`;
+        try {
+            await enviarEmail({
+                para: req.body.email,
+                assunto: 'Ative sua conta EcoGeneration',
+                html: `<p>Olá, ${req.body.nome}!</p><p>Confirme seu cadastro pelo link:</p><p><a href="${link}">Ativar minha conta</a></p>`
+            });
+            req.session.flash = { status: 'success', text: 'Cadastro realizado! Verifique seu e-mail para ativar a conta.' };
+        } catch (emailErro) {
+            console.log(emailErro);
+            req.session.flash = { status: 'error', text: 'Cadastro criado, mas não foi possível enviar o e-mail de ativação.' };
+        }
         console.log('FLASH GRAVADO (cadastro):', req.session.flash);
         req.session.save(() => res.redirect('/login'));
     } catch (erro) {
@@ -45,7 +65,7 @@ exports.loginSubmit = async (req, res) => {
         return res.render('login', { errors: errors.mapped(), old: req.body });
     }
     try {
-        const usuarios = await usuariosModel.findByEmail(req.body.email);
+        const usuarios = await usuariosModel.findByEmailAny(req.body.email);
         if (usuarios.length === 0) {
             return res.render('login', {
                 errors: { geral: { msg: 'E-mail não cadastrado.' } },
@@ -53,6 +73,12 @@ exports.loginSubmit = async (req, res) => {
             });
         }
         const usuario = usuarios[0];
+        if (usuario.status_usuario !== 1) {
+            return res.render('login', {
+                errors: { geral: { msg: 'Ative sua conta pelo link enviado por e-mail antes de entrar.' } },
+                old: req.body
+            });
+        }
         const senhaCorreta = await bcrypt.compare(req.body.senha, usuario.senha_usuario);
         if (!senhaCorreta) {
             return res.render('login', {
@@ -73,6 +99,74 @@ exports.loginSubmit = async (req, res) => {
             errors: { geral: { msg: 'Erro ao fazer login. Tente novamente.' } },
             old: req.body
         });
+    }
+};
+
+exports.ativarConta = async (req, res) => {
+    try {
+        const dados = verificarToken(req.query.token);
+        if (dados.tipo !== 'ativacao') throw new Error('Token inválido');
+        const usuarios = await usuariosModel.findById(dados.id_usuario);
+        if (!usuarios[0]) return res.render('login', { errors: { geral: { msg: 'Usuário não encontrado.' } }, old: {} });
+        if (usuarios[0].status_usuario === 1) {
+            req.session.flash = { status: 'success', text: 'Sua conta já está ativa.' };
+        } else {
+            await usuariosModel.updateStatus(dados.id_usuario, 1);
+            req.session.flash = { status: 'success', text: 'Conta ativada com sucesso! Você já pode entrar.' };
+        }
+        req.session.save(() => res.redirect('/login'));
+    } catch (erro) {
+        req.session.flash = { status: 'error', text: erro.name === 'TokenExpiredError' ? 'O link de ativação expirou.' : 'Link de ativação inválido.' };
+        req.session.save(() => res.redirect('/login'));
+    }
+};
+
+exports.recuperarSenhaForm = (req, res) => res.render('recuperar-senha', { errors: {}, old: {} });
+
+exports.recuperarSenhaSubmit = async (req, res) => {
+    const email = String(req.body.email || '').trim();
+    try {
+        const usuarios = await usuariosModel.findByEmailAny(email);
+        if (usuarios.length && usuarios[0].status_usuario === 1) {
+            const token = criarToken({ id_usuario: usuarios[0].id_usuario, tipo: 'reset' }, '1h');
+            const link = `${getBaseUrl()}/resetar-senha?token=${encodeURIComponent(token)}`;
+            await enviarEmail({
+                para: email,
+                assunto: 'Redefinição de senha EcoGeneration',
+                html: `<p>Solicitamos a redefinição da sua senha.</p><p><a href="${link}">Criar nova senha</a></p><p>O link expira em uma hora.</p>`
+            });
+        }
+        req.session.flash = { status: 'success', text: 'Se o e-mail estiver cadastrado, você receberá um link para redefinir a senha.' };
+        req.session.save(() => res.redirect('/login'));
+    } catch (erro) {
+        console.log(erro);
+        req.session.flash = { status: 'error', text: 'Não foi possível enviar o e-mail. Tente novamente.' };
+        req.session.save(() => res.redirect('/recuperar-senha'));
+    }
+};
+
+exports.resetarSenhaForm = (req, res) => {
+    try {
+        const dados = verificarToken(req.query.token);
+        if (dados.tipo !== 'reset') throw new Error('Token inválido');
+        res.render('resetar-senha', { token: req.query.token, errors: {} });
+    } catch (erro) {
+        res.render('login', { errors: { geral: { msg: erro.name === 'TokenExpiredError' ? 'O link de redefinição expirou.' : 'Link de redefinição inválido.' } }, old: {} });
+    }
+};
+
+exports.resetarSenhaSubmit = async (req, res) => {
+    try {
+        const dados = verificarToken(req.body.token);
+        if (dados.tipo !== 'reset' || !req.body.senha || req.body.senha.length < 6) throw new Error('Senha inválida');
+        const usuarios = await usuariosModel.findById(dados.id_usuario);
+        if (!usuarios[0]) throw new Error('Usuário não encontrado');
+        await usuariosModel.updatePassword(dados.id_usuario, req.body.senha);
+        req.session.flash = { status: 'success', text: 'Senha redefinida com sucesso. Faça login.' };
+        req.session.save(() => res.redirect('/login'));
+    } catch (erro) {
+        req.session.flash = { status: 'error', text: erro.name === 'TokenExpiredError' ? 'O link de redefinição expirou.' : 'Link inválido ou senha não aceita.' };
+        req.session.save(() => res.redirect('/recuperar-senha'));
     }
 };
 

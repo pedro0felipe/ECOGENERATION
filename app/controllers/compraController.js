@@ -1,5 +1,7 @@
 const { produtosModel } = require("../models/produtosModel");
 const { comprasModel } = require("../models/comprasModel");
+const { usuariosModel } = require("../models/usuariosModel");
+const { consultarCep } = require('./userController');
 
 // ===== CONFIRMAR COMPRA (tela) =====
 exports.confirmarCompraForm = async (req, res) => {
@@ -9,7 +11,16 @@ exports.confirmarCompraForm = async (req, res) => {
             return res.redirect('/ecoloja');
         }
         const produto = resultados[0];
-        res.render('confirmar-compra', { titulo: 'Confirmar Compra', produto });
+        const usuarios = await usuariosModel.findById(req.session.usuarioId);
+        const usuario = usuarios[0];
+        let endereco = null;
+        let erroCep = false;
+        try {
+            endereco = await consultarCep(usuario.cep_usuario);
+        } catch (erroCepApi) {
+            erroCep = true;
+        }
+        res.render('confirmar-compra', { titulo: 'Confirmar Compra', produto, usuario, endereco, erroCep });
     } catch (erro) {
         console.log(erro);
         res.redirect('/ecoloja');

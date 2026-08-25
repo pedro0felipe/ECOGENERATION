@@ -146,6 +146,19 @@
         <p id="erro-cpf" role="alert" class="campo-erro"><%= errors.cpf.msg %></p>
       <% } %>
 
+      <label for="telefone">Telefone</label>
+      <input type="tel" id="telefone" name="telefone" data-mask="phone" value="<%= old.telefone || '' %>" placeholder="(11) 99999-9999" maxlength="15" autocomplete="tel">
+
+      <label for="cep">CEP</label>
+      <input type="text" id="cep" name="cep" data-mask="cep" value="<%= old.cep || '' %>" placeholder="00000-000" maxlength="9" autocomplete="postal-code">
+      <p id="endereco-cadastro" class="campo-dica" aria-live="polite"></p>
+
+      <label for="numero">Número</label>
+      <input type="text" id="numero" name="numero" value="<%= old.numero || '' %>" maxlength="10" autocomplete="address-line2">
+
+      <label for="complemento">Complemento</label>
+      <input type="text" id="complemento" name="complemento" value="<%= old.complemento || '' %>" maxlength="100" autocomplete="address-line2">
+
       <button type="submit" class="ui primary button">Cadastrar</button>
       <button type="reset" class="ui button">Limpar</button>
     </form>
@@ -160,6 +173,30 @@
   <%- include('../partials/flash') %>
   <script src="https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
   <script src="/js/mascaras.js"></script>
+  <script>
+    const cepCadastro = document.getElementById('cep');
+    const enderecoCadastro = document.getElementById('endereco-cadastro');
+    let consultaCepCadastro;
+    if (cepCadastro) cepCadastro.addEventListener('input', () => {
+      clearTimeout(consultaCepCadastro);
+      const cep = cepCadastro.value.replace(/\D/g, '');
+      if (cep.length !== 8) {
+        enderecoCadastro.textContent = '';
+        return;
+      }
+      enderecoCadastro.textContent = 'Consultando endereço...';
+      consultaCepCadastro = setTimeout(async () => {
+        try {
+          const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+          if (!resposta.ok) throw new Error('Falha na consulta');
+          const endereco = await resposta.json();
+          enderecoCadastro.textContent = endereco.erro ? 'CEP não encontrado.' : `${endereco.logradouro}, ${endereco.bairro} - ${endereco.localidade}/${endereco.uf}`;
+        } catch (erro) {
+          enderecoCadastro.textContent = 'Não foi possível consultar o CEP agora.';
+        }
+      }, 300);
+    });
+  </script>
   <script src="/js/validation.js"></script>
   <script src="/js/senha-toggle.js"></script>
 </body>

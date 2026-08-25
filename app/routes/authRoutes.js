@@ -11,14 +11,22 @@ router.post('/cadastro',
         check('email').isEmail().withMessage('Email inválido'),
         check('senha').isLength({ min: 6 }).withMessage('Senha deve ter pelo menos 6 caracteres'),
         check('cpf').optional({ checkFalsy: true }).custom(validarCPF).withMessage('CPF inválido'),
-        check('cnpj').optional({ checkFalsy: true }).custom(validarCNPJ).withMessage('CNPJ inválido'),
         check('telefone').optional({ checkFalsy: true }).matches(/^\(\d{2}\)\s?\d{5}-\d{4}$/).withMessage('Telefone inválido. Formato: (XX) XXXXX-XXXX'),
+        check('cep').optional({ checkFalsy: true }).matches(/^\d{5}-?\d{3}$/).withMessage('CEP inválido. Formato: 00000-000'),
+        check('numero').optional({ checkFalsy: true }).isLength({ max: 10 }).withMessage('Número inválido'),
+        check('complemento').optional({ checkFalsy: true }).isLength({ max: 100 }).withMessage('Complemento inválido'),
+        check('cnpj').optional({ checkFalsy: true }).custom(validarCNPJ).withMessage('CNPJ inválido'),
         check('rg').optional({ checkFalsy: true }).isLength({ min: 5 }).withMessage('RG deve ter no mínimo 5 caracteres'),
     ],
     authController.cadastroSubmit
 );
 
 router.get('/login', authController.loginForm);
+router.get('/ativar-conta', authController.ativarConta);
+router.get('/recuperar-senha', authController.recuperarSenhaForm);
+router.post('/recuperar-senha', authController.recuperarSenhaSubmit);
+router.get('/resetar-senha', authController.resetarSenhaForm);
+router.post('/resetar-senha', authController.resetarSenhaSubmit);
 router.post('/login',
     [
         check('email').isEmail().withMessage('Email inválido'),

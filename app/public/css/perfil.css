@@ -33,6 +33,40 @@
   font-weight: 700;
 }
 
+.perfil-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.perfil-form {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.perfil-form input {
+  padding: 0.65rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.perfil-preview {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.endereco-via-cep,
+.campo-dica {
+  color: #666;
+  font-size: 0.85rem;
+}
+
 .perfil-info h1 {
   font-size: 1.4rem;
   margin-bottom: 0.3rem;

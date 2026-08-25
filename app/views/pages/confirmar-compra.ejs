@@ -60,6 +60,40 @@
 
     </article>
 
+    <section class="compra-secao" aria-labelledby="endereco-titulo">
+      <header class="compra-secao-cabecalho">
+        <h2 id="endereco-titulo">Endereço de entrega</h2>
+        <a href="/perfil" class="compra-link">Editar endereço</a>
+      </header>
+      <address class="endereco-entrega">
+        <strong><%= usuario.nome_usuario %></strong>
+        <% if (usuario.telefone_usuario) { %><span><%= usuario.telefone_usuario %></span><% } %>
+        <% if (usuario.cep_usuario) { %><span>CEP: <%= usuario.cep_usuario %></span><% } %>
+        <% if (endereco) { %>
+          <span><%= endereco.logradouro %><%= usuario.numero_usuario ? ', ' + usuario.numero_usuario : '' %></span>
+          <span><%= endereco.bairro %> - <%= endereco.localidade %>/<%= endereco.uf %></span>
+        <% } else if (usuario.numero_usuario || usuario.complemento_usuario) { %>
+          <% if (usuario.numero_usuario) { %><span>Número: <%= usuario.numero_usuario %></span><% } %>
+          <% if (usuario.complemento_usuario) { %><span><%= usuario.complemento_usuario %></span><% } %>
+        <% } else { %>
+          <span class="endereco-pendente">Complete seu endereço no perfil.</span>
+        <% } %>
+        <% if (usuario.complemento_usuario && endereco) { %><span><%= usuario.complemento_usuario %></span><% } %>
+        <% if (erroCep) { %><span class="endereco-pendente">Endereço não pôde ser consultado agora.</span><% } %>
+      </address>
+    </section>
+
+    <section class="compra-secao" aria-labelledby="pagamento-titulo">
+      <h2 id="pagamento-titulo">Forma de pagamento</h2>
+      <fieldset class="pagamento-opcoes">
+        <legend>Selecione uma opção</legend>
+        <label><input type="radio" name="forma_pagamento" value="pix" form="confirmar-compra-form" checked> PIX</label>
+        <label><input type="radio" name="forma_pagamento" value="credito" form="confirmar-compra-form"> Cartão de crédito</label>
+        <label><input type="radio" name="forma_pagamento" value="debito" form="confirmar-compra-form"> Cartão de débito</label>
+      </fieldset>
+      <p class="compra-aviso">O pagamento será processado de forma segura na próxima etapa. A integração de pagamento ainda será disponibilizada.</p>
+    </section>
+
     <section class="compra-resumo" aria-label="Resumo do pedido">
       <h3>Resumo do pedido</h3>
       <ul>
@@ -71,6 +105,14 @@
           <span>Quantidade</span>
           <strong>1 unidade</strong>
         </li>
+        <li>
+          <span>Preço unitário</span>
+          <strong>R$ <%= produto.preco_produto %></strong>
+        </li>
+        <li>
+          <span>Frete</span>
+          <strong>A definir</strong>
+        </li>
         <li class="compra-total">
           <span>Total</span>
           <strong class="compra-preco-total">R$ <%= produto.preco_produto %></strong>
@@ -80,8 +122,8 @@
 
    
     <nav class="compra-acoes" aria-label="Ações da compra">
-      <form action="/confirmar-compra/<%= produto.id_produto %>" method="POST">
-        <button type="submit" class="btn-confirmar">Confirmar Compra</button>
+      <form id="confirmar-compra-form" action="/confirmar-compra/<%= produto.id_produto %>" method="POST">
+        <button type="submit" class="btn-confirmar">Prosseguir</button>
       </form>
       <a href="/produto/<%= produto.id_produto %>" class="btn-voltar">Voltar ao produto</a>
     </nav>
