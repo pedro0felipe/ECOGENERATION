@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= titulo %> - ECOGENERATION</title>
+  <link rel="stylesheet" href="/css/admin.css">
+    <link rel="icon" href="/imagens/favicon2.png" type="image/png">
+</head>
+<body class="admin-body">
+  <main class="admin-container">
+    <section class="admin-login-box">
+      <header class="admin-header">
+        <h1>🔐 ADMIN ECOGENERATION</h1>
+        <p>Painel de Administração</p>
+      </header>
+      
+      <% if (erro) { %>
+        <aside class="alert alert-error">
+          <%= erro %>
+        </aside>
+      <% } %>
+      
+      <form method="POST" action="/admin-login" class="admin-form">
+        <p class="form-group">
+          <label for="usuario">Usuário</label>
+          <input 
+            type="text" 
+            id="usuario" 
+            name="usuario" 
+            placeholder="Digite o usuário" 
+            required
+          >
+        </p>
+        
+        <p class="form-group">
+          <label for="senha">Senha</label>
+          <span class="password-input-wrapper">
+            <input 
+              type="password" 
+              id="senha" 
+              name="senha" 
+              placeholder="Digite a senha" 
+              required
+            >
+            <button 
+              type="button" 
+              class="btn-toggle-password" 
+              onclick="togglePasswordVisibility()"
+              title="Mostrar/Ocultar senha"
+            >
+              👁️
+            </button>
+          </span>
+        </p>
+        
+        <button type="submit" class="btn btn-primary btn-block">
+          Entrar
+        </button>
+      </form>
+      
+      <footer class="admin-footer">
+        <a href="/">Voltar à página inicial</a>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    function togglePasswordVisibility() {
+      const senhaInput = document.getElementById('senha');
+      const toggleBtn = document.querySelector('.btn-toggle-password');
+      
+      if (senhaInput.type === 'password') {
+        senhaInput.type = 'text';
+        toggleBtn.textContent = 'x';
+      } else {
+        senhaInput.type = 'password';
+        toggleBtn.textContent = '👁️';
+      }
+    }
+  </script>
+</body>
+</html>

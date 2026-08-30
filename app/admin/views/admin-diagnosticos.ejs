@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>adm</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/admin.css">
+    <link rel="icon" href="/imagens/favicon2.png" type="image/png">
+</head>
+
+<section class="admin-wrapper">
+  <aside class="admin-sidebar">
+    <header class="admin-brand">
+      <h2>⚙️ ADMIN</h2>
+    </header>
+    
+    <nav class="admin-nav">
+      <a href="/admin" class="nav-item">
+        📊 Dashboard
+      </a>
+      <a href="/admin/usuarios" class="nav-item">
+        👥 Usuários
+      </a>
+      <a href="/admin/diagnosticos" class="nav-item active">
+        📋 Diagnósticos
+      </a>
+      <a href="/admin/produtos" class="nav-item">
+        📦 Produtos
+      </a>
+      <a href="/admin-logout" class="nav-item nav-logout">
+        🚪 Sair
+      </a>
+    </nav>
+  </aside>
+  
+  <main class="admin-main">
+    <header class="admin-header">
+      <h1>📋 Gerenciamento de Diagnósticos</h1>
+      <p>Total de diagnósticos realizados: <strong><%= diagnosticos.length %></strong></p>
+    </header>
+    
+    <% if (diagnosticos.length > 0) { %>
+      <section class="table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Usuário</th>
+              <th>Email</th>
+              <th>Nível de Autonomia</th>
+              <th>Data do Diagnóstico</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% diagnosticos.forEach(diag => { %>
+              <tr>
+                <td>#<%= diag.id_diagnostico %></td>
+                <td><%= diag.nome_usuario || "Anônimo" %></td>
+                <td><%= diag.email_usuario || "-" %></td>
+                <td>
+                  <span class="badge badge-<%= diag.nivel_autonomia %>">
+                    <%= diag.nivel_autonomia %>
+                  </span>
+                </td>
+                <td>—</td>
+                <td>
+                  <a href="/admin/diagnosticos/deletar/<%= diag.id_diagnostico %>" 
+                     class="btn btn-tiny btn-danger"
+                     onclick="return confirm('Tem certeza que deseja deletar este diagnóstico?')">
+                    🗑️ Deletar
+                  </a>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </section>
+    <% } else { %>
+      <section class="empty-state">
+        <p>📭 Nenhum diagnóstico realizado ainda</p>
+        <a href="/diagnostico" class="btn btn-primary">Realizar Diagnóstico</a>
+      </section>
+    <% } %>
+  </main>
+</section>
+
+<%- include('../partials/footer') %>

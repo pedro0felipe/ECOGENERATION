@@ -8,12 +8,19 @@ CREATE DATABASE IF NOT EXISTS ecogeneration;
 USE ecogeneration;
 
 CREATE TABLE IF NOT EXISTS usuarios (
-  id_usuario     INT           NOT NULL AUTO_INCREMENT,
-  nome_usuario   VARCHAR(100)  NOT NULL,
-  email_usuario  VARCHAR(100)  NOT NULL,
-  senha_usuario  VARCHAR(255)  NOT NULL,
-  status_usuario INT           DEFAULT 1,
-  PRIMARY KEY (id_usuario)
+  id_usuario           INT           NOT NULL AUTO_INCREMENT,
+  nome_usuario         VARCHAR(100)  NOT NULL,
+  email_usuario        VARCHAR(100)  NOT NULL,
+  senha_usuario        VARCHAR(255)  NOT NULL,
+  cpf_usuario          VARCHAR(14)   DEFAULT NULL,
+  telefone_usuario     VARCHAR(20)   DEFAULT NULL,
+  cep_usuario          VARCHAR(9)    DEFAULT NULL,
+  numero_usuario       VARCHAR(10)   DEFAULT NULL,
+  complemento_usuario  VARCHAR(100)  DEFAULT NULL,
+  imagem_perfil_usuario VARCHAR(255) DEFAULT NULL,
+  status_usuario       INT           DEFAULT 1,
+  PRIMARY KEY (id_usuario),
+  UNIQUE KEY uq_email_usuario (email_usuario)
 );
 
 CREATE TABLE IF NOT EXISTS produtos (

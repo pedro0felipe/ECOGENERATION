@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>adm</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+</html><%- include('../../views/partials/header') %>
+
+<section class="admin-wrapper">
+  <aside class="admin-sidebar">
+    <header class="admin-brand">
+      <h2> ADMIN</h2>
+    </header>
+    
+    <nav class="admin-nav">
+     
+      <a href="/admin" class="nav-item <%= currentPath === '/admin' ? 'active' : '' %>">
+        📊 Dashboard
+      </a>
+      <a href="/admin/usuarios" class="nav-item <%= currentPath === '/admin/usuarios' ? 'active' : '' %>">
+        👥 Usuários
+      </a>
+      <a href="/admin/diagnosticos" class="nav-item <%= currentPath === '/admin/diagnosticos' ? 'active' : '' %>">
+        📋 Diagnósticos
+      </a>
+      <a href="/admin/produtos" class="nav-item <%= currentPath === '/admin/produtos' ? 'active' : '' %>">
+        📦 Produtos
+      </a>
+      <a href="/admin-logout" class="nav-item nav-logout">
+        🚪 Sair
+      </a>
+    </nav>
+  </aside>
+  
+  <main class="admin-main">
+    <header class="admin-header">
+     <img src="app/publicimagens/GENERATIONN.svg" alt="EcoGeneration Logo" class="logo">
+      <h1> Dashboard de Administração</h1>
+     
+    </header>
+    
+    <section class="dashboard-stats">
+      <article class="stat-card">
+        <span class="stat-icon">👥</span>
+        <p class="stat-content">
+          <h3>Usuários Cadastrados</h3>
+          <p class="stat-number"><%= totalUsuarios %></p>
+        </p>
+      </article>
+      
+      <article class="stat-card">
+        <span class="stat-icon">📋</span>
+        <p class="stat-content">
+          <h3>Diagnósticos Realizados</h3>
+          <p class="stat-number"><%= totalDiagnosticos %></p>
+        </p>
+      </article>
+      
+      <article class="stat-card">
+        <span class="stat-icon">📦</span>
+        <p class="stat-content">
+          <h3>Produtos em Catálogo</h3>
+          <p class="stat-number"><%= totalProdutos %></p>
+        </p>
+      </article>
+      
+      <article class="stat-card <%= produtosBaixoEstoque.length > 0 ? 'warning' : '' %>">
+        <span class="stat-icon">⚠️</span>
+        <p class="stat-content">
+          <h3>Produtos Baixo Estoque</h3>
+          <p class="stat-number"><%= produtosBaixoEstoque.length %></p>
+        </p>
+      </article>
+    </section>
+    
+    <section class="dashboard-grid">
+      <section class="dashboard-section">
+        <h2>📌 Usuários Recentes</h2>
+        <% if (usuariosRecentes.length > 0) { %>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Data de Cadastro</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% usuariosRecentes.forEach(usuario => { %>
+                <tr>
+                  <td><%= usuario.nome_usuario %></td>
+                  <td><%= usuario.email_usuario %></td>
+                  <td><%= usuario.id_usuario %></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+          <a href="/admin/usuarios" class="btn btn-small btn-secondary">
+            Ver Todos os Usuários
+          </a>
+        <% } else { %>
+          <p class="empty-message">Nenhum usuário cadastrado ainda</p>
+        <% } %>
+      </section>
+      
+      <section class="dashboard-section">
+        <h2>📌 Diagnósticos Recentes</h2>
+        <% if (diagnosticosRecentes.length > 0) { %>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Usuário</th>
+                <th>Email</th>
+                <th>Nível</th>
+                <th>Data</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% diagnosticosRecentes.forEach(diag => { %>
+                <tr>
+                  <td><%= diag.nome_usuario || "Anônimo" %></td>
+                  <td><%= diag.email_usuario || "-" %></td>
+                  <td>
+                    <span class="badge badge-<%= diag.nivel_autonomia %>">
+                      <%= diag.nivel_autonomia %>
+                    </span>
+                  </td>
+                  <td><%= diag.id_diagnostico %></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+          <a href="/admin/diagnosticos" class="btn btn-small btn-secondary">
+            Ver Todos os Diagnósticos
+          </a>
+        <% } else { %>
+          <p class="empty-message">Nenhum diagnóstico realizado ainda</p>
+        <% } %>
+      </section>
+    </section>
+    
+    <% if (produtosBaixoEstoque.length > 0) { %>
+      <aside class="alert alert-warning">
+        <strong>⚠️ Atenção:</strong> 
+        <%= produtosBaixoEstoque.length %> produto(s) com estoque baixo (≤ 5 unidades)
+      </aside>
+    <% } %>
+  </main>
+</section>
+
+<%- include('../../views/partials/footer') %>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>adm</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/admin.css">
+      <link rel="icon" href="/imagens/favicon2.png" type="image/png">
+</head>
+<body>
+    
+</body>
+</html>
+
+
+
+<section class="admin-wrapper">
+  <aside class="admin-sidebar">
+    <header class="admin-brand">
+      <h2> ADMIN</h2>
+    </header>
+    
+    <nav class="admin-nav">
+      <a href="/admin" class="nav-item <%= currentPath === '/admin' ? 'active' : '' %>">
+        📊 Dashboard
+      </a>
+      <a href="/admin/usuarios" class="nav-item <%= currentPath === '/admin/usuarios' ? 'active' : '' %>">
+        👥 Usuários
+      </a>
+      <a href="/admin/diagnosticos" class="nav-item <%= currentPath === '/admin/diagnosticos' ? 'active' : '' %>">
+        📋 Diagnósticos
+      </a>
+      <a href="/admin/produtos" class="nav-item <%= currentPath === '/admin/produtos' ? 'active' : '' %>">
+        📦 Produtos
+      </a>
+      <a href="/admin-logout" class="nav-item nav-logout">
+        🚪 Sair
+      </a>
+    </nav>
+  </aside>
+  
+  <main class="admin-main">
+    <header class="admin-header">
+      <h1> Dashboard de Administração</h1>
+     
+    </header>
+    
+    <section class="dashboard-stats">
+      <article class="stat-card">
+        <span class="stat-icon">👥</span>
+        <p class="stat-content">
+          <h3>Usuários Cadastrados</h3>
+          <p class="stat-number"><%= totalUsuarios %></p>
+        </p>
+      </article>
+      
+      <article class="stat-card">
+        <span class="stat-icon">📋</span>
+        <p class="stat-content">
+          <h3>Diagnósticos Realizados</h3>
+          <p class="stat-number"><%= totalDiagnosticos %></p>
+        </p>
+      </article>
+      
+      <article class="stat-card">
+        <span class="stat-icon">📦</span>
+        <p class="stat-content">
+          <h3>Produtos em Catálogo</h3>
+          <p class="stat-number"><%= totalProdutos %></p>
+        </p>
+      </article>
+      
+      <article class="stat-card <%= produtosBaixoEstoque.length > 0 ? 'warning' : '' %>">
+        <span class="stat-icon">⚠️</span>
+        <p class="stat-content">
+          <h3>Produtos Baixo Estoque</h3>
+          <p class="stat-number"><%= produtosBaixoEstoque.length %></p>
+        </p>
+      </article>
+    </section>
+    
+  
+
+    
+   
+  </main>
+</section>
+
+<%- include('../partials/footer') %>

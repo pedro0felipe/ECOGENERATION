@@ -124,6 +124,10 @@ exports.ativarConta = async (req, res) => {
 exports.recuperarSenhaForm = (req, res) => res.render('recuperar-senha', { errors: {}, old: {} });
 
 exports.recuperarSenhaSubmit = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.render('recuperar-senha', { old: req.body, errors: { geral: errors.array()[0] } });
+    }
     const email = String(req.body.email || '').trim();
     try {
         const usuarios = await usuariosModel.findByEmailAny(email);

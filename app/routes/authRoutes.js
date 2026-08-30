@@ -3,12 +3,15 @@ const router = express.Router();
 const { check } = require('express-validator');
 const authController = require("../controllers/authController");
 const { validarCPF, validarCNPJ } = require("../helpers/validadores");
+const { validarEmailReal } = require("../helpers/validarEmailReal");
 
 router.get('/cadastro', authController.cadastroForm);
 router.post('/cadastro',
     [
         check('nome').notEmpty().withMessage('Nome é obrigatório'),
-        check('email').isEmail().withMessage('Email inválido'),
+        check('email').isEmail().withMessage('Email inválido')
+            .bail() // só continua para a checagem de DNS se o formato já estiver ok
+            .custom(validarEmailReal).withMessage('Este domínio de e-mail não existe ou não recebe mensagens'),
         check('senha').isLength({ min: 6 }).withMessage('Senha deve ter pelo menos 6 caracteres'),
         check('cpf').optional({ checkFalsy: true }).custom(validarCPF).withMessage('CPF inválido'),
         check('telefone').optional({ checkFalsy: true }).matches(/^\(\d{2}\)\s?\d{5}-\d{4}$/).withMessage('Telefone inválido. Formato: (XX) XXXXX-XXXX'),
@@ -24,7 +27,14 @@ router.post('/cadastro',
 router.get('/login', authController.loginForm);
 router.get('/ativar-conta', authController.ativarConta);
 router.get('/recuperar-senha', authController.recuperarSenhaForm);
-router.post('/recuperar-senha', authController.recuperarSenhaSubmit);
+router.post('/recuperar-senha',
+    [
+        check('email').isEmail().withMessage('Informe um e-mail válido')
+            .bail()
+            .custom(validarEmailReal).withMessage('Este domínio de e-mail não existe ou não recebe mensagens'),
+    ],
+    authController.recuperarSenhaSubmit
+);
 router.get('/resetar-senha', authController.resetarSenhaForm);
 router.post('/resetar-senha', authController.resetarSenhaSubmit);
 router.post('/login',
