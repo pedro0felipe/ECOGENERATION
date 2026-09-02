@@ -24,7 +24,7 @@
 
     <h1>Recuperar senha</h1>
 
-    <p>Digite o e-mail da sua conta e enviaremos um link para você criar uma nova senha.</p>
+    <p class="auth-description">Digite o e-mail da sua conta e enviaremos um link para você criar uma nova senha.</p>
 
     <!-- WCAG 3.3.1 — erros anunciados para leitores de tela -->
     <% if (errors.geral) { %>
@@ -33,7 +33,7 @@
       </section>
     <% } %>
 
-    <form action="/recuperar-senha" method="post" class="ui form" novalidate aria-label="Formulário de recuperação de senha">
+    <form action="/recuperar-senha" method="post" class="ui form auth-form" id="recuperar-senha-form" novalidate aria-label="Formulário de recuperação de senha">
 
       <label for="email">E-mail <span aria-hidden="true">*</span></label>
       <input

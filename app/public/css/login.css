@@ -21,31 +21,37 @@ main h1 {
   color: #154d27 !important;
 }
 
+.auth-description {
+  max-width: 300px;
+  margin: 0 auto 1rem;
+  text-align: center;
+}
+
 
 /* Centraliza os inputs, selects e botões do formulário principal */
-#login-form {
+.auth-form {
   display: flex;
   flex-direction: column;
   align-items: center; /* centraliza horizontalmente os campos */
 }
 
-#login-form input,
-#login-form select,
-#login-form textarea,
-#login-form button {
+.auth-form input,
+.auth-form select,
+.auth-form textarea,
+.auth-form button {
   width: 300px; /* largura fixa */
   max-width: 90vw; /* responsividade */
   margin-bottom: 10px; /* margem suavizada */
   border: 1px solid #ccc; /* contorno suave */
 }
 
-#login-form input::placeholder,
-#login-form textarea::placeholder {
+.auth-form input::placeholder,
+.auth-form textarea::placeholder {
   color: #999; /* placeholder mais suave */
 }
 
 /* Labels alinhados à esquerda, alinhados com os campos */
-#login-form label {
+.auth-form label {
   align-self: flex-start;
   margin-left: calc(50% - 150px); /* para alinhar com input de 300px */
   margin-bottom: 5px;
@@ -53,19 +59,19 @@ main h1 {
 }
 
 /* Mensagens de erro alinhadas igual os labels */
-#login-form section.ui.pointing.red.basic.label {
+.auth-form section.ui.pointing.red.basic.label {
   max-width: 300px;
   margin-left: -191px;
   margin-bottom: 10px; /* margem suavizada */
 }
 
 /* Ajuste nos botões para espaçamento */
-#login-form button {
+.auth-form button {
   margin-top: 1rem;
   margin-right: 0.5rem;
 }
 
-  
+
 
 
   footer {
@@ -81,7 +87,7 @@ main h1 {
     min-height: 100vh;
     margin: 0;
   }
-  
+
   /* Faz o conteúdo crescer e empurra o rodapé para o final */
   main {
     flex: 1;
@@ -94,15 +100,15 @@ main h1 {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
-  #login-form input,
-#login-form select {
+  .auth-form input,
+.auth-form select {
   height: 3em;         /* aumenta a altura */
   font-size: 1.1em;     /* aumenta o tamanho da fonte */
   padding: 0.5em;       /* aumenta o espaço interno */
   border-radius: 8px;   /* bordas arredondadas */
 }
 
-#login-form button {
+.auth-form button {
   height: 3em;
   font-size: 1.1em;
   border-radius: 8px;   /* bordas arredondadas */
@@ -148,19 +154,20 @@ html[data-theme="dark"] main h1 {
   color: #e0e0e0 !important;
 }
 
-[data-theme="dark"] #login-form label {
+[data-theme="dark"] .auth-form label {
   color: #e0e0e0;
 }
 
-[data-theme="dark"] #login-form p {
+[data-theme="dark"] .auth-form p,
+[data-theme="dark"] .auth-description {
   color: #e0e0e0;
 }
 
-[data-theme="dark"] #login-form a {
+[data-theme="dark"] .auth-form a {
   color: #66bb6a;
 }
 
-[data-theme="dark"] #login-form a:hover {
+[data-theme="dark"] .auth-form a:hover {
   color: #81c784;
 }
 
@@ -168,20 +175,20 @@ html[data-theme="dark"] main h1 {
   color: #e0e0e0;
 }
 
-[data-theme="dark"] #login-form input,
+[data-theme="dark"] .auth-form input,
 [data-theme="dark"] .ui.input input {
   background: #2a2a2a;
   color: #e0e0e0;
   border-color: #444;
 }
 
-[data-theme="dark"] #login-form input:focus,
+[data-theme="dark"] .auth-form input:focus,
 [data-theme="dark"] .ui.input input:focus {
   border-color: #2e7d32;
   box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
 }
 
-[data-theme="dark"] #login-form input[aria-invalid="true"] {
+[data-theme="dark"] .auth-form input[aria-invalid="true"] {
   border-color: #ff6b6b;
   box-shadow: 0 0 0 1px rgba(255, 107, 107, 0.3);
 }
@@ -226,4 +233,4 @@ html[data-theme="dark"] main h1 {
   background-color: rgba(255, 107, 107, 0.1) !important;
   border-color: #ff6b6b !important;
   color: #ff6b6b !important;
-}
+}
