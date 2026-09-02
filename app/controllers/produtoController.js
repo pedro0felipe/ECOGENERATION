@@ -100,9 +100,4 @@ exports.busca = async (req, res) => {
 
 // ===== PÁGINAS ESTÁTICAS =====
 exports.sobreNos = (req, res) => res.render("sobre-nos", { titulo: "Sobre Nós" });
-exports.entrada = (req, res) => res.render("entrada", { titulo: "Entrada" });
-exports.medio = (req, res) => res.render("medio", { titulo: "Médio" });
-exports.avancado = (req, res) => res.render("avancado", { titulo: "Avançado" });
-exports.lampada = (req, res) => res.render("lampada", { titulo: "Lâmpada" });
 exports.calculadoraTelaInicial = (req, res) => res.render("diagnosticotela-inicial", { titulo: "Diagnóstico" });
-exports.calculadoraPerguntas = (req, res) => res.render("calculadora-perguntas", { titulo: "EcoCalculadora" });

@@ -17,3 +17,9 @@ ALTER TABLE usuarios
 -- no nível do banco (o código já verifica isso, mas o banco garante).
 -- Só rode isso se não houver e-mails duplicados na tabela ainda.
 ALTER TABLE usuarios ADD UNIQUE KEY uq_email_usuario (email_usuario);
+
+-- ============================================================
+-- Migração adicional: corrige o tamanho da coluna preparacao
+-- em diagnosticos (rode isso também se o banco já existe)
+-- ============================================================
+ALTER TABLE diagnosticos MODIFY COLUMN preparacao VARCHAR(150);

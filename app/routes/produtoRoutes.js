@@ -8,12 +8,7 @@ router.get("/produto/:id", produtoController.detalhePorId);
 router.get("/search", produtoController.busca);
 
 router.get("/sobre-nos", produtoController.sobreNos);
-router.get("/entrada", produtoController.entrada);
-router.get("/medio", produtoController.medio);
-router.get("/avancado", produtoController.avancado);
-router.get("/lampada", produtoController.lampada);
 router.get("/calculadora-tela-inicial", produtoController.calculadoraTelaInicial);
-router.get("/calculadora-perguntas", produtoController.calculadoraPerguntas);
 
 // Rotas amigáveis de produtos individuais (mesma lógica: busca pela própria rota)
 const rotasDeProduto = [

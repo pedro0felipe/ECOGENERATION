@@ -3,24 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Recuperar senha - EcoGeneration</title>
+  <title>Recuperar senha — EcoGeneration</title>
+  <meta name="description" content="Recupere o acesso à sua conta EcoGeneration.">
+  <meta name="robots" content="noindex, follow">
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/login.css">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="apple-touch-icon" href="/imagens/favicon2.png">
+  <link rel="icon" href="/imagens/favicon2.png" type="image/png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#2e7d32">
+  <!-- simple-notify para Flash Messages -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.css">
 </head>
 <body class="layout">
-  <%- include('../partials/header') %>
-  <main id="conteudo-principal">
+
+  <%- include("../partials/header") %>
+
+  <main id="conteudo-principal" tabindex="-1">
+
     <h1>Recuperar senha</h1>
-    <% if (errors.geral) { %><p class="erro-geral"><%= errors.geral.msg %></p><% } %>
-    <form action="/recuperar-senha" method="post" class="ui form">
-      <label for="email">E-mail</label>
-      <input id="email" name="email" type="email" value="<%= old.email || '' %>" required autocomplete="email">
-      <button type="submit" class="ui primary button">Enviar link</button>
+
+    <p>Digite o e-mail da sua conta e enviaremos um link para você criar uma nova senha.</p>
+
+    <!-- WCAG 3.3.1 — erros anunciados para leitores de tela -->
+    <% if (errors.geral) { %>
+      <section role="alert" aria-live="assertive" class="erro-geral">
+        <p><%= errors.geral.msg %></p>
+      </section>
+    <% } %>
+
+    <form action="/recuperar-senha" method="post" class="ui form" novalidate aria-label="Formulário de recuperação de senha">
+
+      <label for="email">E-mail <span aria-hidden="true">*</span></label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        value="<%= old.email ? old.email : '' %>"
+        placeholder="Digite seu e-mail"
+        autocomplete="email"
+        required
+        aria-required="true"
+        aria-describedby="<%= errors.geral ? 'erro-email' : '' %>"
+        aria-invalid="<%= errors.geral ? 'true' : 'false' %>"
+      />
+
+      <button class="ui primary button" type="submit">Enviar link</button>
+      <p><a href="/login">Voltar para o login</a></p>
     </form>
   </main>
+
   <%- include('../partials/footer') %>
+  <!-- simple-notify JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.min.js"></script>
+  <!-- Função centralizada de notificações -->
   <script src="/js/notify.js"></script>
+  <!-- Flash Message -->
   <%- include('../partials/flash') %>
 </body>
 </html>

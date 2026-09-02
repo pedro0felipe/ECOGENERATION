@@ -131,21 +131,37 @@ exports.recuperarSenhaSubmit = async (req, res) => {
     const email = String(req.body.email || '').trim();
     try {
         const usuarios = await usuariosModel.findByEmailAny(email);
-        if (usuarios.length && usuarios[0].status_usuario === 1) {
-            const token = criarToken({ id_usuario: usuarios[0].id_usuario, tipo: 'reset' }, '1h');
-            const link = `${getBaseUrl()}/resetar-senha?token=${encodeURIComponent(token)}`;
-            await enviarEmail({
-                para: email,
-                assunto: 'Redefinição de senha EcoGeneration',
-                html: `<p>Solicitamos a redefinição da sua senha.</p><p><a href="${link}">Criar nova senha</a></p><p>O link expira em uma hora.</p>`
+
+        if (usuarios.length === 0) {
+            return res.render('recuperar-senha', {
+                old: req.body,
+                errors: { geral: { msg: 'E-mail não encontrado. Verifique se digitou corretamente ou cadastre-se.' } }
             });
         }
-        req.session.flash = { status: 'success', text: 'Se o e-mail estiver cadastrado, você receberá um link para redefinir a senha.' };
+
+        if (usuarios[0].status_usuario !== 1) {
+            return res.render('recuperar-senha', {
+                old: req.body,
+                errors: { geral: { msg: 'Essa conta ainda não foi ativada. Verifique o e-mail de ativação que enviamos no cadastro.' } }
+            });
+        }
+
+        const token = criarToken({ id_usuario: usuarios[0].id_usuario, tipo: 'reset' }, '1h');
+        const link = `${getBaseUrl()}/resetar-senha?token=${encodeURIComponent(token)}`;
+        await enviarEmail({
+            para: email,
+            assunto: 'Redefinição de senha EcoGeneration',
+            html: `<p>Solicitamos a redefinição da sua senha.</p><p><a href="${link}">Criar nova senha</a></p><p>O link expira em uma hora.</p>`
+        });
+
+        req.session.flash = { status: 'success', text: 'Enviamos um link de redefinição para o seu e-mail.' };
         req.session.save(() => res.redirect('/login'));
     } catch (erro) {
         console.log(erro);
-        req.session.flash = { status: 'error', text: 'Não foi possível enviar o e-mail. Tente novamente.' };
-        req.session.save(() => res.redirect('/recuperar-senha'));
+        return res.render('recuperar-senha', {
+            old: req.body,
+            errors: { geral: { msg: 'Não foi possível enviar o e-mail agora. Tente novamente em instantes.' } }
+        });
     }
 };
 
@@ -160,16 +176,27 @@ exports.resetarSenhaForm = (req, res) => {
 };
 
 exports.resetarSenhaSubmit = async (req, res) => {
+    const token = req.body.token;
     try {
-        const dados = verificarToken(req.body.token);
-        if (dados.tipo !== 'reset' || !req.body.senha || req.body.senha.length < 6) throw new Error('Senha inválida');
+        const dados = verificarToken(token);
+        if (dados.tipo !== 'reset') throw new Error('Token inválido');
+
+        const senha = req.body.senha || '';
+        const confirmarSenha = req.body.confirmarSenha || '';
+        if (senha.length < 6) {
+            return res.render('resetar-senha', { token, errors: { geral: { msg: 'A senha deve ter pelo menos 6 caracteres.' } } });
+        }
+        if (senha !== confirmarSenha) {
+            return res.render('resetar-senha', { token, errors: { geral: { msg: 'As senhas digitadas não coincidem.' } } });
+        }
+
         const usuarios = await usuariosModel.findById(dados.id_usuario);
         if (!usuarios[0]) throw new Error('Usuário não encontrado');
-        await usuariosModel.updatePassword(dados.id_usuario, req.body.senha);
+        await usuariosModel.updatePassword(dados.id_usuario, senha);
         req.session.flash = { status: 'success', text: 'Senha redefinida com sucesso. Faça login.' };
         req.session.save(() => res.redirect('/login'));
     } catch (erro) {
-        req.session.flash = { status: 'error', text: erro.name === 'TokenExpiredError' ? 'O link de redefinição expirou.' : 'Link inválido ou senha não aceita.' };
+        req.session.flash = { status: 'error', text: erro.name === 'TokenExpiredError' ? 'O link de redefinição expirou. Solicite um novo.' : 'Link inválido ou expirado. Solicite um novo.' };
         req.session.save(() => res.redirect('/recuperar-senha'));
     }
 };

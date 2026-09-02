@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS diagnosticos (
   id_usuario      INT,
   frequencia      VARCHAR(50),
   impacto         VARCHAR(50),
-  preparacao      VARCHAR(50),
+  preparacao      VARCHAR(150),
   prioridade      VARCHAR(50),
   tolerancia      VARCHAR(50),
   nivel_autonomia VARCHAR(20) NOT NULL,

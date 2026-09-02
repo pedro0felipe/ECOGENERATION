@@ -3,22 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nova senha - EcoGeneration</title>
+  <title>Nova senha — EcoGeneration</title>
+  <meta name="description" content="Defina uma nova senha para sua conta EcoGeneration.">
+  <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/login.css">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="apple-touch-icon" href="/imagens/favicon2.png">
+  <link rel="icon" href="/imagens/favicon2.png" type="image/png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#2e7d32">
+  <!-- simple-notify para Flash Messages -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.css">
 </head>
 <body class="layout">
-  <%- include('../partials/header') %>
-  <main id="conteudo-principal">
+
+  <%- include("../partials/header") %>
+
+  <main id="conteudo-principal" tabindex="-1">
+
     <h1>Definir nova senha</h1>
-    <form action="/resetar-senha" method="post" class="ui form">
+
+    <!-- WCAG 3.3.1 — erros anunciados para leitores de tela -->
+    <% if (errors.geral) { %>
+      <section role="alert" aria-live="assertive" class="erro-geral">
+        <p><%= errors.geral.msg %></p>
+      </section>
+    <% } %>
+
+    <form action="/resetar-senha" method="post" class="ui form" id="resetar-senha-form" novalidate aria-label="Formulário de redefinição de senha">
       <input type="hidden" name="token" value="<%= token %>">
-      <label for="senha">Nova senha</label>
-      <input id="senha" name="senha" type="password" minlength="6" required autocomplete="new-password">
-      <button type="submit" class="ui primary button">Redefinir senha</button>
+
+      <label for="senha">Nova senha <span aria-hidden="true">*</span></label>
+      <input
+        type="password"
+        id="senha"
+        name="senha"
+        placeholder="Digite a nova senha"
+        minlength="6"
+        autocomplete="new-password"
+        required
+        aria-required="true"
+      />
+
+      <label for="confirmarSenha">Confirmar nova senha <span aria-hidden="true">*</span></label>
+      <input
+        type="password"
+        id="confirmarSenha"
+        name="confirmarSenha"
+        placeholder="Digite a nova senha novamente"
+        minlength="6"
+        autocomplete="new-password"
+        required
+        aria-required="true"
+      />
+
+      <label class="mostrar-senha-label">
+        <input type="checkbox" onchange="toggleSenha('senha', this); toggleSenha('confirmarSenha', this)"> Mostrar senha
+      </label>
+
+      <button class="ui primary button" type="submit">Redefinir senha</button>
     </form>
   </main>
+
   <%- include('../partials/footer') %>
+  <!-- simple-notify JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.min.js"></script>
+  <!-- Função centralizada de notificações -->
+  <script src="/js/notify.js"></script>
+  <!-- Flash Message -->
+  <%- include('../partials/flash') %>
+  <script src="/js/senha-toggle.js"></script>
 </body>
 </html>
