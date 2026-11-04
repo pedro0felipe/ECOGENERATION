@@ -1,5 +1,5 @@
 const pool = require("../../config/pool_conexoes");
-const { STATUS_USUARIO } = require("./usuariosModel");
+const { usuariosModel } = require("./usuariosModel");
 
 // Model exclusivo para operações administrativas
 const adminModel = {
@@ -23,14 +23,8 @@ const adminModel = {
     } catch (erro) { throw erro; }
   },
 
-  deleteUsuario: async (id) => {
-    try {
-      const [resultado] = await pool.query(
-        "UPDATE usuarios SET status_usuario = ? WHERE id_usuario = ?", [STATUS_USUARIO.EXCLUIDO, id]
-      );
-      return resultado;
-    } catch (erro) { throw erro; }
-  },
+  // Mesma exclusão que o próprio usuário faz: anonimiza os dados pessoais
+  deleteUsuario: (id) => usuariosModel.delete(id),
 
   countUsuarios: async () => {
     try {

@@ -27,6 +27,8 @@
     .badge-entregue    { background: #f3e5f5; color: #6a1b9a; }
     .badge-cancelado   { background: #ffebee; color: #c62828; }
 
+    .pedido-entrega { display: block; margin-top: 0.35rem; color: #374151; line-height: 1.45; }
+
     .status-form { display: flex; gap: 0.5rem; align-items: center; }
     .status-form select {
       padding: 0.3rem 0.5rem;
@@ -82,7 +84,7 @@
             <tr>
               <th>Pedido</th>
               <th>Itens</th>
-              <th>Cliente</th>
+              <th>Cliente e entrega</th>
               <th>Total</th>
               <th>Pagamento</th>
               <th>Status</th>
@@ -107,6 +109,18 @@
                 <td>
                   <%= pedido.nome_usuario || 'Visitante' %>
                   <small style="display:block; color:#555;"><%= pedido.email_usuario || '' %></small>
+                  <% if (pedido.telefone_usuario) { %><small style="display:block; color:#555;">Tel. <%= pedido.telefone_usuario %></small><% } %>
+                  <% const end = pedido.cep_usuario ? enderecos[pedido.cep_usuario] : null; %>
+                  <small class="pedido-entrega">
+                    <% if (end) { %>
+                      <%= end.logradouro %><%= pedido.numero_usuario ? ', ' + pedido.numero_usuario : '' %><%= pedido.complemento_usuario ? ' — ' + pedido.complemento_usuario : '' %><br>
+                      <%= end.bairro %> — <%= end.localidade %>/<%= end.uf %> · CEP <%= pedido.cep_usuario %>
+                    <% } else if (pedido.cep_usuario) { %>
+                      CEP <%= pedido.cep_usuario %><%= pedido.numero_usuario ? ', nº ' + pedido.numero_usuario : '' %><%= pedido.complemento_usuario ? ' — ' + pedido.complemento_usuario : '' %>
+                    <% } else { %>
+                      Endereço não informado
+                    <% } %>
+                  </small>
                 </td>
                 <td>R$ <%= Number(pedido.total_pedido).toFixed(2).replace('.', ',') %></td>
                 <td>
@@ -119,14 +133,19 @@
                   </span>
                 </td>
                 <td>
-                  <form method="POST" action="/admin/pedidos/<%= pedido.id_pedido %>/status" class="status-form">
-                    <select name="status" aria-label="Novo status do pedido #<%= pedido.id_pedido %>">
-                      <% statusPedido.forEach(st => { %>
-                        <option value="<%= st %>" <%= pedido.status_pedido === st ? 'selected' : '' %>><%= rotuloStatus[st] %></option>
-                      <% }) %>
-                    </select>
-                    <button type="submit">Salvar</button>
-                  </form>
+                  <% const proximos = proximosStatus[pedido.status_pedido] || []; %>
+                  <% if (proximos.length) { %>
+                    <form method="POST" action="/admin/pedidos/<%= pedido.id_pedido %>/status" class="status-form">
+                      <select name="status" aria-label="Novo status do pedido #<%= pedido.id_pedido %>">
+                        <% proximos.forEach(st => { %>
+                          <option value="<%= st %>"><%= rotuloStatus[st] %></option>
+                        <% }) %>
+                      </select>
+                      <button type="submit">Salvar</button>
+                    </form>
+                  <% } else { %>
+                    <small style="color:#555;">Status final</small>
+                  <% } %>
                 </td>
               </tr>
             <% }) %>

@@ -5,14 +5,15 @@ const { diagnosticosModel } = require("../models/diagnosticosModel");
 const { pedidosModel, ROTULO_STATUS, ROTULO_PAGAMENTO } = require("../models/pedidosModel");
 const { ROTULOS, rotular } = require("../models/diagnosticoRegras");
 const { regenerarSessao, salvarSessao, CHAVES_ADMIN } = require('../helpers/sessao');
-const { removerArquivo } = require('../helpers/imagens');
+const { removerArquivo, removerFotoPerfil } = require('../helpers/imagens');
 const path = require('path');
 const perfilDir = path.join(__dirname, '../public/imagens/perfil');
 
 const consultarCep = async (cep) => {
     const numeros = String(cep || '').replace(/\D/g, '');
     if (numeros.length !== 8) return null;
-    const response = await fetch(`https://viacep.com.br/ws/${numeros}/json/`);
+    // Tempo limite: se o ViaCEP demorar, a página abre sem o endereço
+    const response = await fetch(`https://viacep.com.br/ws/${numeros}/json/`, { signal: AbortSignal.timeout(5000) });
     if (!response.ok) throw new Error('ViaCEP indisponível');
     const dados = await response.json();
     return dados.erro ? null : dados;
@@ -134,10 +135,12 @@ exports.atualizarPerfil = async (req, res) => {
 // ===== EXCLUIR CONTA =====
 exports.excluirConta = async (req, res) => {
     try {
-        await usuariosModel.delete(req.session.usuarioId);
+        // Apaga os dados pessoais (os pedidos continuam, sem identificar a pessoa)
+        const fotoAntiga = await usuariosModel.delete(req.session.usuarioId);
+        removerFotoPerfil(fotoAntiga);
         // Sessão nova, sem o usuário — e o flash sobrevive para a próxima página
         await regenerarSessao(req, CHAVES_ADMIN);
-        req.session.flash = { status: 'success', text: 'Sua conta foi removida com sucesso.' };
+        req.session.flash = { status: 'success', text: 'Sua conta foi excluída e seus dados pessoais foram apagados.' };
         await salvarSessao(req);
         res.redirect('/login');
     } catch (erro) {

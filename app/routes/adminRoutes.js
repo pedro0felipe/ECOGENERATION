@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
 const adminAuth = require('../middlewares/adminAuth');
+const { limiteAdminLogin } = require('../middlewares/limitarTentativas');
 const upload = require('../middlewares/upload');
 const { STATUS_PEDIDO } = require('../controllers/admin/adminPedidoController');
 
@@ -45,7 +46,7 @@ const adminProdutoController = require('../controllers/admin/adminProdutoControl
 
 // LOGIN / LOGOUT
 router.get('/admin-login', adminAuthController.loginForm);
-router.post('/admin-login', adminAuthController.loginSubmit);
+router.post('/admin-login', limiteAdminLogin, adminAuthController.loginSubmit);
 router.get('/admin-logout', adminAuthController.logout);
 
 // DASHBOARD

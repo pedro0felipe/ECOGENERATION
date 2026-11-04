@@ -106,4 +106,5 @@ exports.busca = async (req, res) => {
 
 // ===== PÁGINAS ESTÁTICAS =====
 exports.sobreNos = (req, res) => res.render("sobre-nos", { titulo: "Sobre Nós" });
+exports.atendimento = (req, res) => res.render("atendimento", { titulo: "Atendimento" });
 exports.calculadoraTelaInicial = (req, res) => res.render("diagnosticotela-inicial", { titulo: "Diagnóstico" });

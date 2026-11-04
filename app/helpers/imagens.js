@@ -1,4 +1,7 @@
 const fs = require('fs');
+const path = require('path');
+
+const PASTA_PERFIL = path.join(__dirname, '../public/imagens/perfil');
 
 // Tipos de imagem aceitos e a extensão gravada para cada um. A extensão do
 // arquivo salvo vem SEMPRE desta tabela, nunca do nome enviado pelo usuário
@@ -21,4 +24,11 @@ const removerArquivo = (caminho) => {
     }
 };
 
-module.exports = { EXTENSAO_POR_TIPO, tipoImagemPermitido, removerArquivo };
+// Apaga uma foto de perfil enviada pelo usuário (caminho salvo no banco,
+// ex.: "imagens/perfil/perfil_7_123.jpg"). Nada fora da pasta de perfis é apagado.
+const removerFotoPerfil = (caminhoSalvo) => {
+    if (!caminhoSalvo || !String(caminhoSalvo).startsWith('imagens/perfil/perfil_')) return;
+    removerArquivo(path.join(PASTA_PERFIL, path.basename(caminhoSalvo)));
+};
+
+module.exports = { EXTENSAO_POR_TIPO, tipoImagemPermitido, removerArquivo, removerFotoPerfil };

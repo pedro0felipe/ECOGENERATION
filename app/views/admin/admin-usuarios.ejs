@@ -96,7 +96,7 @@
                 <td><%= usuario.status_usuario === 1 ? "Ativo" : usuario.status_usuario === 2 ? "Excluído" : "Aguardando ativação" %></td>
                 <td>
                   <form method="POST" action="/admin/usuarios/deletar/<%= usuario.id_usuario %>" class="form-inline"
-                        onsubmit="return confirm('Tem certeza que deseja deletar este usuário?')">
+                        onsubmit="return confirm('Excluir este usuário? Os dados pessoais serão apagados e isso não pode ser desfeito.')">
                     <button type="submit" class="btn btn-tiny btn-danger">Deletar</button>
                   </form>
                 </td>

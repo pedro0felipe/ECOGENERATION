@@ -4,9 +4,10 @@ const { check } = require('express-validator');
 const authController = require("../controllers/authController");
 const { validarCPF, validarCNPJ } = require("../helpers/validadores");
 const { validarEmailReal } = require("../helpers/validarEmailReal");
+const { limiteLogin, limiteCadastro, limiteRecuperarSenha } = require("../middlewares/limitarTentativas");
 
 router.get('/cadastro', authController.cadastroForm);
-router.post('/cadastro',
+router.post('/cadastro', limiteCadastro,
     [
         check('nome').notEmpty().withMessage('Nome é obrigatório'),
         check('email').isEmail().withMessage('Email inválido')
@@ -27,7 +28,7 @@ router.post('/cadastro',
 router.get('/login', authController.loginForm);
 router.get('/ativar-conta', authController.ativarConta);
 router.get('/recuperar-senha', authController.recuperarSenhaForm);
-router.post('/recuperar-senha',
+router.post('/recuperar-senha', limiteRecuperarSenha,
     [
         check('email').isEmail().withMessage('Informe um e-mail válido')
             .bail()
@@ -43,7 +44,7 @@ router.post('/resetar-senha',
     ],
     authController.resetarSenhaSubmit
 );
-router.post('/login',
+router.post('/login', limiteLogin,
     [
         check('email').isEmail().withMessage('Email inválido'),
         check('senha').isLength({ min: 6 }).withMessage('Senha deve ter pelo menos 6 caracteres'),
