@@ -4,6 +4,16 @@ const pool = require("../../config/pool_conexoes");
 // aguardando_pagamento -> pago -> enviado -> entregue | cancelado
 const STATUS_PEDIDO = ['aguardando_pagamento', 'pago', 'enviado', 'entregue', 'cancelado'];
 
+// RN: para quais status o ADMIN pode mudar um pedido. "Pago" não aparece como
+// destino: só a confirmação do Mercado Pago marca um pedido como pago.
+const PROXIMOS_STATUS = {
+    aguardando_pagamento: ['cancelado'],
+    pago: ['enviado', 'cancelado'],
+    enviado: ['entregue'],
+    entregue: [],
+    cancelado: []
+};
+
 // Textos mostrados nas telas para cada status
 const ROTULO_STATUS = {
     aguardando_pagamento: 'Aguardando pagamento', pago: 'Pago', enviado: 'Enviado', entregue: 'Entregue', cancelado: 'Cancelado'
@@ -200,16 +210,40 @@ const pedidosModel = {
         }
     },
 
-    // Admin: muda o status; cancelar um pedido ainda não pago devolve o estoque
+    // Admin: muda o status seguindo PROXIMOS_STATUS. Cancelar devolve o estoque
+    // (pedido não pago ou pago e ainda não enviado). Devolve false se a mudança
+    // não é permitida a partir do status atual.
     atualizarStatus: async (id_pedido, status) => {
+        const [[pedido]] = await pool.query("SELECT status_pedido FROM pedidos WHERE id_pedido = ?", [id_pedido]);
+        if (!pedido || !(PROXIMOS_STATUS[pedido.status_pedido] || []).includes(status)) return false;
+
+        if (status === 'cancelado' && pedido.status_pedido === 'aguardando_pagamento') {
+            return pedidosModel.cancelarEDevolverEstoque(id_pedido);
+        }
+
+        const conexao = await pool.getConnection();
         try {
-            if (status === 'cancelado') {
-                const devolveu = await pedidosModel.cancelarEDevolverEstoque(id_pedido);
-                if (devolveu) return;
+            await conexao.beginTransaction();
+            // "AND status_pedido = ?" garante que ninguém mudou o pedido no meio do caminho
+            const [mudou] = await conexao.query(
+                "UPDATE pedidos SET status_pedido = ? WHERE id_pedido = ? AND status_pedido = ?",
+                [status, id_pedido, pedido.status_pedido]
+            );
+            if (mudou.affectedRows > 0 && status === 'cancelado') {
+                await conexao.query(
+                    `UPDATE produtos p JOIN itens_pedido i ON i.id_produto = p.id_produto
+                     SET p.estoque_produto = p.estoque_produto + i.quantidade
+                     WHERE i.id_pedido = ?`,
+                    [id_pedido]
+                );
             }
-            await pool.query("UPDATE pedidos SET status_pedido = ? WHERE id_pedido = ?", [status, id_pedido]);
+            await conexao.commit();
+            return mudou.affectedRows > 0;
         } catch (erro) {
+            await conexao.rollback();
             throw erro;
+        } finally {
+            conexao.release();
         }
     },
 
@@ -239,7 +273,8 @@ const pedidosModel = {
     findAll: async () => {
         try {
             const [resultado] = await pool.query(
-                `SELECT p.*, u.nome_usuario, u.email_usuario
+                `SELECT p.*, u.nome_usuario, u.email_usuario, u.telefone_usuario,
+                        u.cep_usuario, u.numero_usuario, u.complemento_usuario
                  FROM pedidos p LEFT JOIN usuarios u ON u.id_usuario = p.id_usuario
                  ORDER BY p.id_pedido DESC`
             );
@@ -259,4 +294,4 @@ const pedidosModel = {
     }
 };
 
-module.exports = { pedidosModel, STATUS_PEDIDO, ROTULO_STATUS, ROTULO_PAGAMENTO };
+module.exports = { pedidosModel, STATUS_PEDIDO, PROXIMOS_STATUS, ROTULO_STATUS, ROTULO_PAGAMENTO };

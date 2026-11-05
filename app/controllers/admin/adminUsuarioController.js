@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const { adminModel } = require("../../models/adminModel");
 const { pedidosModel, ROTULO_STATUS } = require("../../models/pedidosModel");
+const { removerFotoPerfil } = require('../../helpers/imagens');
 
 exports.listar = async (req, res) => {
   try {
@@ -16,8 +17,9 @@ exports.listar = async (req, res) => {
 exports.deletar = async (req, res) => {
   if (!validationResult(req).isEmpty()) return res.redirect('/admin/usuarios');
   try {
-    await adminModel.deleteUsuario(req.params.id);
-    req.session.flash = { status: 'success', text: 'Usuário removido com sucesso.' };
+    const fotoAntiga = await adminModel.deleteUsuario(req.params.id);
+    removerFotoPerfil(fotoAntiga);
+    req.session.flash = { status: 'success', text: 'Usuário excluído e dados pessoais apagados.' };
     res.redirect('/admin/usuarios');
   } catch (erro) {
     console.log(erro);

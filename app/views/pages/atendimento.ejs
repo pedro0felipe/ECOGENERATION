@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fale com a EcoGeneration e conheça nossas regras de entrega, trocas e devoluções e a política de privacidade.">
+  <title>Atendimento — EcoGeneration</title>
+  <link rel="canonical" href="https://ecogeneration-final-4hh3.onrender.com/atendimento">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/atendimento.css">
+  <link rel="apple-touch-icon" href="/imagens/favicon2.png">
+  <link rel="icon" href="/imagens/favicon2.png" type="image/png">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Atendimento — EcoGeneration">
+  <meta property="og:description" content="Contato, entregas, trocas e devoluções e privacidade.">
+  <meta property="og:url" content="https://ecogeneration-final-4hh3.onrender.com/atendimento">
+  <meta property="og:site_name" content="EcoGeneration">
+  <meta property="og:image" content="https://ecogeneration-final-4hh3.onrender.com/imagens/og-cover-v2.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#2e7d32">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.css">
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main id="conteudo-principal" class="atendimento">
+    <header class="atendimento-topo">
+      <h1>Atendimento</h1>
+      <p>Contato, entregas, trocas e devoluções e como cuidamos dos seus dados.</p>
+      <nav class="atendimento-atalhos" aria-label="Seções desta página">
+        <a href="#contato">Fale conosco</a>
+        <a href="#entregas">Entregas</a>
+        <a href="#trocas">Trocas e devoluções</a>
+        <a href="#privacidade">Privacidade</a>
+        <a href="#projeto">Sobre este projeto</a>
+      </nav>
+    </header>
+
+    <section class="atendimento-secao" id="contato" aria-labelledby="titulo-contato">
+      <h2 id="titulo-contato">Fale conosco</h2>
+      <p>Dúvidas sobre produtos, pedidos ou sobre o diagnóstico: escreva para o nosso e-mail. Respondemos em dias úteis.</p>
+      <p class="atendimento-contato">
+        <span>E-mail</span>
+        <a href="mailto:ecogeneration7777@gmail.com">ecogeneration7777@gmail.com</a>
+      </p>
+      <p>Se for sobre um pedido, informe o número dele (aparece em <a href="/perfil#minhas-compras">Meus Pedidos</a>).</p>
+    </section>
+
+    <section class="atendimento-secao" id="entregas" aria-labelledby="titulo-entregas">
+      <h2 id="titulo-entregas">Entregas</h2>
+      <p>O pedido é enviado para o endereço cadastrado no seu perfil. Confira CEP, número e complemento antes de finalizar a compra.</p>
+      <p>Você acompanha a situação do pedido em <a href="/perfil#minhas-compras">Meus Pedidos</a>: aguardando pagamento, pago, enviado e entregue.</p>
+    </section>
+
+    <section class="atendimento-secao" id="trocas" aria-labelledby="titulo-trocas">
+      <h2 id="titulo-trocas">Trocas e devoluções</h2>
+      <ul>
+        <li><strong>Desistência em até 7 dias:</strong> em compras pela internet, você pode desistir em até 7 dias depois de receber o produto, com devolução do valor pago (Código de Defesa do Consumidor, art. 49).</li>
+        <li><strong>Produto com defeito:</strong> você tem 90 dias para reclamar de defeitos em produtos duráveis (art. 26), além da garantia do fabricante.</li>
+        <li><strong>Como pedir:</strong> envie um e-mail com o número do pedido e o motivo. Explicamos como devolver o produto.</li>
+      </ul>
+    </section>
+
+    <section class="atendimento-secao" id="privacidade" aria-labelledby="titulo-privacidade">
+      <h2 id="titulo-privacidade">Privacidade</h2>
+      <p>Seguimos a Lei Geral de Proteção de Dados (LGPD). Coletamos só o necessário para sua conta, seus pedidos e o diagnóstico:</p>
+      <ul>
+        <li><strong>Dados da conta:</strong> nome, e-mail, senha (guardada como hash: nem nós conseguimos ver a senha original), telefone, CPF (opcional), CEP, número e complemento.</li>
+        <li><strong>Diagnóstico:</strong> suas respostas, para mostrar o histórico e recomendar o kit.</li>
+        <li><strong>Pedidos:</strong> produtos, valores e situação do pagamento.</li>
+      </ul>
+      <p>Usamos serviços de terceiros só para o que é necessário: o <strong>Mercado Pago</strong> processa o pagamento (os dados do cartão ficam com ele, não com a gente), a <strong>Brevo</strong> envia os e-mails de ativação e de senha e o <strong>ViaCEP</strong> busca o endereço pelo CEP.</p>
+      <p>Você pode corrigir seus dados no <a href="/perfil">perfil</a> e excluir a conta quando quiser. Ao excluir, apagamos nome, e-mail, CPF, telefone, endereço e foto; os pedidos já feitos continuam registrados, sem identificar você.</p>
+    </section>
+
+    <section class="atendimento-secao atendimento-aviso" id="projeto" aria-labelledby="titulo-projeto">
+      <h2 id="titulo-projeto">Sobre este projeto</h2>
+      <p>O EcoGeneration é um Trabalho de Conclusão de Curso do técnico em Informática para Internet. Os produtos são <strong>ilustrativos</strong>: nomes, marcas e imagens pertencem aos seus fabricantes e aparecem aqui só para demonstração.</p>
+      <p>Os pagamentos funcionam no <strong>ambiente de teste</strong> do Mercado Pago: nenhuma compra gera cobrança real nem envio de produtos.</p>
+    </section>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.min.js"></script>
+  <script src="/js/notify.js"></script>
+  <%- include('../partials/flash') %>
+</body>
+</html>

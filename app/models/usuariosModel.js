@@ -84,13 +84,25 @@ const usuariosModel = {
         return resultado;
     },
 
+    // Excluir conta: apaga os dados pessoais (anonimiza) e mantém a linha,
+    // porque os pedidos já feitos continuam ligados a ela. O e-mail vira um
+    // endereço impossível, então o e-mail real fica livre para um novo cadastro.
+    // Devolve o caminho da foto de perfil antiga, para o controller apagar o arquivo.
     delete: async (id) => {
         try {
-            const [resultado] = await pool.query(
-                "UPDATE usuarios SET status_usuario = ? WHERE id_usuario = ?",
-                [STATUS_USUARIO.EXCLUIDO, id]
+            const [[usuario]] = await pool.query(
+                "SELECT imagem_perfil_usuario FROM usuarios WHERE id_usuario = ?",
+                [id]
             );
-            return resultado;
+            await pool.query(
+                `UPDATE usuarios SET status_usuario = ?, nome_usuario = 'Conta excluída', email_usuario = ?,
+                        cpf_usuario = NULL, telefone_usuario = NULL, cep_usuario = NULL, numero_usuario = NULL,
+                        complemento_usuario = NULL, imagem_perfil_usuario = NULL
+                 WHERE id_usuario = ?`,
+                [STATUS_USUARIO.EXCLUIDO, `excluido-${id}@ecogeneration.invalid`, id]
+            );
+            await pool.query("DELETE FROM carrinho_itens WHERE id_usuario = ?", [id]);
+            return usuario ? usuario.imagem_perfil_usuario : null;
         } catch (erro) {
             throw erro;
         }

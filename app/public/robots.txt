@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /perfil
-Disallow: /confirmar-compra
-Disallow: /compra-sucesso
+Disallow: /carrinho
+Disallow: /feedback
 
 Sitemap: https://ecogeneration-final-4hh3.onrender.com/sitemap.xml

@@ -8,6 +8,7 @@ router.get("/produto/:id", produtoController.detalhePorId);
 router.get("/search", produtoController.busca);
 
 router.get("/sobre-nos", produtoController.sobreNos);
+router.get("/atendimento", produtoController.atendimento);
 router.get("/calculadora-tela-inicial", produtoController.calculadoraTelaInicial);
 
 // Rotas amigáveis de produtos individuais (mesma lógica: busca pela própria rota)
