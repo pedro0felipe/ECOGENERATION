@@ -37,6 +37,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  // ===== CEP: #####-### =====
+  const cepInputs = document.querySelectorAll('input[data-mask="cep"]');
+  cepInputs.forEach(input => {
+    if (typeof Cleave !== 'undefined') {
+      new Cleave(input, {
+        blocks: [5, 3],
+        delimiters: ['-'],
+        numericOnly: true
+      });
+    }
+  });
+
   // ===== RG: #.###.###-## =====
   const rgInputs = document.querySelectorAll('input[data-mask="rg"]');
   rgInputs.forEach(input => {

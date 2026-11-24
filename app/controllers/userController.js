@@ -1,4 +1,3 @@
-const bcrypt = require("bcryptjs");
 const { validationResult } = require('express-validator');
 const { usuariosModel } = require("../models/usuariosModel");
 const { diagnosticosModel } = require("../models/diagnosticosModel");
@@ -83,19 +82,7 @@ exports.atualizarPerfil = async (req, res) => {
         const nome = req.body.nome;
         const telefone = req.body.telefone;
         const cep = req.body.cep;
-        const senhaAtual = String(req.body.senha_atual || '');
-        const senha = String(req.body.senha || '');
-
-        const desejaAlterarSenha = Boolean(senhaAtual || senha);
-        if (desejaAlterarSenha) {
-            if (!senhaAtual || !senha) {
-                return voltarComErro('Para alterar a senha, informe a senha atual, a nova senha e a confirmação.');
-            }
-            const hashAtual = await usuariosModel.findPasswordById(id);
-            if (typeof hashAtual !== 'string' || !(await bcrypt.compare(senhaAtual, hashAtual))) {
-                return voltarComErro('Senha atual incorreta.');
-            }
-        }
+        // A senha não é trocada aqui: só pelo "Esqueci minha senha" (link por e-mail)
 
         const usuarios = await usuariosModel.findById(id);
         if (!usuarios[0]) {
@@ -112,10 +99,6 @@ exports.atualizarPerfil = async (req, res) => {
             complemento: req.body.complemento || null,
             imagem
         };
-
-        if (desejaAlterarSenha) {
-            dadosAtualizacao.senha = senha;
-        }
 
         await usuariosModel.update(id, dadosAtualizacao);
         // Remove a imagem antiga (só se for uma foto de perfil deste usuário)

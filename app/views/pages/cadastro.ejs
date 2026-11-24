@@ -133,6 +133,7 @@
         id="cpf"
         name="cpf"
         data-mask="cpf"
+        inputmode="numeric"
         value="<%= old.cpf ? old.cpf : '' %>"
         placeholder="000.000.000-00"
         maxlength="14"
@@ -147,10 +148,10 @@
       <% } %>
 
       <label for="telefone">Telefone</label>
-      <input type="tel" id="telefone" name="telefone" data-mask="phone" value="<%= old.telefone || '' %>" placeholder="(11) 99999-9999" maxlength="15" autocomplete="tel">
+      <input type="tel" id="telefone" name="telefone" data-mask="phone" inputmode="numeric" value="<%= old.telefone || '' %>" placeholder="(11) 99999-9999" maxlength="15" autocomplete="tel">
 
       <label for="cep">CEP</label>
-      <input type="text" id="cep" name="cep" data-mask="cep" value="<%= old.cep || '' %>" placeholder="00000-000" maxlength="9" autocomplete="postal-code">
+      <input type="text" id="cep" name="cep" data-mask="cep" inputmode="numeric" value="<%= old.cep || '' %>" placeholder="00000-000" maxlength="9" autocomplete="postal-code">
       <p id="endereco-cadastro" class="campo-dica" aria-live="polite"></p>
 
       <label for="numero">Número</label>
