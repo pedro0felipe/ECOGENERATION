@@ -560,6 +560,25 @@ meter.barra-prep::-webkit-meter-even-less-good-value {
 
 .cobertura .cobertura-texto { color: #1a2e1a; }
 
+/* Marcador da situação: círculo colorido com ✓, ! ou ✕ */
+.cobertura-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.cobertura.ok .cobertura-status      { background: #2e7d32; }
+.cobertura.parcial .cobertura-status { background: #a15c00; }
+.cobertura.nao .cobertura-status     { background: #c62828; }
+
 .kit-vazio {
   background: var(--res-card);
   border-radius: 12px;

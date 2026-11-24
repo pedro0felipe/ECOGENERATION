@@ -47,7 +47,8 @@
 
     <%
       const brl = (valor) => Number(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-      const marcador = { ok: { simbolo: '✅', texto: 'Coberto' }, parcial: { simbolo: '⚠️', texto: 'Cobre em parte' }, nao: { simbolo: '❌', texto: 'Não coberto' } };
+      // Marcadores em texto simples (sem emoji); a cor vem do CSS de cada situação
+      const marcador = { ok: { simbolo: '✓', texto: 'Coberto' }, parcial: { simbolo: '!', texto: 'Cobre em parte' }, nao: { simbolo: '✕', texto: 'Não coberto' } };
       const vulnLabel = vulnerabilidade >= 7 ? 'Alta' : vulnerabilidade >= 3 ? 'Média' : 'Baixa';
       const prepLabel = preparo >= 7 ? 'Alto'  : preparo >= 3 ? 'Médio' : 'Baixo';
     %>
@@ -65,7 +66,6 @@
 
       <% } else if (perfil === 'critico') { %>
         <article class="resultado baixa" role="status">
-          <span class="resultado-icon" aria-hidden="true">⚠️</span>
           <section class="resultado-body" aria-label="Resumo do resultado">
             <h2>Situação crítica de dependência</h2>
             <p>Você sofre com quedas frequentes ou longas e ainda não tem proteção. A boa notícia: pequenas soluções já fazem grande diferença — e custam menos do que você imagina.</p>
@@ -74,7 +74,6 @@
 
       <% } else if (perfil === 'medio') { %>
         <article class="resultado media" role="status">
-          <span class="resultado-icon" aria-hidden="true">⚡</span>
           <section class="resultado-body" aria-label="Resumo do resultado">
             <h2>Você está no caminho certo</h2>
             <p>Você tem alguma proteção, mas ainda é vulnerável em quedas mais longas ou frequentes. O kit abaixo fecha essa lacuna.</p>
@@ -83,7 +82,6 @@
 
       <% } else { %>
         <article class="resultado media" role="status">
-          <span class="resultado-icon" aria-hidden="true">🌱</span>
           <section class="resultado-body" aria-label="Resumo do resultado">
             <h2>Hora de se preparar antes de precisar</h2>
             <p>Você raramente enfrenta quedas agora, mas estar preparado custa muito menos do que remediar depois. Veja abaixo um kit simples para começar.</p>

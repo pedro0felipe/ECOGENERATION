@@ -122,10 +122,6 @@ const usuariosModel = {
                 campos.push("imagem_perfil_usuario = ?");
                 valores.push(dadosJson.imagem);
             }
-            if (dadosJson.senha) {
-                campos.push("senha_usuario = ?");
-                valores.push(await bcrypt.hash(dadosJson.senha, 10));
-            }
             valores.push(id);
             const [resultado] = await pool.query(
                 `UPDATE usuarios SET ${campos.join(', ')} WHERE id_usuario = ?`,

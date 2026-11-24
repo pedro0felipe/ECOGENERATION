@@ -20,17 +20,13 @@ router.post('/perfil', requireLogin, (req, res, next) => {
 		check('nome').trim().notEmpty().withMessage('Informe seu nome.')
 			.isLength({ max: 100 }).withMessage('O nome deve ter no máximo 100 caracteres.'),
 		check('telefone').trim().optional({ checkFalsy: true })
-			.matches(/^\(\d{2}\)\s?\d{5}-\d{4}$/).withMessage('Telefone inválido. Formato: (XX) XXXXX-XXXX'),
+			.matches(/^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/).withMessage('Telefone inválido. Formato: (XX) XXXXX-XXXX'),
 		check('cep').trim().optional({ checkFalsy: true })
 			.matches(/^\d{5}-?\d{3}$/).withMessage('CEP inválido. Formato: 00000-000'),
 		check('numero').trim().optional({ checkFalsy: true })
 			.isLength({ max: 10 }).withMessage('O número deve ter no máximo 10 caracteres.'),
 		check('complemento').trim().optional({ checkFalsy: true })
 			.isLength({ max: 100 }).withMessage('O complemento deve ter no máximo 100 caracteres.'),
-		check('senha').optional({ checkFalsy: true })
-			.isLength({ min: 6, max: 72 }).withMessage('A nova senha deve ter entre 6 e 72 caracteres.'),
-		check('confirmarSenha').custom((valor, { req }) => (valor || '') === (req.body.senha || ''))
-			.withMessage('A confirmação da nova senha não confere.'),
 	],
 	userController.atualizarPerfil
 );
